@@ -1,1 +1,0 @@
-var posts=["2023/03/16/index/"];function toRandomPost(){pjax.loadUrl('/'+posts[Math.floor(Math.random() * posts.length)]);};
