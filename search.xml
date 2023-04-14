@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>JavaScript 中如何判断变量是否为数字</title>
+      <link href="/2023/04/14/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/"/>
+      <url>/2023/04/14/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/</url>
+      
+        <content type="html"><![CDATA[<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>JavaScript 是一种动态类型语言，这意味着解释器在运行时确定变量的类型。实际上，这也允许我们在相同的代码中使用相同的变量来存储不同类型的数据。如果没有文档和一致性，我们在使用代码时并不总是知道变量的类型。</p><p>当我们期望一个变量是数字时，对字符串或数组进行操作可能会在代码中导致奇怪的结果。在本文中，我们将会介绍一些判断变量是否为数字的函数。</p><p>像<code>&quot;10&quot;</code>之类的数字的字符串不应被接受。在<code>JavaScript</code>中，诸如<code>NaN</code>，<code>Infinity</code>和<code>-Infinity</code>之类的特殊值也是数字类型的。</p><p>根据这些要求，最好使用的函数是内置<code>Number</code>对象中的<code>isFinite()</code>函数。但是，开发人员通常会使用其他函数，如<code>Number.isNaN()</code>和<code>typeof()</code>函数。</p><p>我们先创建一些变量：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> intVar = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">let</span> floatVar = <span class="number">10.5</span>;</span><br><span class="line"><span class="keyword">let</span> stringVar = <span class="string">&#x27;4&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> nanVar = <span class="title class_">NaN</span>;</span><br><span class="line"><span class="keyword">let</span> infinityVar = <span class="title class_">Infinity</span>;</span><br><span class="line"><span class="keyword">let</span> nullVar = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> undefinedVar = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure><h4 id="使用-Number-isFinite-函数"><a href="#使用-Number-isFinite-函数" class="headerlink" title="使用 Number.isFinite() 函数"></a>使用 Number.isFinite() 函数</h4><p><code>Number.isFinite()</code>函数检查变量是否为数字，还检查其是否为有限值。因此，对于<code>NaN</code>，<code>Infinity</code>或<code>-Infinity</code>的数字，它返回<code>false</code>。</p><p>我们用上面定义的变量来检验一下:</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(intVar);</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(floatVar);</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(stringVar);</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(nanVar);</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(infinityVar);</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(nullVar);</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; <span class="title class_">Number</span>.<span class="built_in">isFinite</span>(<span class="literal">undefined</span>);</span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure><p>这正是我们想要的。特殊的非有限数以及非数字类型的任何变量都会被忽略。所以，如果你想检查一个变量是否是一个数字，最好的方法是使用<code>Number.isFinite()</code>函数。</p><h4 id="使用-Number-isNaN-方法"><a href="#使用-Number-isNaN-方法" class="headerlink" title="使用 Number.isNaN() 方法"></a>使用 Number.isNaN() 方法</h4><p>标准<code>Number</code>对象有一个<code>isNaN()</code>方法。它接受一个参数，并确定其值是否为<code>NaN</code>。因为我们想检查一个变量是否是一个数字，所以我们将在检查中使用非操作符!。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(intVar);</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(floatVar);</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(stringVar);</span><br><span class="line"><span class="literal">true</span> # <span class="title class_">Wrong</span></span><br><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(nanVar);</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(infinityVar);</span><br><span class="line"><span class="literal">true</span> # <span class="title class_">Wrong</span></span><br><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(nullVar);</span><br><span class="line"><span class="literal">true</span> # <span class="title class_">Wrong</span></span><br><span class="line">&gt; !<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(undefinedVar);</span><br><span class="line"><span class="literal">true</span> #</span><br></pre></td></tr></table></figure><p>这个方法是相当宽松的，因为它接受根本不是数字的值。这种方法最适合于当你知道你有一个数字并且要检查它是否是一个NaN值时，而不是一般的数字检查。</p><h4 id="使用-typeof-方法"><a href="#使用-typeof-方法" class="headerlink" title="使用 typeof() 方法"></a>使用 typeof() 方法</h4><p><code>typeof()</code>函数是一个全局函数，它接受变量或值作为参数，并返回其类型的字符串表示。<code>JavaScript </code>总共有9种类型</p><ul><li>undefined</li><li>boolean</li><li>number</li><li>string</li><li>bigint</li><li>symbol</li><li>object</li><li>null (typeof() 显示的是 object)</li><li>function (一种特殊类型的 object)</li></ul><p>为了验证变量是否为数字，我们只需要检查typeof()返回的值是否为&#96;”number”。让我们尝试一下测试变量：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="title function_">typeof</span>(intVar) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; <span class="title function_">typeof</span>(floatVar) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">&gt; <span class="title function_">typeof</span>(stringVar) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; <span class="title function_">typeof</span>(nanVar) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">true</span> # <span class="title class_">Wrong</span></span><br><span class="line">&gt; <span class="title function_">typeof</span>(infinityVar) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">true</span> # <span class="title class_">Wrong</span></span><br><span class="line">&gt; <span class="title function_">typeof</span>(nullVar) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">false</span></span><br><span class="line">&gt; <span class="title function_">typeof</span>(<span class="literal">undefined</span>) == <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line"><span class="literal">false</span></span><br></pre></td></tr></table></figure><p><code>typeof()</code>函数的性能比<code>Number.isNaN()</code>要好得多。它正确地确定了字符串变量<code>null</code>和<code>undefined</code>不是数字。但是，对于<code>NaN</code>和<code>Infinity</code>，它返回<code>true</code>。</p><p>尽管从技术上来说这是正确的结果，但<code>NaN</code>和<code>Infinity</code>是特殊的数字值，对于大多数使用情况，我们宁愿忽略它们。</p><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>在本文中，我们学习了如何检查JavaScript中的变量是否为数字。<code>Number.isNaN()</code>函数仅在我们知道变量为数字并且需要验证它是否为<code>NaN</code>时才适用。</p><p>如果代码中有<code>NaN</code>，<code>Infinity</code>或<code>-Infinity</code>以及其他数字，则    <code>typeof()</code>函数适用。</p><p><code>Number.isFinite()</code>方法捕获所有有限数，是最适合我们的要求。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 大前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Vue3开发踩坑</title>
       <link href="/2023/03/24/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/"/>
       <url>/2023/03/24/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</url>
@@ -194,9 +219,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> JavaScript </tag>
+            
+            <tag> 前端 </tag>
             
             <tag> js库 </tag>
             
@@ -223,9 +248,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> JavaScript </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -333,13 +358,13 @@
       
         <tags>
             
-            <tag> 前端 </tag>
+            <tag> JavaScript </tag>
             
-            <tag> typescript </tag>
+            <tag> 前端 </tag>
             
             <tag> Vue </tag>
             
-            <tag> JavaScript </tag>
+            <tag> typescript </tag>
             
         </tags>
       
