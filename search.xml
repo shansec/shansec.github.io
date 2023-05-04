@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Vue3 Composition API: 对比ref和reactive</title>
+      <link href="/2023/05/04/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/"/>
+      <url>/2023/05/04/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Vue2-回顾"><a href="#Vue2-回顾" class="headerlink" title="Vue2 回顾"></a>Vue2 回顾</h1><p>首先回顾一下在Vue2中我们是如何创建一个响应式数据 (reactive data)的：<br><img src="https://img.myaof.cn/myaof/65eced4f7231420f87a78f5b9ae88c29.png" alt="在这里插入图片描述"></p><h1 id="Vue3新特性"><a href="#Vue3新特性" class="headerlink" title="Vue3新特性"></a>Vue3新特性</h1><h2 id="ref的使用"><a href="#ref的使用" class="headerlink" title="ref的使用"></a>ref的使用</h2><p>而在Vue3中，我们可以用Composition API: ref 来改写上述代码：<br><img src="https://img.myaof.cn/myaof/2a55fc03bf7342b9ad99010d2783b227.png" alt="在这里插入图片描述"><br>ref 的作用就是将一个原始数据类型（primitive data type）转换成一个带有<a href="https://cn.vuejs.org/guide/extras/reactivity-in-depth.html#what-is-reactivity">响应式类型</a></p><p>的数据类型，原始数据类型共有7个，分别是：</p><ul><li>String</li><li>Number</li><li>BigInt</li><li>Boolean</li><li>Symbol</li><li>Null</li><li>Undefined</li></ul><p>相比于Vue2，用ref 的好处就是传值时可以不用再写this<br>那么，如果我想让一个对象（Object）也具有响应性(reactive) 这一特点呢？</p><h2 id="reactive的使用"><a href="#reactive的使用" class="headerlink" title="reactive的使用"></a>reactive的使用</h2><p>Vue3提供了一个方法：reactive （等价于Vue2中的Vue.observable() ）来赋予对象(Object) 响应式的特性，那么我们可以将上述代码用对象的形式改写为：<br><img src="https://img.myaof.cn/myaof/0bd988844f3f4f7a9447cb83072bc25b.png" alt="在这里插入图片描述"><br>你可能会觉得data.xxx 的写法太麻烦，那么我们可以使用es6新语法扩展运算符来简化一下：<br><img src="https://img.myaof.cn/myaof/cb459567ee3646089e1fee6144c6a293.png" alt="在这里插入图片描述"></p><h2 id="Bug出现"><a href="#Bug出现" class="headerlink" title="Bug出现"></a>Bug出现</h2><p>不出意外，你会发现这个简化后的代码竟然无效，不管怎么点按钮，页面并没有发生变化！事实上，这样写没有效果的原因就在于一个响应型对象(reactive object) 一旦被销毁或展开（如上面代码那样）,其响应式特性(reactivity)就会丢失。通过类型检查我们可以知道，虽然 data.title 的值确实发生了变化，但data.title的类型只是一个普通的字符串(String) ，并不具有响应式特性(reactivity)，故而页面也没有随着其值的变化而重新渲染。</p><h2 id="toRefs的作用"><a href="#toRefs的作用" class="headerlink" title="toRefs的作用"></a>toRefs的作用</h2><p>为了解决上述问题，Vue3又提供了一个新的API：toRefs，它可以将一个响应型对象(reactive object) 转化为普通对象(plain object)，同时又把该对象中的每一个属性转化成对应的响应式属性(ref)。说白了就是放弃该对象(Object)本身的响应式特性(reactivity)，转而给对象里的属性赋予响应式特性(reactivity)。故而我们可以将代码修复成下面这样：<br><img src="https://img.myaof.cn/myaof/7ff3d70d746d47b6aa290c332795a9bb.png" alt="在这里插入图片描述"></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ref 和 reactive 一个针对原始数据类型，而另一个用于对象，这两个API都是为了给JavaScript普通的数据类型赋予响应式特性(reactivity)。根据Vue3官方文档，这两者的主要区别在于每个人写JavaScript时的风格不同，有人喜欢用原始数据类型(primitives)，把变量单独拎出来写；而有人喜欢用对象(Object)，把变量当作对象里的属性，都写在一个对象里头，比如：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> y = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updatePosition</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  x = e.<span class="property">pageX</span></span><br><span class="line">  y = e.<span class="property">pageY</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// --- compared to ---</span></span><br><span class="line"><span class="keyword">const</span> pos = &#123;</span><br><span class="line">  <span class="attr">x</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">y</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updatePosition</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  pos.<span class="property">x</span> = e.<span class="property">pageX</span></span><br><span class="line">  pos.<span class="property">y</span> = e.<span class="property">pageY</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>微信小程序全局变量监听</title>
       <link href="/2023/04/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/"/>
       <url>/2023/04/26/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/</url>
@@ -22,9 +49,9 @@
             
             <tag> 微信小程序 </tag>
             
-            <tag> 自定义 </tag>
-            
             <tag> 监听器 </tag>
+            
+            <tag> 自定义 </tag>
             
         </tags>
       
@@ -474,9 +501,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> vue.js </tag>
+            
+            <tag> 前端 </tag>
             
             <tag> typescript </tag>
             
