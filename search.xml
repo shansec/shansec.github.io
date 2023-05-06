@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>微信小程序中判断用户是否已关注公众号的两种实现</title>
+      <link href="/2023/05/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/"/>
+      <url>/2023/05/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</url>
+      
+        <content type="html"><![CDATA[<p>背景：</p><p>最近的一个小程序项目中有这么一个需求：进入我的主页后, 如果用户没有关注过我们的公众号, 则展示一个引导关注公众号组件, 点击后跳转到一篇公众号文章, 指引用户进行关注，用户完成关注隐藏该组件。</p><p>方式一(前后端参与)：<br>由于对微信的UnionID机制一知半解（知道用户在同一个开放平台下的不同应用中，有统一的一个unionID），所以最开始的思路如下：</p><p>在将小程序和公众号绑定至同一个微信开发平台下；<br>用户在小程序中登录时后端用code同时拿到用户的unionID；<br>后端通过公众号的获取用户基本信息的接口（<a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId">获取用户基本信息</a>），用unionID去查询用户信息，其中的subscribe字段代表用户是否已关注该公众号。提供接口给前端以便查询；<br>前端在进入我的主页后调用该接口，判断是否展示引导关注组件<br>结果很快就被现实打脸：第3步中，查询公众号用户信息只能通过公众号的<a href="https://so.csdn.net/so/search?q=openID&spm=1001.2101.3001.7020">openID</a>进行查询，不能通过unionID查询，且unionID也没法倒推出openID，这就尴尬了。</p><p>所以我们只能先想办法拿到用户在公众号的openID。怎么实现呢？自然是像公众号<a href="https://so.csdn.net/so/search?q=%E7%BD%91%E9%A1%B5%E5%BC%80%E5%8F%91&spm=1001.2101.3001.7020">网页开发</a>中，通过微信网页授权去获得了（<a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">微信网页授权</a>）。由于我们的目的只是获取用户的openID， 所以scope为snsapi_base即可，此种授权方式是静默的。但是网页授权需要提供一个web页面去接收授权回调参数，表现就是我们必须从小程序跳转至一个网页上。</p><p>那么跳转时机是什么呢？为了减少用户的感知，我采用的方法是将该页面作为一个跳板页，在用户跳转至公众号前先前往跳板页， 获得授权回参后上报至服务器，再跳转至公众号文章页面（其实一开始打算在该页面中通过iframe标签打开公众号文章即可，结果发现由于微信的防盗链机制不能实现，只好通过重定向进行跳转了）。流程如下：</p><ol><li>先部署一个空白跳板页用于接收微信网页授权回参并上报至服务端，然后重定向至原本需要跳转的公众号文章页面；</li><li>在公众号管理后台配置授权回调域（即第一步部署的空白页面）及服务器IP白名单，并将该页面域名配置为小程序业务域名；</li><li>在小程序中点击引导关注组件后，先通过webview组件打开微信提供的网页授权链接（记得将用户的uid通过state参数进行传递，以建立用户uid和openid的映射关系），该链接会自动携参重定向至我们部署的跳板页，在跳板页中上报授权回参后，重定向至公众号文章页；</li><li>后端上报的code获取openid后，将openid与用户uid绑定，并提供接口用于查询公众号用户信息，即可知用户是否已关注该公众爱好（subscribe字段）</li><li>前端在返回我的主页后调用该接口，判断用户是否已关注， OK√<br>跳板页代码如下：</li></ol><p>这种方式好处是对用户体验影响较小，在用户眼中只是跳转公众号文章的加载时间稍长了一点，感知不大。但是缺点也很明显，就是用户必须经过一次跳板页才能拿到openID，如果用户是从其他渠道关注了公众号的话，进入小程序后还是会展示引导关注组件，因为此时我们还不知道他的openID，无法判断他是否已关注。</p><p>但是此时我们的产品同学不乐意了，要求我们想办法优化一下。于是为了解决这个问题，我们采用了第二种方法：由后端维护一张公众号已关注用户表，通过unionID查询用户是否已在该表中。</p><p>方式二（仅后端）：<br>详细如下：</p><ol><li>在将小程序和公众号绑定至同一个微信开发平台下；</li><li>后端拉取公众号已关注用户列表（<a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Getting_a_User_List.html">获取用户列表</a>），并获取其中每一个用户的unionID， 建立已关注用户表；</li><li>后端监听公众号用户关注&#x2F;取消关注事件（<a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_event_pushes.html">关注&#x2F;取消关注事件</a>），更新该表；</li><li>用户在小程序中登录注册时后端用code拿到用户的unionID并保存；</li><li>前端请求查询时，后端根据发起请求用户的unionID查表，判断该用户是否已关注；<br>如果该公众号是新的，没有已关注用户，可以省略第二步。<br>这种方法相比方法一，用户不需要经过跳板页，从其他渠道关注的公众号也可以被查询到，而且不需要前端参与，后端即可实现，缺点就是稍微麻烦一点，建议前端同学采用这种方法(笑)</li></ol><p>END</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 微信小程序 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 微信小程序 </tag>
+            
+            <tag> 公众号 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Vue.js中 watch 的高级用法</title>
       <link href="/2023/05/04/Vue.js%E4%B8%AD%20watch%20%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/"/>
       <url>/2023/05/04/Vue.js%E4%B8%AD%20watch%20%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</url>
@@ -20,9 +47,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> Vue </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -47,9 +74,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> Vue </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -302,9 +329,9 @@
       
         <tags>
             
-            <tag> JavaScript </tag>
-            
             <tag> 前端 </tag>
+            
+            <tag> JavaScript </tag>
             
             <tag> js库 </tag>
             
@@ -331,9 +358,9 @@
       
         <tags>
             
-            <tag> JavaScript </tag>
-            
             <tag> 前端 </tag>
+            
+            <tag> JavaScript </tag>
             
         </tags>
       
@@ -441,11 +468,11 @@
       
         <tags>
             
-            <tag> JavaScript </tag>
+            <tag> Vue </tag>
             
             <tag> 前端 </tag>
             
-            <tag> Vue </tag>
+            <tag> JavaScript </tag>
             
             <tag> typescript </tag>
             
@@ -472,9 +499,9 @@
       
         <tags>
             
-            <tag> 前端 </tag>
-            
             <tag> Vue </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
