@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>浏览器是如何渲染页面的？ | Shansec~</title><meta name="author" content="五月"><meta name="copyright" content="五月"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。  整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。这样，整个渲染流程就形成了一套组织严密的生产流水线。 第一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器是如何渲染页面的？">
+<meta property="og:url" content="http://www.myaof.cn/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/index.html">
+<meta property="og:site_name" content="Shansec~">
+<meta property="og:description" content="当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。  整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。这样，整个渲染流程就形成了一套组织严密的生产流水线。 第一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.myaof.cn/myaof/2023.05.10.jpg">
+<meta property="article:published_time" content="2023-05-10T09:33:43.000Z">
+<meta property="article:modified_time" content="2023-05-10T09:33:43.000Z">
+<meta property="article:author" content="五月">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="浏览器原理">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.myaof.cn/myaof/2023.05.10.jpg"><link rel="shortcut icon" href="https://img.myaof.cn/myaof/favicon.png"><link rel="canonical" href="http://www.myaof.cn/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '浏览器是如何渲染页面的？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-10 17:33:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://at.alicdn.com/t/c/font_3961283_eta8gacs727.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.myaof.cn/myaof/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url('https://img.myaof.cn/myaof/2023.05.10.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Shansec~"><img class="site-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.myaof.cn/myaof/avatar.png"/><span class="site-name">Shansec~</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">浏览器是如何渲染页面的？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon fas fa-history"></i><span class="post-meta-label">更新于</span><time datetime="2023-05-10T09:33:43.000Z" title="更新于 2023-05-10 17:33:43">2023-05-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="浏览器是如何渲染页面的？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的<code>消息队列</code>。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p>
+</blockquote>
+<p>整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。这样，整个渲染流程就形成了一套组织严密的生产流水线。</p>
+<h2 id="第一步：解析-HTML"><a href="#第一步：解析-HTML" class="headerlink" title="第一步：解析 HTML"></a>第一步：解析 HTML</h2><p>解析过程中遇到 <code>CSS</code> 解析 <code>CSS</code>，遇到 <code>JS</code> 执行 <code>JS</code>。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载 <code>HTML</code> 中的外部 <code>CSS</code> 文件和 外部的 <code>JS</code> 文件。</p>
+<p>如果主线程解析到 <code>link</code> 位置，此时外部的 <code>CSS</code> 文件还没有下载解析好，主线程不会等待，继续解析后续的 <code>HTML</code>。这是因为下载和解析 <code>CSS</code> 的工作是在预解析线程中进行的。这就是 <code>CSS</code> 不会阻塞 HTML 解析的根本原因。</p>
+<p>如果主线程解析到 <code>script</code> 位置，会停止解析 <code>HTML</code>，转而等待 <code>JS</code> 文件下载好，并将全局代码解析执行完成后，才能继续解析 <code>HTML</code>。这是因为 <code>JS</code> 代码的执行过程可能会修改当前的 <code>DOM</code> 树，所以 <code>DOM</code> 树的生成必须暂停。这就是 <code>JS</code> 会阻塞 <code>HTML</code> 解析的根本原因。</p>
+<p>第一步完成后，会得到 <code>DOM</code> 树和 <code>CSSOM</code> 树，浏览器的默认样式、内部样式、外部样式、行内样式均会包含在 <code>CSSOM</code> 树中。</p>
+<h2 id="第二步：样式计算"><a href="#第二步：样式计算" class="headerlink" title="第二步：样式计算"></a>第二步：样式计算</h2><p>主线程会遍历得到的 <code>DOM</code> 树，依次为树中的每个节点计算出它最终的样式，称之为 <code>Computed Style</code>。</p>
+<p>在这一过程中，很多预设值会变成绝对值，比如 <code>red</code> 会变成<code>rgb(255,0,0)</code>；相对单位会变成绝对单位，比如 <code>em</code> 会变成 <code>px</code></p>
+<p>这一步完成后，会得到一棵带有样式的 <code>DOM</code> 树。</p>
+<h2 id="第三步：布局"><a href="#第三步：布局" class="headerlink" title="第三步：布局"></a>第三步：布局</h2><p>布局阶段会依次遍历 <code>DOM</code> 树的每一个节点，计算每个节点的几何信息。例如节点的宽高、相对包含块的位置。</p>
+<p>大部分时候，<code>DOM</code> 树和布局树并非一一对应。</p>
+<p>比如 <code>display:none</code> 的节点没有几何信息，因此不会生成到布局树；又比如使用了伪元素选择器，虽然 <code>DOM</code> 树中不存在这些伪元素节点，但它们拥有几何信息，所以会生成到布局树中。还有匿名行盒、匿名块盒等等都会导致 DOM 树和布局树无法一 一对应。</p>
+<h2 id="第四步：分层"><a href="#第四步：分层" class="headerlink" title="第四步：分层"></a>第四步：分层</h2><p>主线程会使用一套复杂的策略对整个布局树中进行分层。</p>
+<p>分层的好处在于，将来某一个层改变后，仅会对该层进行后续处理，从而提升效率。</p>
+<p>滚动条、堆叠上下文、transform、opacity 等样式都会或多或少的影响分层结果，也可以通过<code>will-change</code>属性更大程度的影响分层结果。</p>
+<h2 id="第五步：绘制"><a href="#第五步：绘制" class="headerlink" title="第五步：绘制"></a>第五步：绘制</h2><p>主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。</p>
+<p>完成绘制后，主线程将每个图层的绘制信息提交给合成线程，剩余工作将由合成线程完成。</p>
+<p>合成线程首先对每个图层进行分块，将其划分为更多的小区域。</p>
+<p>它会从线程池中拿取多个线程来完成分块工作。</p>
+<h2 id="第六步：光栅化"><a href="#第六步：光栅化" class="headerlink" title="第六步：光栅化"></a>第六步：光栅化</h2><p>合成线程会将块信息交给 <code>GPU</code> 进程，以极高的速度完成光栅化。</p>
+<p><code>GPU</code> 进程会开启多个线程来完成光栅化，并且优先处理靠近视口区域的块。</p>
+<p>光栅化的结果，就是一块一块的位图</p>
+<h2 id="最后一步：画"><a href="#最后一步：画" class="headerlink" title="最后一步：画"></a>最后一步：画</h2><p>合成线程拿到每个层、每个块的位图后，生成一个个「指引（quad）」信息。</p>
+<p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p>
+<p>变形发生在合成线程，与渲染主线程无关，这就是 <code>transform</code> 效率高的本质原因。</p>
+<p>合成线程会把 <code>quad</code> 提交给 <code>GPU</code> 进程，由 <code>GPU</code> 进程产生系统调用，提交给 <code>GPU</code> 硬件，完成最终的屏幕成像。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.myaof.cn">五月</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.myaof.cn/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/">http://www.myaof.cn/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.myaof.cn" target="_blank">Shansec~</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a><a class="post-meta__tags" href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a><a class="post-meta__tags" href="/tags/HTML/">HTML</a></div><div class="post_share"><div class="social-share" data-image="https://img.myaof.cn/myaof/2023.05.10.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/05/10/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" title="CSS属性计算过程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.myaof.cn/myaof/default_cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CSS属性计算过程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/05/10/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" title="CSS属性计算过程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.myaof.cn/myaof/default_cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-10</div><div class="title">CSS属性计算过程</div></div></a></div><div><a href="/2023/03/20/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/" title="Pinia食用指南"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.myaof.cn/myaof/101.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-20</div><div class="title">Pinia食用指南</div></div></a></div><div><a href="/2023/03/20/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/" title="Vue 项目如何实现一个全局菜单搜索框"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://b.zhutix.com/bizhi/astronaut-as/3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-20</div><div class="title">Vue 项目如何实现一个全局菜单搜索框</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.myaof.cn/myaof/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">五月</div><div class="author-info__description">君子谋道不谋食，君子忧道不忧贫</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Shansec"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Shansec" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="/x201906140415h@163.com" target="_blank" title="Email"><i class="iconfont icon-email-fill"></i></a><a class="social-icon" href="https://juejin.cn/user/3474086670119128" target="_blank" title="Juejin"><i class="iconfont icon-juejin"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_44880095?type=blog" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E8%A7%A3%E6%9E%90-HTML"><span class="toc-text">第一步：解析 HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%A0%B7%E5%BC%8F%E8%AE%A1%E7%AE%97"><span class="toc-text">第二步：样式计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%B8%83%E5%B1%80"><span class="toc-text">第三步：布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E5%88%86%E5%B1%82"><span class="toc-text">第四步：分层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E7%BB%98%E5%88%B6"><span class="toc-text">第五步：绘制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E6%AD%A5%EF%BC%9A%E5%85%89%E6%A0%85%E5%8C%96"><span class="toc-text">第六步：光栅化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AD%A5%EF%BC%9A%E7%94%BB"><span class="toc-text">最后一步：画</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/" title="浏览器是如何渲染页面的？">浏览器是如何渲染页面的？</a><time datetime="2023-05-10T09:33:43.000Z" title="发表于 2023-05-10 17:33:43">2023-05-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/10/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" title="CSS属性计算过程">CSS属性计算过程</a><time datetime="2023-05-10T08:58:13.000Z" title="发表于 2023-05-10 16:58:13">2023-05-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/" title="微信小程序中判断用户是否已关注公众号的两种实现">微信小程序中判断用户是否已关注公众号的两种实现</a><time datetime="2023-05-06T06:27:30.000Z" title="发表于 2023-05-06 14:27:30">2023-05-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/04/Vue.js%E4%B8%AD%20watch%20%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" title="Vue.js中 watch 的高级用法">Vue.js中 watch 的高级用法</a><time datetime="2023-05-04T08:34:54.000Z" title="发表于 2023-05-04 16:34:54">2023-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/04/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/" title="Vue3 Composition API: 对比ref和reactive">Vue3 Composition API: 对比ref和reactive</a><time datetime="2023-05-04T03:13:30.000Z" title="发表于 2023-05-04 11:13:30">2023-05-04</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img.myaof.cn/myaof/2023.05.10.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2023 By 五月</div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://myaof.cn/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>

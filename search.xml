@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>浏览器是如何渲染页面的？</title>
+      <link href="/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/"/>
+      <url>/2023/05/10/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的<code>消息队列</code>。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。</p></blockquote><p>整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一个阶段的输出会成为下一个阶段的输入。这样，整个渲染流程就形成了一套组织严密的生产流水线。</p><h2 id="第一步：解析-HTML"><a href="#第一步：解析-HTML" class="headerlink" title="第一步：解析 HTML"></a>第一步：解析 HTML</h2><p>解析过程中遇到 <code>CSS</code> 解析 <code>CSS</code>，遇到 <code>JS</code> 执行 <code>JS</code>。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载 <code>HTML</code> 中的外部 <code>CSS</code> 文件和 外部的 <code>JS</code> 文件。</p><p>如果主线程解析到 <code>link</code> 位置，此时外部的 <code>CSS</code> 文件还没有下载解析好，主线程不会等待，继续解析后续的 <code>HTML</code>。这是因为下载和解析 <code>CSS</code> 的工作是在预解析线程中进行的。这就是 <code>CSS</code> 不会阻塞 HTML 解析的根本原因。</p><p>如果主线程解析到 <code>script</code> 位置，会停止解析 <code>HTML</code>，转而等待 <code>JS</code> 文件下载好，并将全局代码解析执行完成后，才能继续解析 <code>HTML</code>。这是因为 <code>JS</code> 代码的执行过程可能会修改当前的 <code>DOM</code> 树，所以 <code>DOM</code> 树的生成必须暂停。这就是 <code>JS</code> 会阻塞 <code>HTML</code> 解析的根本原因。</p><p>第一步完成后，会得到 <code>DOM</code> 树和 <code>CSSOM</code> 树，浏览器的默认样式、内部样式、外部样式、行内样式均会包含在 <code>CSSOM</code> 树中。</p><h2 id="第二步：样式计算"><a href="#第二步：样式计算" class="headerlink" title="第二步：样式计算"></a>第二步：样式计算</h2><p>主线程会遍历得到的 <code>DOM</code> 树，依次为树中的每个节点计算出它最终的样式，称之为 <code>Computed Style</code>。</p><p>在这一过程中，很多预设值会变成绝对值，比如 <code>red</code> 会变成<code>rgb(255,0,0)</code>；相对单位会变成绝对单位，比如 <code>em</code> 会变成 <code>px</code></p><p>这一步完成后，会得到一棵带有样式的 <code>DOM</code> 树。</p><h2 id="第三步：布局"><a href="#第三步：布局" class="headerlink" title="第三步：布局"></a>第三步：布局</h2><p>布局阶段会依次遍历 <code>DOM</code> 树的每一个节点，计算每个节点的几何信息。例如节点的宽高、相对包含块的位置。</p><p>大部分时候，<code>DOM</code> 树和布局树并非一一对应。</p><p>比如 <code>display:none</code> 的节点没有几何信息，因此不会生成到布局树；又比如使用了伪元素选择器，虽然 <code>DOM</code> 树中不存在这些伪元素节点，但它们拥有几何信息，所以会生成到布局树中。还有匿名行盒、匿名块盒等等都会导致 DOM 树和布局树无法一 一对应。</p><h2 id="第四步：分层"><a href="#第四步：分层" class="headerlink" title="第四步：分层"></a>第四步：分层</h2><p>主线程会使用一套复杂的策略对整个布局树中进行分层。</p><p>分层的好处在于，将来某一个层改变后，仅会对该层进行后续处理，从而提升效率。</p><p>滚动条、堆叠上下文、transform、opacity 等样式都会或多或少的影响分层结果，也可以通过<code>will-change</code>属性更大程度的影响分层结果。</p><h2 id="第五步：绘制"><a href="#第五步：绘制" class="headerlink" title="第五步：绘制"></a>第五步：绘制</h2><p>主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。</p><p>完成绘制后，主线程将每个图层的绘制信息提交给合成线程，剩余工作将由合成线程完成。</p><p>合成线程首先对每个图层进行分块，将其划分为更多的小区域。</p><p>它会从线程池中拿取多个线程来完成分块工作。</p><h2 id="第六步：光栅化"><a href="#第六步：光栅化" class="headerlink" title="第六步：光栅化"></a>第六步：光栅化</h2><p>合成线程会将块信息交给 <code>GPU</code> 进程，以极高的速度完成光栅化。</p><p><code>GPU</code> 进程会开启多个线程来完成光栅化，并且优先处理靠近视口区域的块。</p><p>光栅化的结果，就是一块一块的位图</p><h2 id="最后一步：画"><a href="#最后一步：画" class="headerlink" title="最后一步：画"></a>最后一步：画</h2><p>合成线程拿到每个层、每个块的位图后，生成一个个「指引（quad）」信息。</p><p>指引会标识出每个位图应该画到屏幕的哪个位置，以及会考虑到旋转、缩放等变形。</p><p>变形发生在合成线程，与渲染主线程无关，这就是 <code>transform</code> 效率高的本质原因。</p><p>合成线程会把 <code>quad</code> 提交给 <code>GPU</code> 进程，由 <code>GPU</code> 进程产生系统调用，提交给 <code>GPU</code> 硬件，完成最终的屏幕成像。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 浏览器原理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> 浏览器原理 </tag>
+            
+            <tag> HTML </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CSS属性计算过程</title>
       <link href="/2023/05/10/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/"/>
       <url>/2023/05/10/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/</url>
