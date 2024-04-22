@@ -9,10 +9,10 @@
     <lastBuildDate>Mon, 20 Mar 2023 14:21:54 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/package/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>package.json配置解读</title>
-      <link>http://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</link>
+      <link>http://shansec.github.io/post/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</link>
       <pubDate>Mon, 20 Mar 2023 14:21:54 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</guid>
+      <guid>http://shansec.github.io/post/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</guid>
       <description>前言 package.json是每个前端项目都会有的json文件，位于项目的根目录中。很多脚手架在创建项目的时候会帮我们自动初始化好 package.json。package.json有许多配置与项目息息相关，了解他们有助于对项目的开发，接下来让我们开始了解package.json的</description>
     </item>
     

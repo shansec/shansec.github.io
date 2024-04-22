@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>框架 on 未来可期的博客</title>
+    <link>http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/</link>
+    <description>Recent content in 框架 on 未来可期的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2024 10:39:46 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gin框架介绍及使用</title>
+      <link>http://shansec.github.io/post/Web/Gin%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 20 Apr 2024 10:39:46 +0000</pubDate>
+      
+      <guid>http://shansec.github.io/post/Web/Gin%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/</guid>
+      <description>Gin是一个用Go语言编写的web框架。它是一个类似于martini但拥有更好性能的API框架, 由于使用了httprouter，速度提高了近40倍。 如果你是性能和高效的追求者, 你会爱上Gin。 Gin框架介绍 Go世界里最流行的Web框架，Github上有32K+star。 基于htt</description>
+    </item>
+    
+  </channel>
+</rss>

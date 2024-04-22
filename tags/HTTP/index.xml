@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTTP on 未来可期的博客</title>
+    <link>http://shansec.github.io/tags/HTTP/</link>
+    <description>Recent content in HTTP on 未来可期的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2024 10:39:46 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/HTTP/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>常用的HTTP服务压测工具介绍</title>
+      <link>http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Sat, 20 Apr 2024 10:39:46 +0000</pubDate>
+      
+      <guid>http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/</guid>
+      <description>HTTP服务压力测试工具 在项目正式上线之前，我们通常需要通过压测来评估当前系统能够支撑的请求量、排查可能存在的隐藏bug，同时了解了程序的实际处理能力能够帮我们更好的匹配项目的实际需求，节约资源成本。 压测相关术语 响应时间(RT) ：指系统对请求作出响应的时间. 吞吐量(Through</description>
+    </item>
+    
+  </channel>
+</rss>

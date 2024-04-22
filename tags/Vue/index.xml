@@ -1,82 +1,91 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vue on 未来可期的博客</title>
-    <link>http://shansec.github.io/tags/Vue/</link>
-    <description>Recent content in Vue on 未来可期的博客</description>
+    <title>vue on 未来可期的博客</title>
+    <link>http://shansec.github.io/tags/vue/</link>
+    <description>Recent content in vue on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 04 May 2023 16:34:54 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/Vue/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 16:34:54 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vue.js中 watch 的高级用法</title>
-      <link>http://shansec.github.io/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
+      <link>http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
       <pubDate>Thu, 04 May 2023 16:34:54 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
+      <guid>http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
       <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 &amp;lt;div&amp;gt; &amp;lt;p&amp;gt;FullName: {{fullName}}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;FirstName: &amp;lt;input type=&amp;#34;text&amp;#34; v-model=&amp;#34;firstName&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; new Vue({ el: &amp;#39;#root&amp;#39;, data: { firstName: &amp;#39;Dawei&amp;#39;, lastName: &amp;#39;Lou&amp;#39;, fullName: &amp;#39;&amp;#39; }, watch: { firstName(newName, oldName) { this.fullName = newName + &amp;#39; &amp;#39; + this.lastName; } } }) 上面的代码的效果是，当我们输入firstName后，wacth监听每次修改变化的新值，然后计算输出fullName。 handler方法和immediate属性 这里 watch 的一个</description>
     </item>
     
     <item>
       <title>Vue3 Composition API: 对比ref和reactive</title>
-      <link>http://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</link>
+      <link>http://shansec.github.io/post/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</link>
       <pubDate>Thu, 04 May 2023 11:13:30 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</guid>
+      <guid>http://shansec.github.io/post/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</guid>
       <description>Vue2 回顾 首先回顾一下在Vue2中我们是如何创建一个响应式数据 (reactive data)的： Vue3新特性 ref的使用 而在Vue3中，我们可以用Composition API: ref 来改写上述代码： ref 的作用就是将一个原始数据类型（primitive data type）转换成一个带有响应式类型 的数据类型，原始数据类型共</description>
     </item>
     
     <item>
       <title>Vue3开发踩坑</title>
-      <link>http://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</link>
+      <link>http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</link>
       <pubDate>Fri, 24 Mar 2023 09:45:47 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</guid>
+      <guid>http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</guid>
       <description>期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： 1 2 3 4 // main.js const app = createApp(App) app.config.globalProperties.$test = &amp;#39;test&amp;#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 &amp;lt;tempalte&amp;gt; &amp;lt;div&amp;gt;{{ $test }}&amp;lt;/div&amp;gt; &amp;lt;/tempalte&amp;gt; &amp;lt;script&amp;gt; import { getCurrentInstance } from &amp;#39;vue&amp;#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&amp;#39;test===&amp;#39;) console.log(test) }, }</description>
     </item>
     
     <item>
+      <title>从Vue2 到 Vue3，这些路由差异你需要掌握！</title>
+      <link>http://shansec.github.io/post/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</link>
+      <pubDate>Wed, 22 Mar 2023 10:37:34 +0000</pubDate>
+      
+      <guid>http://shansec.github.io/post/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</guid>
+      <description>前言 Vue3 已经出来很长时间了，但对 Vue3 的路由却了解的非常少，甚至只知道最基本的跳转和参数获取，这些技能处理一些复杂的功能是不够的，最近把 Vue3 的路由版本差异给学习了一下，在这里把结果分享给大家！！！ 一、导航守卫 全局前置守卫 全局前置守卫通常用来做权限控制，使用 router.beforeEach 即可添加： 1 2 3 4 5 6 const router = createRouter({...})</description>
+    </item>
+    
+    <item>
       <title>package.json配置解读</title>
-      <link>http://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</link>
+      <link>http://shansec.github.io/post/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</link>
       <pubDate>Mon, 20 Mar 2023 14:21:54 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</guid>
+      <guid>http://shansec.github.io/post/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</guid>
       <description>前言 package.json是每个前端项目都会有的json文件，位于项目的根目录中。很多脚手架在创建项目的时候会帮我们自动初始化好 package.json。package.json有许多配置与项目息息相关，了解他们有助于对项目的开发，接下来让我们开始了解package.json的</description>
     </item>
     
     <item>
       <title>何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</title>
-      <link>http://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</link>
+      <link>http://shansec.github.io/post/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</link>
       <pubDate>Mon, 20 Mar 2023 14:15:59 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</guid>
+      <guid>http://shansec.github.io/post/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</guid>
       <description>前言 要说今年最热门的前端技术，Vue3 和 TS 绝对榜上有名了。今天就给大家分享一下如何在 Vue3 组件中结合 Composition-Api 使用 TS 类型。如果有不会或者不熟的小伙伴，一起学起来吧！ 一、为 props 标注类型 使用 &amp;lt; script setup &amp;gt; 当使用 &amp;lt; script setup &amp;gt; 时，defineProps() 宏函数支持从它的参数中推导类型： 这被称为 运行时声明 ，因为</description>
     </item>
     
     <item>
       <title>助你从Vue2过渡到Vue3的常见使用场景</title>
-      <link>http://shansec.github.io/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+      <link>http://shansec.github.io/post/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
       <pubDate>Mon, 20 Mar 2023 14:11:12 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+      <guid>http://shansec.github.io/post/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
       <description>前言 相信有很多人已经学习了 Vue3 的 API 和 新特性，但是令人头疼的是工作中依然使用的是 Vue2，也不知道自己的水平能否上手 Vue3 项目，今天把实践过程中常见使用场景分享给大家，希望对你们有所帮助。 场景一：父子组件数据传递 父组件数据传递到子组件 Vue3 中父组件同样是通过属性传递数据，但子组件接受数据的方</description>
     </item>
     
     <item>
       <title>Vue3中操作dom的四种方式，建议收藏！！！</title>
-      <link>http://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</link>
+      <link>http://shansec.github.io/post/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</link>
       <pubDate>Mon, 20 Mar 2023 14:09:39 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
+      <guid>http://shansec.github.io/post/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
       <description>前言 最近主管提出了许多优化用户体验的要求，其中很多涉及 dom 操作。本文将 Vue3 中常见的 dom 操作总结了一下。觉得文章不错、或对自己开发有所帮助，欢迎点赞收藏！ 一、通过 ref 拿到 dom 的引用 1 2 3 4 5 6 7 8 9 10 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;ref-container&amp;#34;&amp;gt; &amp;lt;div ref=&amp;#34;sectionRef&amp;#34; class=&amp;#34;ref-section&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script lang=&amp;#34;ts&amp;#34; setup&amp;gt; import { ref } from &amp;#39;vue&amp;#39; const sectionRef = ref() &amp;lt;/script&amp;gt; 通过对 div 元素添加 ref 属性，为了获取到这个元素，我们</description>
     </item>
     
     <item>
-      <title>从Vue2 到 Vue3，这些路由差异你需要掌握！</title>
-      <link>http://shansec.github.io/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</link>
-      <pubDate>Mon, 20 Mar 2023 11:16:00 +0000</pubDate>
+      <title>Vue 项目如何实现一个全局菜单搜索框</title>
+      <link>http://shansec.github.io/post/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</link>
+      <pubDate>Mon, 20 Mar 2023 12:29:21 +0000</pubDate>
       
-      <guid>http://shansec.github.io/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</guid>
-      <description>前言 Vue3 已经出来很长时间了，但对 Vue3 的路由却了解的非常少，甚至只知道最基本的跳转和参数获取，这些技能处理一些复杂的功能是不够的，最近把 Vue3 的路由版本差异给学习了一下，在这里把结果分享给大家！！！ 一、导航守卫 全局前置守卫 全局前置守卫通常用来做权限控制，使用 router.beforeEach 即可添加： 1 2 3 4 5 6 const router = createRouter({...})</description>
+      <guid>http://shansec.github.io/post/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</guid>
+      <description>前言 本篇文章分享一下我在实际开发 Vue 项目时遇到的需要 —— 全局菜单搜索。全局菜单搜索本质是 router 的使用，该功能已经实现，接下来分享一下开发心得。 一、过滤路由 首先需要过滤出符合条件的路由信息，过滤的条件包含两个： 路由可以显示出现（hidden: false） 路由元信息中包含 title 属性 代码展示： 1</description>
     </item>
     
   </channel>

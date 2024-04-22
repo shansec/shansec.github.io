@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Go语言基础之泛型 | 未来可期的博客</title>
+    <meta property="og:title" content="Go语言基础之泛型 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-04-20T10:39:46&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-04-20T10:39:46&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Go语言基础之泛型">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%B3%9B%E5%9E%8B/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是泛型">什么是泛型</a></li>
+    <li><a href="#为什么需要泛型">为什么需要泛型</a></li>
+    <li><a href="#泛型语法">泛型语法</a>
+      <ul>
+        <li><a href="#类型参数">类型参数</a></li>
+        <li><a href="#类型集">类型集</a></li>
+        <li><a href="#类型推断">类型推断</a></li>
+      </ul>
+    </li>
+    <li><a href="#编写代码">编写代码</a></li>
+    <li><a href="#应该使用类型参数">应该使用类型参数</a>
+      <ul>
+        <li><a href="#使用语言定义的容器类型时">使用语言定义的容器类型时</a></li>
+        <li><a href="#通用数据结构">通用数据结构</a></li>
+        <li><a href="#对于类型参数优先选择函数而不是方法">对于类型参数，优先选择函数而不是方法</a></li>
+        <li><a href="#实现通用方法">实现通用方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#不应该使用类型参数">不应该使用类型参数</a>
+      <ul>
+        <li><a href="#不要用类型参数替换接口类型">不要用类型参数替换接口类型</a></li>
+        <li><a href="#如果方法实现不同不要使用类型参数">如果方法实现不同，不要使用类型参数</a></li>
+        <li><a href="#在适当的地方使用反射">在适当的地方使用反射</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Go语言基础之泛型</h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="什么是泛型">什么是泛型</h2>
+<p>泛型允许程序员在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型。ーー换句话说，在编写某些代码或数据结构时先不提供值的类型，而是之后再提供。</p>
+<p>泛型是一种独立于所使用的特定类型的编写代码的方法。使用泛型可以编写出适用于一组类型中的任何一种的函数和类型。</p>
+<h2 id="为什么需要泛型">为什么需要泛型</h2>
+<p>假设我们需要实现一个反转切片的函数——<code>reverse</code>。</p>
+<pre tabindex="0"><code>func reverse(s []int) []int {
+	l := len(s)
+	r := make([]int, l)
+
+	for i, e := range s {
+		r[l-i-1] = e
+	}
+	return r
+}
+
+fmt.Println(reverse([]int{1, 2, 3, 4}))  // [4 3 2 1]
+</code></pre><p>可是这个函数只能接收<code>[]int</code>类型的参数，如果我们想支持<code>[]float64</code>类型的参数，我们就需要再定义一个<code>reverseFloat64Slice</code>函数。</p>
+<pre tabindex="0"><code>func reverseFloat64Slice(s []float64) []float64 {
+	l := len(s)
+	r := make([]float64, l)
+
+	for i, e := range s {
+		r[l-i-1] = e
+	}
+	return r
+}
+</code></pre><p>如果要想支持<code>[]string</code>类型切片就要定义<code>reverseStringSlice</code>函数，如果想支持<code>[]xxx</code>就需要定义一个<code>reverseXxxSlice</code>…</p>
+<p>一遍一遍地编写相同的功能是低效的，实际上这个反转切片的函数并不需要知道切片中元素的类型，但为了适用不同的类型我们把一段代码重复了很多遍。</p>
+<p>Go1.18之前我们可以尝试使用反射去解决上述问题，但是使用反射在运行期间获取变量类型会降低代码的执行效率并且失去编译期的类型检查，同时大量的反射代码也会让程序变得晦涩难懂。</p>
+<p>类似这样的场景就非常适合使用泛型。从Go1.18开始，使用泛型就能够编写出适用所有元素类型的“普适版”<code>reverse</code>函数。</p>
+<pre tabindex="0"><code>func reverseWithGenerics[T any](s []T) []T {
+	l := len(s)
+	r := make([]T, l)
+
+	for i, e := range s {
+		r[l-i-1] = e
+	}
+	return r
+}
+</code></pre><h2 id="泛型语法">泛型语法</h2>
+<p>泛型为Go语言添加了三个新的重要特性:</p>
+<ol>
+<li>函数和类型的类型参数。</li>
+<li>将接口类型定义为类型集，包括没有方法的类型。</li>
+<li>类型推断，它允许在调用函数时在许多情况下省略类型参数。</li>
+</ol>
+<h3 id="类型参数">类型参数</h3>
+<h4 id="类型形参和类型实参">类型形参和类型实参</h4>
+<p>我们之前已经知道函数定义时可以指定形参，函数调用时需要传入实参。<figure class="max-w-2xl mx-auto overflow-hidden">
+    
+        <img alt="形参与实参" src="https://www.liwenzhou.com/images/Go/generics/parameter-argument.png" />
+    
+    <figcaption class="p-2 text-center">形参与实参</figcaption>
+</figure></p>
+<p>现在，Go语言中的函数和类型支持添加类型参数。类型参数列表看起来像普通的参数列表，只不过它使用方括号（<code>[]</code>）而不是圆括号（<code>()</code>）。<figure class="max-w-2xl mx-auto overflow-hidden">
+    
+        <img alt="类型形参与类型实参" src="https://www.liwenzhou.com/images/Go/generics/type-parameter-argument.png" />
+    
+    <figcaption class="p-2 text-center">类型形参与类型实参</figcaption>
+</figure></p>
+<p>借助泛型，我们可以声明一个适用于<strong>一组类型</strong>的<code>min</code>函数。</p>
+<pre tabindex="0"><code>func min[T int | float64](a, b T) T {
+	if a &lt;= b {
+		return a
+	}
+	return b
+}
+</code></pre><h4 id="类型实例化">类型实例化</h4>
+<p>这次定义的<code>min</code>函数就同时支持<code>int</code>和<code>float64</code>两种类型，也就是说当调用<code>min</code>函数时，我们既可以传入<code>int</code>类型的参数。</p>
+<pre tabindex="0"><code>m1 := min[int](1, 2)  // 1
+</code></pre><p>也可以传入<code>float64</code>类型的参数。</p>
+<pre tabindex="0"><code>m2 := min[float64](-0.1, -0.2)  // -0.2
+</code></pre><p>向 <code>min</code> 函数提供类型参数(在本例中为<code>int</code>和<code>float64</code>)称为实例化（ <em>instantiation</em> ）。</p>
+<p>类型实例化分两步进行：</p>
+<ol>
+<li>首先，编译器在整个泛型函数或类型中将所有类型形参（type parameters）替换为它们各自的类型实参（type arguments）。</li>
+<li>其次，编译器验证每个类型参数是否满足相应的约束。</li>
+</ol>
+<p>在成功实例化之后，我们将得到一个非泛型函数，它可以像任何其他函数一样被调用。例如：</p>
+<pre tabindex="0"><code>fmin := min[float64] // 类型实例化，编译器生成T=float64的min函数
+m2 = fmin(1.2, 2.3)  // 1.2
+</code></pre><p><code>min[float64]</code>得到的是类似我们之前定义的<code>minFloat64</code>函数——<code>fmin</code>，我们可以在函数调用中使用它。</p>
+<h4 id="类型参数的使用">类型参数的使用</h4>
+<p>除了函数中支持使用类型参数列表外，类型也可以使用类型参数列表。</p>
+<pre tabindex="0"><code>type Slice[T int | string] []T
+
+type Map[K int | string, V float32 | float64] map[K]V
+
+type Tree[T interface{}] struct {
+	left, right *Tree[T]
+	value       T
+}
+</code></pre><p>在上述泛型类型中，<code>T</code>、<code>K</code>、<code>V</code>都属于类型形参，类型形参后面是类型约束，类型实参需要满足对应的类型约束。</p>
+<p>泛型类型可以有方法，例如为上面的<code>Tree</code>实现一个查找元素的<code>Lookup</code>方法。</p>
+<pre tabindex="0"><code>func (t *Tree[T]) Lookup(x T) *Tree[T] { ... }
+</code></pre><p>要使用泛型类型，必须进行实例化。<code>Tree[string]</code>是使用类型实参<code>string</code>实例化 <code>Tree</code> 的示例。</p>
+<pre tabindex="0"><code>var stringTree Tree[string]
+</code></pre><h4 id="类型约束">类型约束</h4>
+<p>普通函数中的每个参数都有一个类型; 该类型定义一系列值的集合。例如，我们上面定义的非泛型函数<code>minFloat64</code>那样，声明了参数的类型为<code>float64</code>，那么在函数调用时允许传入的实际参数就必须是可以用<code>float64</code>类型表示的浮点数值。</p>
+<p>类似于参数列表中每个参数都有对应的参数类型，类型参数列表中每个类型参数都有一个<strong>类型约束</strong>。类型约束定义了一个类型集——只有在这个类型集中的类型才能用作类型实参。</p>
+<p>Go语言中的类型约束是接口类型。</p>
+<p>就以上面提到的<code>min</code>函数为例，我们来看一下类型约束常见的两种方式。</p>
+<p>类型约束接口可以直接在类型参数列表中使用。</p>
+<pre tabindex="0"><code>// 类型约束字面量，通常外层interface{}可省略
+func min[T interface{ int | float64 }](a, b T) T {
+	if a &lt;= b {
+		return a
+	}
+	return b
+}
+</code></pre><p>作为类型约束使用的接口类型可以事先定义并支持复用。</p>
+<pre tabindex="0"><code>// 事先定义好的类型约束类型
+type Value interface {
+	int | float64
+}
+func min[T Value](a, b T) T {
+	if a &lt;= b {
+		return a
+	}
+	return b
+}
+</code></pre><p>在使用类型约束时，如果省略了外层的<code>interface{}</code>会引起歧义，那么就不能省略。例如：</p>
+<pre tabindex="0"><code>type IntPtrSlice [T *int] []T  // T*int ?
+
+type IntPtrSlice[T *int,] []T  // 只有一个类型约束时可以添加`,`
+type IntPtrSlice[T interface{ *int }] []T // 使用interface{}包裹
+</code></pre><h3 id="类型集">类型集</h3>
+<p>**Go1.18开始接口类型的定义也发生了改变，由过去的接口类型定义方法集（method set）变成了接口类型定义类型集（type set）。**也就是说，接口类型现在可以用作值的类型，也可以用作类型约束。</p>
+<p><figure class="max-w-2xl mx-auto overflow-hidden">
+    
+        <img alt="type set" src="https://www.liwenzhou.com/images/Go/generics/type-set.png" />
+    
+    <figcaption class="p-2 text-center">type set</figcaption>
+</figure></p>
+<p>把接口类型当做类型集相较于方法集有一个优势: 我们可以显式地向集合添加类型，从而以新的方式控制类型集。</p>
+<p>Go语言扩展了接口类型的语法，让我们能够向接口中添加类型。例如</p>
+<pre tabindex="0"><code>type V interface {
+	int | string | bool
+}
+</code></pre><p>上面的代码就定义了一个包含 <code>int</code>、 <code>string</code> 和 <code>bool</code> 类型的类型集。<figure class="max-w-2xl mx-auto overflow-hidden">
+    
+        <img alt="type set" src="https://www.liwenzhou.com/images/Go/generics/type-set-2.png" />
+    
+    <figcaption class="p-2 text-center">type set</figcaption>
+</figure></p>
+<p>从 Go 1.18 开始，一个接口不仅可以嵌入其他接口，还可以嵌入任何类型、类型的联合或共享相同底层类型的无限类型集合。</p>
+<p>当用作类型约束时，由接口定义的类型集精确地指定允许作为相应类型参数的类型。</p>
+<ul>
+<li>
+<p><code>|</code>符号</p>
+<p><code>T1 | T2</code>表示类型约束为T1和T2这两个类型的并集，例如下面的<code>Integer</code>类型表示由<code>Signed</code>和<code>Unsigned</code>组成。</p>
+<pre tabindex="0"><code>type Integer interface {
+	Signed | Unsigned
+}
+</code></pre></li>
+<li>
+<p><code>~</code>符号</p>
+<p><code>~T</code>表示所以底层类型是T的类型，例如<code>~string</code>表示所有底层类型是<code>string</code>的类型集合。</p>
+<pre tabindex="0"><code>type MyString string  // MyString的底层类型是string
+</code></pre><p><strong>注意：</strong><code>~</code>符号后面只能是基本类型。</p>
+</li>
+</ul>
+<p>接口作为类型集是一种强大的新机制，是使类型约束能够生效的关键。目前，使用新语法表的接口只能用作类型约束。</p>
+<h4 id="any接口">any接口</h4>
+<p>空接口在类型参数列表中很常见，在Go 1.18引入了一个新的预声明标识符，作为空接口类型的别名。</p>
+<pre tabindex="0"><code>// src/builtin/builtin.go
+
+type any = interface{}
+</code></pre><p>由此，我们可以使用如下代码：</p>
+<pre tabindex="0"><code>func foo[S ~[]E, E any]() {
+	// ...
+}
+</code></pre><h4 id="constrains">constrains</h4>
+<p><a href="https://pkg.go.dev/golang.org/x/exp/constraints">https://pkg.go.dev/golang.org/x/exp/constraints</a> 包提供了一些常用类型。</p>
+<h3 id="类型推断">类型推断</h3>
+<p>最后一个新的主要语言特征是类型推断。从某些方面来说，这是语言中最复杂的变化，但它很重要，因为它能让人们在编写调用泛型函数的代码时更自然。</p>
+<h4 id="函数参数类型推断">函数参数类型推断</h4>
+<p>对于类型参数，需要传递类型参数，这可能导致代码冗长。回到我们通用的 <code>min</code>函数：</p>
+<pre tabindex="0"><code>func min[T int | float64](a, b T) T {
+	if a &lt;= b {
+		return a
+	}
+	return b
+}
+</code></pre><p>类型形参<code>T</code>用于指定<code>a</code>和<code>b</code>的类型。我们可以使用显式类型实参调用它：</p>
+<pre tabindex="0"><code>var a, b, m float64
+m = min[float64](a, b) // 显式指定类型实参
+</code></pre><p>在许多情况下，编译器可以从普通参数推断 <code>T</code> 的类型实参。这使得代码更短，同时保持清晰。</p>
+<pre tabindex="0"><code>var a, b, m float64
+
+m = min(a, b) // 无需指定类型实参
+</code></pre><p>这种从实参的类型推断出函数的类型实参的推断称为函数实参类型推断。函数实参类型推断只适用于函数参数中使用的类型参数，而不适用于仅在函数结果中或仅在函数体中使用的类型参数。例如，它不适用于像 <code>MakeT [ T any ]() T</code> 这样的函数，因为它只使用 <code>T</code> 表示结果。</p>
+<h4 id="约束类型推断">约束类型推断</h4>
+<p>Go 语言支持另一种类型推断，即<em>约束类型推断</em>。接下来我们从下面这个缩放整数的例子开始：</p>
+<pre tabindex="0"><code>// Scale 返回切片中每个元素都乘c的副本切片
+func Scale[E constraints.Integer](s []E, c E) []E {
+    r := make([]E, len(s))
+    for i, v := range s {
+        r[i] = v * c
+    }
+    return r
+}
+</code></pre><p>这是一个泛型函数适用于任何整数类型的切片。</p>
+<p>现在假设我们有一个多维坐标的 <code>Point</code> 类型，其中每个 <code>Point</code> 只是一个给出点坐标的整数列表。这种类型通常会实现一些业务方法，这里假设它有一个<code>String</code>方法。</p>
+<pre tabindex="0"><code>type Point []int32
+
+func (p Point) String() string {
+    b, _ := json.Marshal(p)
+    return string(b)
+}
+</code></pre><p>由于一个<code>Point</code>其实就是一个整数切片，我们可以使用前面编写的<code>Scale</code>函数：</p>
+<pre tabindex="0"><code>func ScaleAndPrint(p Point) {
+    r := Scale(p, 2)
+    fmt.Println(r.String()) // 编译失败
+}
+</code></pre><p>不幸的是，这代码会编译失败，输出<code>r.String undefined (type []int32 has no field or method String</code>的错误。</p>
+<p>问题是<code>Scale</code>函数返回类型为<code>[]E</code>的值，其中<code>E</code>是参数切片的元素类型。当我们使用<code>Point</code>类型的值调用<code>Scale</code>（其基础类型为[]int32）时，我们返回的是<code>[]int32</code>类型的值，而不是<code>Point</code>类型。这源于泛型代码的编写方式，但这不是我们想要的。</p>
+<p>为了解决这个问题，我们必须更改 <code>Scale</code> 函数，以便为切片类型使用类型参数。</p>
+<pre tabindex="0"><code>func Scale[S ~[]E, E constraints.Integer](s S, c E) S {
+    r := make(S, len(s))
+    for i, v := range s {
+        r[i] = v * c
+    }
+    return r
+}
+</code></pre><p>我们引入了一个新的类型参数<code>S</code>，它是切片参数的类型。我们对它进行了约束，使得基础类型是<code>S</code>而不是<code>[]E</code>，函数返回的结果类型现在是<code>S</code>。由于<code>E</code>被约束为整数，因此效果与之前相同：第一个参数必须是某个整数类型的切片。对函数体的唯一更改是，现在我们在调用<code>make</code>时传递<code>S</code>，而不是<code>[]E</code>。</p>
+<p>现在这个<code>Scale</code>函数，不仅支持传入普通整数切片参数，也支持传入<code>Point</code>类型参数。</p>
+<p>这里需要思考的是，为什么不传递显式类型参数就可以写入 <code>Scale</code> 调用？也就是说，为什么我们可以写 <code>Scale(p, 2)</code>，没有类型参数，而不是必须写 <code>Scale[Point, int32](p, 2)</code> ？</p>
+<p>新 <code>Scale</code> 函数有两个类型参数——<code>S</code> 和 <code>E</code>。在不传递任何类型参数的 <code>Scale(p, 2)</code> 调用中，如上所述，函数参数类型推断让编译器推断 <code>S</code> 的类型参数是 <code>Point</code>。但是这个函数也有一个类型参数 <code>E</code>，它是乘法因子 <code>c</code> 的类型。相应的函数参数是<code>2</code>，因为<code>2</code>是一个非类型化的常量，函数参数类型推断不能推断出 <code>E</code> 的正确类型(最好的情况是它可以推断出<code>2</code>的默认类型是 <code>int</code>，而这是错误的，因为Point 的基础类型是<code>[]int32</code>)。相反，编译器推断 <code>E</code> 的类型参数是切片的元素类型的过程称为<strong>约束类型推断</strong>。</p>
+<p>约束类型推断从类型参数约束推导类型参数。当一个类型参数具有根据另一个类型参数定义的约束时使用。当其中一个类型参数的类型参数已知时，约束用于推断另一个类型参数的类型参数。</p>
+<p>通常的情况是，当一个约束对某种类型使用 <em>~type</em> 形式时，该类型是使用其他类型参数编写的。我们在 <code>Scale</code> 的例子中看到了这一点。<code>S</code> 是 <code>~[]E</code>，后面跟着一个用另一个类型参数写的类型<code>[]E</code>。如果我们知道了 <code>S</code> 的类型实参，我们就可以推断出<code>E</code>的类型实参。<code>S</code> 是一个切片类型，而 <code>E</code>是该切片的元素类型。</p>
+<h2 id="编写代码">编写代码</h2>
+<p>让我们从编写 Go 程序的一般准则开始：通过编写代码而不是定义类型来编写 Go 程序。在泛型方面，如果通过定义类型参数约束开始编写程序，那么你就错了。应该从编写函数开始。如果明确知道类型参数有用的情况下，很容易在以后添加类型参数。</p>
+<h2 id="应该使用类型参数">应该使用类型参数</h2>
+<p>让我们看一下类型参数对哪些情况有用。</p>
+<h3 id="使用语言定义的容器类型时">使用语言定义的容器类型时</h3>
+<p>当我们编写的是操作 Go 语言定义的特殊容器类型（slice、map和chennel）的函数。如果函数具有包含这些类型的参数，并且函数的代码并不关心元素的类型，那么使用类型参数可能是有用的。</p>
+<p>例如，这里有一个函数，它的功能是返回任何类型map中所有的key：</p>
+<pre tabindex="0"><code>// MapKeys 返回m中所有key组成的切片
+func MapKeys[Key comparable, Val any](m map[Key]Val) []Key {
+    s := make([]Key, 0, len(m))
+    for k := range m {
+        s = append(s, k)
+    }
+    return s
+}
+</code></pre><p>这段代码并不关注 map 中键的类型，也根本没有使用 map 值类型。它适用于任何map类型。这是使用类型参数的一个很好示例。</p>
+<p>在引入类型参数之前，想要实现类似功能通常是使用反射，但是使用反射实现通常是复杂的，并且在编译期间不会进行静态类型检查，在运行时通常速度也更慢。</p>
+<h3 id="通用数据结构">通用数据结构</h3>
+<p>类型参数另一个适用场景就是用于通用数据结构。通用数据结构类似于slice或map，但不是内置在语言中的，例如链表或二叉树。</p>
+<p>之前需要这种数据结构的程序通常采用下面两种方法中的一个：使用特定的元素类型编写数据结构，或者使用接口类型。用类型参数替换特定的元素类型可以生成更通用的数据结构，该数据结构可以在程序的其他部分或其他程序中使用。用类型参数替换接口类型可以更有效地存储数据，节省内存资源；它还允许代码避免类型断言，并在构建时进行完全的类型检查。</p>
+<p>例如，下面是使用类型参数的二叉树数据结构的一部分：</p>
+<pre tabindex="0"><code>// Tree is a binary tree.
+type Tree[T any] struct {
+    cmp  func(T, T) int
+    root *node[T]
+}
+
+// A node in a Tree.
+type node[T any] struct {
+    left, right  *node[T]
+    val          T
+}
+
+// find returns a pointer to the node containing val,
+// or, if val is not present, a pointer to where it
+// would be placed if added.
+func (bt *Tree[T]) find(val T) **node[T] {
+    pl := &amp;bt.root
+    for *pl != nil {
+        switch cmp := bt.cmp(val, (*pl).val); {
+        case cmp &lt; 0:
+            pl = &amp;(*pl).left
+        case cmp &gt; 0:
+            pl = &amp;(*pl).right
+        default:
+            return pl
+        }
+    }
+    return pl
+}
+
+// Insert inserts val into bt if not already there,
+// and reports whether it was inserted.
+func (bt *Tree[T]) Insert(val T) bool {
+    pl := bt.find(val)
+    if *pl != nil {
+        return false
+    }
+    *pl = &amp;node[T]{val: val}
+    return true
+}
+</code></pre><p>树中的每个节点都包含类型参数 T 的值。使用特定类型参数实例化树时，该类型的值将直接存储在节点中。它们不会被存储为接口类型。</p>
+<p>这是对类型参数的合理使用，因为 Tree 数据结构(包括方法中的代码)在很大程度上与元素类型 T 无关。</p>
+<p>Tree数据结构需要知道如何比较元素类型T的值；它为此使用传入的比较函数。你可以在find方法的第四行，即对bt.cmp的调用中看到这一点。除此之外，type参数根本不重要。</p>
+<h3 id="对于类型参数优先选择函数而不是方法">对于类型参数，优先选择函数而不是方法</h3>
+<p>Tree 示例说明了另一个一般原则：当你需要比较函数之类的东西时，更喜欢使用函数而不是方法。</p>
+<p>我们可以定义 Tree 类型，这样元素类型就必须有一个 Compare 或 Less 方法。这可以通过编写一个需要该方法的约束来实现，这意味着用于实例化 Tree 类型的任何类型参数都需要该方法。</p>
+<p>这样做的结果是，任何想使用像 int 这样的简单数据类型的 Tree 的人都必须定义自己的整数类型，并编写自己的比较方法。如果我们像上面所示的代码那样定义 Tree 以获取比较函数，那么很容易传递所需的函数。编写比较函数和编写方法一样容易。</p>
+<p>如果 Tree 元素类型碰巧已经有一个 Compare 方法，那么我们可以简单地使用一个类似 ElementType 的方法表达式。作为比较函数进行比较。</p>
+<p>换句话说，将方法转换为函数要比将方法添加到类型中简单得多。因此，对于通用数据类型，更喜欢使用函数而不是编写需要方法的约束。</p>
+<h3 id="实现通用方法">实现通用方法</h3>
+<p>类型参数可能有用的另一种情况是，不同类型需要实现某些公共方法，而不同类型的实现看起来都是相同的。</p>
+<p>例如，考虑标准库的 <code>sort.Interface</code>，它要求类型实现三个方法: <code>Len</code>、 <code>Swap</code> 和 <code>Less</code>。</p>
+<p>下面是一个泛型类型 <code>SliceFn</code> 的示例，它为切片类型实现 <code>sort.Interface</code>：</p>
+<pre tabindex="0"><code>// SliceFn 为T类型切片实现 sort.Interface 
+type SliceFn[T any] struct {
+    s    []T
+    less func(T, T) bool
+}
+
+func (s SliceFn[T]) Len() int {
+    return len(s.s)
+}
+func (s SliceFn[T]) Swap(i, j int) {
+    s.s[i], s.s[j] = s.s[j], s.s[i]
+}
+func (s SliceFn[T]) Less(i, j int) bool {
+    return s.less(s.s[i], s.s[j])
+}
+</code></pre><p>对于任意切片类型，<code>Len</code> 和 <code>Swap</code> 方法完全相同。<code>Less</code> 方法需要进行比较，这是名称 <code>SliceFn</code> 中的 <code>Fn</code> 的部分。与前面的 <code>Tree</code> 示例一样，我们将在创建 <code>SliceFn</code> 时传入一个函数。</p>
+<p>下面是如何通过 <code>SliceFn</code>函数使用比较函数对任意切片进行排序：</p>
+<pre tabindex="0"><code>// SortFn 使用比较函数进行排序。
+func SortFn[T any](s []T, less func(T, T) bool) {
+    sort.Sort(SliceFn[T]{s, less})
+}
+</code></pre><p>这类似于标准库函数<code>sort.Slice</code>，但比较函数是使用值而不是切片索引编写的。</p>
+<p>对这类代码使用类型参数是合适的，因为所有切片类型的方法看起来完全相同。</p>
+<h2 id="不应该使用类型参数">不应该使用类型参数</h2>
+<p>接下来谈谈何时不使用类型参数。</p>
+<h3 id="不要用类型参数替换接口类型">不要用类型参数替换接口类型</h3>
+<p>众所周知，Go有接口类型。接口类型允许一种通用编程。</p>
+<p>例如，广泛使用的<code>io.Reader</code>接口提供了一种通用机制，用于从包含信息（例如文件）或产生信息（例如随机数生成器）的任何值读取数据。如果对某个类型的值只需要调用该值的方法，则使用接口类型，而不是类型参数。<code>io.Reader</code>易于阅读、高效且有效。不需要使用类型参数，通过调用read方法从值中读取数据。</p>
+<p>例如，你可能会尝试将这里的第一个函数签名（仅使用接口类型）更改为第二个版本（使用类型参数）。</p>
+<pre tabindex="0"><code>func ReadSome(r io.Reader) ([]byte, error)
+
+func ReadSome[T io.Reader](r T) ([]byte, error)
+</code></pre><p>不要做出那种改变。省略type参数使函数更容易编写，更容易读取，并且执行时间可能相同。</p>
+<p>最后一点值得强调。虽然可以用几种不同的方式实现泛型，而且随着时间的推移，实现也会发生变化和改进，但在许多情况下，Go 1.18中使用的实现将处理类型为类型参数的值，就像处理类型为接口类型的值一样。这意味着使用类型参数通常不会比使用接口类型快。因此，不要为了速度而从接口类型更改为类型参数，因为它可能不会运行得更快。</p>
+<h3 id="如果方法实现不同不要使用类型参数">如果方法实现不同，不要使用类型参数</h3>
+<p>在决定是否使用类型参数或接口类型时，请考虑方法的实现。前面我们说过，如果一个方法的实现对于所有类型都是相同的，那么就使用一个类型参数。相反，如果每种类型的实现都不同，则使用接口类型并编写不同的方法实现，不要使用类型参数。</p>
+<p>例如，从文件读取的实现与从随机数生成器读取的实现完全不同。这意味着我们应该编写两个不同的Read方法，并使用像io.Reader这样的接口类型。</p>
+<h3 id="在适当的地方使用反射">在适当的地方使用反射</h3>
+<p>Go具有运行时反射。反射允许一种泛型编程，因为它允许你编写适用于任何类型的代码。</p>
+<p>如果某些操作甚至必须支持没有方法的类型（不能使用接口类型），并且每个类型的操作都不同（不能使用类型参数），请使用反射。</p>
+<p>encoding/json包就是一个例子。我们不想要求我们编码的每个类型都有MarshalJSON方法，所以我们不能使用接口类型。但对接口类型的编码与对结构类型的编码不同，因此我们不应该使用类型参数。相反，该包使用反射。代码不简单，但它有效。有关详细信息，请参阅<a href="https://go.dev/src/encoding/json/encode.go">源代码</a>。</p>
+<h2 id="总结">总结</h2>
+<p>总之，如果你发现自己多次编写完全相同的代码，而这些代码之间的唯一区别就是使用的类型不同，这个时候你就应该考虑是否可以使用类型参数。</p>
+<p>泛型和接口类型之间并不是替代关系，而是相辅相成的关系。泛型的引入是为了配合接口的使用，让我们能够编写更加类型安全的Go代码，并能有效地减少重复代码。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%B3%9B%E5%9E%8B/">http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%B3%9B%E5%9E%8B/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%8D%E5%B0%84/">Go 语言基础之反射</a></li>
+        
+        <li><a href="/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B6%E5%8F%91/">Go 语言基础之并发</a></li>
+        
+        <li><a href="/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Berror%E6%8E%A5%E5%8F%A3/">Go语言基础之error接口</a></li>
+        
+        <li><a href="/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Bmap/">Go语言基础之map</a></li>
+        
+        <li><a href="/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/">Go语言基础之函数</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go' target="_blank">go</a></li>
+                
+                <li><a href='/tags/go-%E5%9F%BA%E7%A1%80' target="_blank">go 基础</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/Web/Cookie%E5%92%8CSession/" title="Cookie 和 Session" target="_blank">Cookie 和 Session</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/Web/Gin%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="Gin框架介绍及使用" target="_blank">Gin框架介绍及使用</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/Web/gin%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E6%8B%86%E5%88%86%E4%B8%8E%E6%B3%A8%E5%86%8C/" title="gin框架路由拆分与注册" target="_blank">gin框架路由拆分与注册</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%8D%E5%B0%84/" title="Go 语言基础之反射" target="_blank">Go 语言基础之反射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B6%E5%8F%91/" title="Go 语言基础之并发" target="_blank">Go 语言基础之并发</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/Go%E6%93%8D%E4%BD%9CMySQLsql%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="Go操作MySQL—— sql 使用指南" target="_blank">Go操作MySQL—— sql 使用指南</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Berror%E6%8E%A5%E5%8F%A3/" title="Go语言基础之error接口" target="_blank">Go语言基础之error接口</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Bmap/" title="Go语言基础之map" target="_blank">Go语言基础之map</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数" target="_blank">Go语言基础之函数</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87/" title="Go语言基础之切片" target="_blank">Go语言基础之切片</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (23)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

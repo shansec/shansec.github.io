@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 未来可期的博客</title>
+    <link>http://shansec.github.io/tags/docker/</link>
+    <description>Recent content in docker on 未来可期的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2024 10:39:46 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何使用Docker部署Go Web应用</title>
+      <link>http://shansec.github.io/post/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sat, 20 Apr 2024 10:39:46 +0000</pubDate>
+      
+      <guid>http://shansec.github.io/post/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/</guid>
+      <description>为什么需要Docker？ 使用docker的主要目标是容器化。也就是为你的应用程序提供一致的环境，而不依赖于它运行的主机。 想象一下你是否也会遇到下面这个场景，你在本地开发了你的应用程序，它很可能有很多的依赖环境或包，甚至对依赖的具体版本都有严格的要求，当开发过程完成后，你希望将应用</description>
+    </item>
+    
+  </channel>
+</rss>

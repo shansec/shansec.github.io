@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>微信小程序picker组件遇到的问题以及解决办法 | 未来可期的博客</title>
+    <meta property="og:title" content="微信小程序picker组件遇到的问题以及解决办法 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2023-03-22T10:45:38&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2023-03-22T10:45:38&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="微信小程序picker组件遇到的问题以及解决办法">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents"></nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">微信小程序picker组件遇到的问题以及解决办法</h1>
+        </header>
+        
+  <time datetime="2023-03-22T10:45:38Z" class="post-meta meta-date dt-published">
+    2023-03-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="一picker基本概念">一、picker基本概念</h1>
+<blockquote>
+<p>先来看一下官方文档中<a href="https://developers.weixin.qq.com/miniprogram/dev/component/picker.html">picker</a>的基本概念：
+从底部弹起的滚动选择器，现支持三种选择器，通过mode来区分，分别是普通选择器，时间选择器，日期选择器，默认是普通选择器。</p>
+</blockquote>
+<p><strong>重要属性</strong></p>
+<ul>
+<li>range： 选取范围，数据类型为Array / Object Array，mode为 普通选择器 时，range 有效；</li>
+<li>value： value 的值表示选择了 range 中的第几个（下标从 0 开始），数据类型肯定是Number；</li>
+<li>bindchange： 绑定事件，value 改变时触发 change 事件，event.detail = {value: value}。</li>
+<li>mode：选择器类型，可以是selector（	普通选择器）、multiSelector（多列选择器）、date（时间选择器）、time（日期选择器）、region（省市区选择器）；</li>
+</ul>
+<h1 id="二遇到的问题">二、遇到的问题</h1>
+<p><code>问题说在前面</code>，同一个页面使用多个普通选择器遇到了问题，选择一个选项，其他选项也跟随着改变了。
+代码如下：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>//picker.wxml：   
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;选项一&lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span> <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindchange1&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{option1}}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                {{option1[index]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;选项二&lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span> <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindchange1&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{option2}}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                {{option2[index]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;选项三&lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span> <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindchange1&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{option3}}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                {{option3[index]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">//picker.js
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    Page({
+</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>        index<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,<span style="color:#998;font-style:italic">//设置索引值默认为0
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        option1<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;1&#39;</span>, <span style="color:#d14">&#39;2&#39;</span>, <span style="color:#d14">&#39;3&#39;</span>,<span style="color:#d14">&#39;4&#39;</span>,<span style="color:#d14">&#39;5&#39;</span>],
+</span></span><span style="display:flex;"><span>        option2<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;一&#39;</span>, <span style="color:#d14">&#39;二&#39;</span>, <span style="color:#d14">&#39;三&#39;</span>,<span style="color:#d14">&#39;四&#39;</span>,<span style="color:#d14">&#39;五&#39;</span>],
+</span></span><span style="display:flex;"><span>        option3<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;①&#39;</span>, <span style="color:#d14">&#39;②&#39;</span>, <span style="color:#d14">&#39;③&#39;</span>,<span style="color:#d14">&#39;④&#39;</span>,<span style="color:#d14">&#39;⑤&#39;</span>],
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    bindchange1<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">function</span> (e) {
+</span></span><span style="display:flex;"><span>       <span style="color:#998;font-style:italic">// console.log(&#39;picker发送选择改变，携带值为&#39;, e.detail.value)
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>       <span style="color:#998;font-style:italic">// 设置这个携带值赋值给索引值index
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>       <span style="color:#998;font-style:italic">// 所以option1 ,option2 ,option3的索引值都是一样的
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">this</span>.setData({
+</span></span><span style="display:flex;"><span>            index<span style="color:#000;font-weight:bold">:</span> e.detail.value
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为默认索引值（也叫“下标”）都是<code>index</code>，绑定事件也只是改变了<code>index</code>。所以改变一个选项，其他选项都跟着改变了。</p>
+<h1 id="三如何解决">三、如何解决</h1>
+<p><em><strong>首先想到的解决办法就是自定义不同的索引值index1、index2,、index3，分别绑定不同的时间bindchange1、bindchange2、bindchange3改变其对应的索引值。</strong></em>
+代码如下：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>//picker.wxml： 
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;选项一&lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span> <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindchange1&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index1}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{option1}}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                {{option1[index1]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;选项二&lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span> <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindchange2&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index2}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{option2}}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                {{option2[index2]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;选项三&lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span> <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindchange3&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index3}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{option3}}&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                {{option3[index3]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// picker.js
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    Page({
+</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>        index1<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>        index2<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>        index3<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>        option1<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;1&#39;</span>, <span style="color:#d14">&#39;2&#39;</span>, <span style="color:#d14">&#39;3&#39;</span>,<span style="color:#d14">&#39;4&#39;</span>,<span style="color:#d14">&#39;5&#39;</span>],
+</span></span><span style="display:flex;"><span>        option2<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;一&#39;</span>, <span style="color:#d14">&#39;二&#39;</span>, <span style="color:#d14">&#39;三&#39;</span>,<span style="color:#d14">&#39;四&#39;</span>,<span style="color:#d14">&#39;五&#39;</span>],
+</span></span><span style="display:flex;"><span>        option3<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;①&#39;</span>, <span style="color:#d14">&#39;②&#39;</span>, <span style="color:#d14">&#39;③&#39;</span>,<span style="color:#d14">&#39;④&#39;</span>,<span style="color:#d14">&#39;⑤&#39;</span>],
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    bindchange1<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">function</span> (e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.setData({
+</span></span><span style="display:flex;"><span>            index1<span style="color:#000;font-weight:bold">:</span> e.detail.value
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    bindchange2<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">function</span> (e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.setData({
+</span></span><span style="display:flex;"><span>            index2<span style="color:#000;font-weight:bold">:</span> e.detail.value
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    bindchange3<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">function</span> (e) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">this</span>.setData({
+</span></span><span style="display:flex;"><span>            index3<span style="color:#000;font-weight:bold">:</span> e.detail.value
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样一个页面多个picker的问题就解决了，但是现在又发现了一个新的问题：
+<code>为什么多个picker会出现相互影响的问题？比如在第一个选择器选择了3，剩下的选择器点进去默认都是从第3个开始？” 小程序开发工具中的确存在，看了社区的帖子，才知道这个是官方的bug，目前还没有修复。</code></p>
+<h1 id="四延伸">四、延伸</h1>
+<p>在这里使用了多个picker，可以想到使用<code>wx:for</code>循环，那么为了渲染方便，数据就要修改为对象的数组。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// picker.js
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>Page({
+</span></span><span style="display:flex;"><span>    data<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">//每个对象就是一个选择器，有自己的索引值index，标题title，选项option（又是一个数组）
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        objArray<span style="color:#000;font-weight:bold">:</span>[
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                index<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>                title<span style="color:#000;font-weight:bold">:</span><span style="color:#d14">&#39;选项一&#39;</span>,
+</span></span><span style="display:flex;"><span>                option<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;1&#39;</span>, <span style="color:#d14">&#39;2&#39;</span>, <span style="color:#d14">&#39;3&#39;</span>,<span style="color:#d14">&#39;4&#39;</span>,<span style="color:#d14">&#39;5&#39;</span>],
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                index<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>                title<span style="color:#000;font-weight:bold">:</span><span style="color:#d14">&#39;选项二&#39;</span>,
+</span></span><span style="display:flex;"><span>                option<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;一&#39;</span>, <span style="color:#d14">&#39;二&#39;</span>, <span style="color:#d14">&#39;三&#39;</span>,<span style="color:#d14">&#39;四&#39;</span>,<span style="color:#d14">&#39;五&#39;</span>],
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                index<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>                title<span style="color:#000;font-weight:bold">:</span><span style="color:#d14">&#39;选项三&#39;</span>,
+</span></span><span style="display:flex;"><span>                option<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;①&#39;</span>, <span style="color:#d14">&#39;②&#39;</span>, <span style="color:#d14">&#39;③&#39;</span>,<span style="color:#d14">&#39;④&#39;</span>,<span style="color:#d14">&#39;⑤&#39;</span>]
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 绑定事件，因为不能用this.setData直接设置每个对象的索引值index。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// 所以用自定义属性current来标记每个数组对象的下标
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    bindChange_select<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>(ev) {
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 定义一个变量curindex 储存触发事件的数组对象的下标
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">const</span> curindex <span style="color:#000;font-weight:bold">=</span> ev.target.dataset.current
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 根据下标 改变该数组对象中的index值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">this</span>.data.objArray[curindex].index <span style="color:#000;font-weight:bold">=</span> ev.detail.value
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 把改变某个数组对象index值之后的全新objArray重新 赋值给objArray
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">this</span>.setData({
+</span></span><span style="display:flex;"><span>            objArray<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">this</span>.data.objArray
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>wx:for绑定数组objArray,当前项的下标变量名默认为index，数组当前项的变量名默认为item，为了区分选项option中的下标
+使用 wx:for-item 可以指定数组当前元素的变量名为itm，使用 wx:for-index 可以指定数组当前下标的变量名为idx。</p>
+<p><strong>关键点是：自定义一个属性对应当前下标 data-current=&quot;{{idx}}&quot;，绑定事件bindChange_select触发时判断出是哪个数组对象触发的，就改变该数组对象中的index值。</strong></p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>//picker.wxml：
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;column_list mt_10&#34;</span> <span style="color:#008080">wx:for</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{objArray}}&#34;</span> <span style="color:#008080">wx:for-item</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;itm&#34;</span>  <span style="color:#008080">wx:for-index</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;idx&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">text</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;font15&#34;</span>&gt;{{itm.title}} &lt;/<span style="color:#000080">text</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">picker</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;inputText&#34;</span>  <span style="color:#008080">bindchange</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;bindChange_select&#34;</span> <span style="color:#008080">value</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{itm.index}}&#34;</span> <span style="color:#008080">data-current</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{idx}}&#34;</span> <span style="color:#008080">range</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{itm.option}}&#34;</span> &gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_picker&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                 {{itm.option[itm.index]}}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#000080">image</span>  <span style="color:#008080">mode</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;aspectFit&#34;</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;select_arrow&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;../../images/select_arrow.png&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#000080">picker</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">view</span>&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/">微信小程序自定义tabbar栏【中间突出样式】</a></li>
+        
+        <li><a href="/post/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/">谈谈我对 path.resolve 的理解</a></li>
+        
+        <li><a href="/post/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/">七个 Vue 项目用得上的 JavaScript 库分享</a></li>
+        
+        <li><a href="/post/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/">从Vue2 到 Vue3，这些路由差异你需要掌握！</a></li>
+        
+        <li><a href="/post/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/">盘点一些惊艳一时的 CSS 属性</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F' target="_blank">微信小程序</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/Web/Cookie%E5%92%8CSession/" title="Cookie 和 Session" target="_blank">Cookie 和 Session</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/Web/Gin%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="Gin框架介绍及使用" target="_blank">Gin框架介绍及使用</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/Web/gin%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E6%8B%86%E5%88%86%E4%B8%8E%E6%B3%A8%E5%86%8C/" title="gin框架路由拆分与注册" target="_blank">gin框架路由拆分与注册</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%8D%E5%B0%84/" title="Go 语言基础之反射" target="_blank">Go 语言基础之反射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B6%E5%8F%91/" title="Go 语言基础之并发" target="_blank">Go 语言基础之并发</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/Go%E6%93%8D%E4%BD%9CMySQLsql%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="Go操作MySQL—— sql 使用指南" target="_blank">Go操作MySQL—— sql 使用指南</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Berror%E6%8E%A5%E5%8F%A3/" title="Go语言基础之error接口" target="_blank">Go语言基础之error接口</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Bmap/" title="Go语言基础之map" target="_blank">Go语言基础之map</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数" target="_blank">Go语言基础之函数</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87/" title="Go语言基础之切片" target="_blank">Go语言基础之切片</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (23)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
