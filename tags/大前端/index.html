@@ -18,12 +18,12 @@
     <meta name="description" content="大前端">
         
     <meta name="author" content="飞雪无情">
-    <meta property="og:url" content="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">
+    <meta property="og:url" content="http://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <link rel="alternate" type="application/rss+xml" href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/index.xml" title="飞雪无情的博客" />
+    <link rel="alternate" type="application/rss+xml" href="http://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/index.xml" title="飞雪无情的博客" />
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="https://shansec.github.io">
+                    <a id="logo" href="http://shansec.github.io">
                         飞雪无情的博客
                     </a>
                 
@@ -52,13 +52,13 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://shansec.github.io">Home</a>
+                    <a class="" href="http://shansec.github.io">Home</a>
                     
-                    <a  href="https://shansec.github.io/study/" title="学习">学习</a>
+                    <a  href="http://shansec.github.io/study/" title="学习">学习</a>
                     
-                    <a  href="https://shansec.github.io/blog/" title="博客">博客</a>
+                    <a  href="http://shansec.github.io/blog/" title="博客">博客</a>
                     
-                    <a  href="https://shansec.github.io/archives/" title="归档">归档</a>
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
                     
                 </nav>
             </div>
@@ -85,7 +85,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Vue3开发踩坑</a>
+                <a href="http://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Vue3开发踩坑</a>
             </h1>
         </header>
         
@@ -104,14 +104,14 @@
 
         <div class="post-content">
             期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： 1 2 3 4 // main.js const app = createApp(App) app.config.globalProperties.$test = &#39;test&#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 &lt;tempalte&gt; &lt;div&gt;{{ $test }}&lt;/div&gt; &lt;/tempalte&gt; &lt;script&gt; import { getCurrentInstance } from &#39;vue&#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&#39;test===&#39;) console.log(test) }, }……
-            <p class="readmore"><a href="https://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Continue reading</a></p>
+            <p class="readmore"><a href="http://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Continue reading</a></p>
         </div>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_blank">微信小程序picker组件遇到的问题以及解决办法</a>
+                <a href="http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_blank">微信小程序picker组件遇到的问题以及解决办法</a>
             </h1>
         </header>
         
@@ -130,14 +130,14 @@
 
         <div class="post-content">
             一、picker基本概念 先来看一下官方文档中picker的基本概念： 从底部弹起的滚动选择器，现支持三种选择器，通过mode来区分，分别是普通选择器，时间选择器，日期选择器，默认是普通选择器。 重要属性 range： 选取范围，数据类型为Array / Object Array，mode为 普通选择器 时，……
-            <p class="readmore"><a href="https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_blank">Continue reading</a></p>
+            <p class="readmore"><a href="http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_blank">Continue reading</a></p>
         </div>
     </article>
     
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/" target="_blank">微信小程序自定义tabbar栏【中间突出样式】</a>
+                <a href="http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/" target="_blank">微信小程序自定义tabbar栏【中间突出样式】</a>
             </h1>
         </header>
         
@@ -156,7 +156,7 @@
 
         <div class="post-content">
             前言 昨天主管突然给我说微信小程序默认的 tabBar 不美观，让我改成中间突出的那种样式。纵然我心里面有千般不情愿，但还是接下了这个任务。查了一下文档 自定义 tabBar 发现有这个方法，有思路了就赶紧搞起来，以下是我的开发经验分享。 一、自定义tabbar栏 配置 在 app.json 文件中的 tabBar 中指定 custom 字段为 true（意思是允……
-            <p class="readmore"><a href="https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/" target="_blank">Continue reading</a></p>
+            <p class="readmore"><a href="http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/" target="_blank">Continue reading</a></p>
         </div>
     </article>
     
@@ -171,7 +171,7 @@
 
                     <footer id="footer">
     <div>
-        &copy; 2024 <a href="https://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
+        &copy; 2024 <a href="http://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
         
     </div>
     <br />
@@ -205,10 +205,10 @@
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='https://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
-      <input type="hidden" name="sitesearch" value="https://shansec.github.io">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -226,19 +226,19 @@
         <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
 <ul class="widget-list">
     
-    <li><a href="https://shansec.github.io/categories/CSS/">CSS (1)</a></li>
+    <li><a href="http://shansec.github.io/categories/CSS/">CSS (1)</a></li>
     
-    <li><a href="https://shansec.github.io/categories/Vue/">Vue (9)</a></li>
+    <li><a href="http://shansec.github.io/categories/Vue/">Vue (9)</a></li>
     
-    <li><a href="https://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
     
-    <li><a href="https://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
     
-    <li><a href="https://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
     
-    <li><a href="https://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
     
-    <li><a href="https://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
     
 </ul>
     </section>
@@ -247,59 +247,59 @@
         <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
 <div class="tagcloud">
     
-    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
     
-    <a href="https://shansec.github.io/tags/Dom/">Dom</a>
+    <a href="http://shansec.github.io/tags/Dom/">Dom</a>
     
-    <a href="https://shansec.github.io/tags/HTML/">HTML</a>
+    <a href="http://shansec.github.io/tags/HTML/">HTML</a>
     
-    <a href="https://shansec.github.io/tags/JavaScript/">JavaScript</a>
+    <a href="http://shansec.github.io/tags/JavaScript/">JavaScript</a>
     
-    <a href="https://shansec.github.io/tags/Pinia/">Pinia</a>
+    <a href="http://shansec.github.io/tags/Pinia/">Pinia</a>
     
-    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    <a href="http://shansec.github.io/tags/Vue/">Vue</a>
     
-    <a href="https://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
+    <a href="http://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
     
-    <a href="https://shansec.github.io/tags/cookie/">cookie</a>
+    <a href="http://shansec.github.io/tags/cookie/">cookie</a>
     
-    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
     
-    <a href="https://shansec.github.io/tags/js%E5%BA%93/">js库</a>
+    <a href="http://shansec.github.io/tags/js%E5%BA%93/">js库</a>
     
-    <a href="https://shansec.github.io/tags/package/">package</a>
+    <a href="http://shansec.github.io/tags/package/">package</a>
     
-    <a href="https://shansec.github.io/tags/typescript/">typescript</a>
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
     
-    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    <a href="http://shansec.github.io/tags/Vue/">Vue</a>
     
-    <a href="https://shansec.github.io/tags/vue.js/">vue.js</a>
+    <a href="http://shansec.github.io/tags/vue.js/">vue.js</a>
     
-    <a href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+    <a href="http://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
     
-    <a href="https://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+    <a href="http://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
     
-    <a href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
+    <a href="http://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
     
-    <a href="https://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+    <a href="http://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
     
-    <a href="https://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
     
-    <a href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+    <a href="http://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
     
-    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
+    <a href="http://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
     
-    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
+    <a href="http://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
     
-    <a href="https://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
+    <a href="http://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
     
-    <a href="https://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+    <a href="http://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
     
-    <a href="https://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
+    <a href="http://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
     
-    <a href="https://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
     
-    <a href="https://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    <a href="http://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
     
 </div>
     </section>
@@ -324,7 +324,7 @@
     <section class="widget">
         <h3 class="widget-title">Meta</h3>
         <ul class="widget-list">
-            <li><a href="https://shansec.github.io/index.xml">RSS</a></li>
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
         </ul>
     </section>
 </div>

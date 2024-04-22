@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>公众号 on 飞雪无情的博客</title>
-    <link>https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/</link>
+    <link>http://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/</link>
     <description>Recent content in 公众号 on 飞雪无情的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 06 May 2023 14:27:30 +0000</lastBuildDate><atom:link href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 May 2023 14:27:30 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>微信小程序中判断用户是否已关注公众号的两种实现</title>
-      <link>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sat, 06 May 2023 14:27:30 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</guid>
       <description>背景： 最近的一个小程序项目中有这么一个需求：进入我的主页后, 如果用户没有关注过我们的公众号, 则展示一个引导关注公众号组件, 点击后跳转到一篇公众号文章, 指引用户进行关注，用户完成关注隐藏该组件。 方式一(前后端参与)： 由于对微信的UnionID机制一知半解（知道用户在同一个开放平台下</description>
     </item>
     

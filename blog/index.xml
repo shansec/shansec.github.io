@@ -2,215 +2,215 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on 飞雪无情的博客</title>
-    <link>https://shansec.github.io/blog/</link>
+    <link>http://shansec.github.io/blog/</link>
     <description>Recent content in Blogs on 飞雪无情的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 10 May 2023 17:33:43 +0000</lastBuildDate><atom:link href="https://shansec.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 May 2023 17:33:43 +0000</lastBuildDate><atom:link href="http://shansec.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>浏览器是如何渲染页面的？</title>
-      <link>https://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/</link>
+      <link>http://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/</link>
       <pubDate>Wed, 10 May 2023 17:33:43 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/</guid>
+      <guid>http://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/</guid>
       <description>当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。 整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一</description>
     </item>
     
     <item>
       <title>CSS属性计算过程</title>
-      <link>https://shansec.github.io/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/</link>
+      <link>http://shansec.github.io/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Wed, 10 May 2023 16:58:13 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/</guid>
+      <guid>http://shansec.github.io/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/</guid>
       <description>CSS 属性计算过程 你是否了解 CSS 的属性计算过程呢？ 有的同学可能会讲，CSS属性我倒是知道，例如： 1 2 3 p{ color : red; } 上面的 CSS 代码中，p 是元素选择器，color 就是其中的一个 CSS 属性。 但是要说 CSS 属性的计算过程，还真的不是很清楚。 没关系，通过此篇文章，能够让你彻底明白什么是 CSS 属性的计算流程。 首先</description>
     </item>
     
     <item>
       <title>微信小程序中判断用户是否已关注公众号的两种实现</title>
-      <link>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</link>
+      <link>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sat, 06 May 2023 14:27:30 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/</guid>
       <description>背景： 最近的一个小程序项目中有这么一个需求：进入我的主页后, 如果用户没有关注过我们的公众号, 则展示一个引导关注公众号组件, 点击后跳转到一篇公众号文章, 指引用户进行关注，用户完成关注隐藏该组件。 方式一(前后端参与)： 由于对微信的UnionID机制一知半解（知道用户在同一个开放平台下</description>
     </item>
     
     <item>
       <title>Vue.js中 watch 的高级用法</title>
-      <link>https://shansec.github.io/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
+      <link>http://shansec.github.io/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</link>
       <pubDate>Thu, 04 May 2023 16:34:54 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
+      <guid>http://shansec.github.io/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
       <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 &amp;lt;div&amp;gt; &amp;lt;p&amp;gt;FullName: {{fullName}}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;FirstName: &amp;lt;input type=&amp;#34;text&amp;#34; v-model=&amp;#34;firstName&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; new Vue({ el: &amp;#39;#root&amp;#39;, data: { firstName: &amp;#39;Dawei&amp;#39;, lastName: &amp;#39;Lou&amp;#39;, fullName: &amp;#39;&amp;#39; }, watch: { firstName(newName, oldName) { this.fullName = newName + &amp;#39; &amp;#39; + this.lastName; } } }) 上面的代码的效果是，当我们输入firstName后，wacth监听每次修改变化的新值，然后计算输出fullName。 handler方法和immediate属性 这里 watch 的一个</description>
     </item>
     
     <item>
       <title>Vue3 Composition API: 对比ref和reactive</title>
-      <link>https://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</link>
+      <link>http://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</link>
       <pubDate>Thu, 04 May 2023 11:13:30 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</guid>
+      <guid>http://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/</guid>
       <description>Vue2 回顾 首先回顾一下在Vue2中我们是如何创建一个响应式数据 (reactive data)的： Vue3新特性 ref的使用 而在Vue3中，我们可以用Composition API: ref 来改写上述代码： ref 的作用就是将一个原始数据类型（primitive data type）转换成一个带有响应式类型 的数据类型，原始数据类型共</description>
     </item>
     
     <item>
       <title>微信小程序全局变量监听</title>
-      <link>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/</link>
+      <link>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/</link>
       <pubDate>Wed, 26 Apr 2023 10:23:34 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/</guid>
+      <guid>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/</guid>
       <description>需求：在任意一个页面上实时监听全局变量发生的改变。 第一步 新建 utils 文件夹，并在文件夹中新建 onEvent.js 文件。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 var events = {}; function on(name, self, callback) { var tuple = [self, callback]; var callbacks = events[name]; if (Array.isArray(callbacks)) { callbacks.push(tuple); } else { events[name] = [tuple]; } } function remove(name, self) { var callbacks = events[name]; if (Array.isArray(callbacks)) { events[name] = callbacks.filter((tuple) =&amp;gt; { return tuple[0] != self; }) } } function emit(name, data) { var</description>
     </item>
     
     <item>
       <title>JavaScript 中如何判断变量是否为数字</title>
-      <link>https://shansec.github.io/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/</link>
+      <link>http://shansec.github.io/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/</link>
       <pubDate>Fri, 14 Apr 2023 10:33:36 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/</guid>
+      <guid>http://shansec.github.io/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/</guid>
       <description>简介 JavaScript 是一种动态类型语言，这意味着解释器在运行时确定变量的类型。实际上，这也允许我们在相同的代码中使用相同的变量来存储不同类型的数据。如果没有文档和一致性，我们在使用代码时并不总是知道变量的类型。 当我们期望一个变量是数字时，对字符串或数组进行操作可能会在代码中导致奇怪的结果。在本</description>
     </item>
     
     <item>
       <title>Vue3开发踩坑</title>
-      <link>https://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</link>
+      <link>http://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</link>
       <pubDate>Fri, 24 Mar 2023 09:45:47 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</guid>
+      <guid>http://shansec.github.io/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</guid>
       <description>期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： 1 2 3 4 // main.js const app = createApp(App) app.config.globalProperties.$test = &amp;#39;test&amp;#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 &amp;lt;tempalte&amp;gt; &amp;lt;div&amp;gt;{{ $test }}&amp;lt;/div&amp;gt; &amp;lt;/tempalte&amp;gt; &amp;lt;script&amp;gt; import { getCurrentInstance } from &amp;#39;vue&amp;#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&amp;#39;test===&amp;#39;) console.log(test) }, }</description>
     </item>
     
     <item>
       <title>史上最全面、最详细的Cookie总结</title>
-      <link>https://shansec.github.io/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/</link>
+      <link>http://shansec.github.io/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/</link>
       <pubDate>Fri, 24 Mar 2023 09:42:22 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/</guid>
+      <guid>http://shansec.github.io/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/</guid>
       <description>1. Cookie 产生的背景 我们都知道，HTTP 协议是无状态的，服务器无法知道两个请求是否来自同一个浏览器，也不知道用户上一次做了什么，每次请求都是完全相互独立，这严重阻碍了交互式 Web 应用程序的实现。例如： 购物车：在典型的网上购物场景中，用户浏览了几个页面，买了一盒饼干和两瓶饮料。最后结帐时，由</description>
     </item>
     
     <item>
       <title>浏览器输入URL后都发生了什么？？</title>
-      <link>https://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/</link>
+      <link>http://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/</link>
       <pubDate>Fri, 24 Mar 2023 09:35:08 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/</guid>
+      <guid>http://shansec.github.io/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/</guid>
       <description>DNS 域名解析 在网络世界，你肯定记得住网站的名称，但是很难记住网站的 IP 地址，因而也需要一个地址簿，就是 DNS 服务器。DNS 服务器是高可用、高并发和分布式的，它是树状结构，如图： 根 DNS 服务器 ：返回顶级域 DNS 服务器的 IP 地址 顶级域 DNS 服务器：返回权威 DNS 服务器的 IP 地址 权威 DNS 服务器 ：返回相应主机的 IP 地址</description>
     </item>
     
     <item>
       <title>微信小程序自定义顶部状态栏</title>
-      <link>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/</link>
+      <link>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/</link>
       <pubDate>Wed, 22 Mar 2023 10:47:12 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/</guid>
+      <guid>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/</guid>
       <description>因为工作需要，要在微信小程序中自定义顶部导航栏，通过这篇文章来记录一下自己所得~ 第一步: 需要在json文件中配置&amp;quot;navigation&amp;quot; : &amp;quot;custom&amp;quot;，完成自定义导航栏，只保留胶囊按钮，效果如下图： 做完以上步骤，基本上就可以自定义导航栏</description>
     </item>
     
     <item>
       <title>微信小程序picker组件遇到的问题以及解决办法</title>
-      <link>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Wed, 22 Mar 2023 10:45:38 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>一、picker基本概念 先来看一下官方文档中picker的基本概念： 从底部弹起的滚动选择器，现支持三种选择器，通过mode来区分，分别是普通选择器，时间选择器，日期选择器，默认是普通选择器。 重要属性 range： 选取范围，数据类型为Array / Object Array，mode为 普通选择器 时，</description>
     </item>
     
     <item>
       <title>微信小程序自定义tabbar栏【中间突出样式】</title>
-      <link>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/</link>
+      <link>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/</link>
       <pubDate>Wed, 22 Mar 2023 10:43:59 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/</guid>
+      <guid>http://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/</guid>
       <description>前言 昨天主管突然给我说微信小程序默认的 tabBar 不美观，让我改成中间突出的那种样式。纵然我心里面有千般不情愿，但还是接下了这个任务。查了一下文档 自定义 tabBar 发现有这个方法，有思路了就赶紧搞起来，以下是我的开发经验分享。 一、自定义tabbar栏 配置 在 app.json 文件中的 tabBar 中指定 custom 字段为 true（意思是允</description>
     </item>
     
     <item>
       <title>谈谈我对 path.resolve 的理解</title>
-      <link>https://shansec.github.io/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <link>http://shansec.github.io/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/</link>
       <pubDate>Wed, 22 Mar 2023 10:39:46 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <guid>http://shansec.github.io/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
       <description>前言 前一段时间在阅读源码的时候，遇到了path.resolve()，经过请教，终于知道了这个方法的作用。这边文章用来记录自己的使用心得。 正文 path.resolve() 作用：path.resolve() 该方法将一些的 路径/路径段 解析为绝对路径。 语法：path.resolve( [from…],to )。 说明：</description>
     </item>
     
     <item>
       <title>七个 Vue 项目用得上的 JavaScript 库分享</title>
-      <link>https://shansec.github.io/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/</link>
+      <link>http://shansec.github.io/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/</link>
       <pubDate>Wed, 22 Mar 2023 10:37:34 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/</guid>
+      <guid>http://shansec.github.io/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/</guid>
       <description>前言 借助开源库加速 Vue 项目的开发进度是现代前端开发比较常见的方式，平常收集一些 JavaScript 库介绍，在遇到需要的时候可以信手拈来。Vue 生态有很多不错的依赖库或者组件，是使用 Vue 开发前端的原因之一。接下来将会介绍七个 Vue 项目中会用到的 JavaScript 库。 一、vueuse 这是 GitHub 上星最多的库之一，拥有超过 12.8k 颗星，这</description>
     </item>
     
     <item>
       <title>盘点一些惊艳一时的 CSS 属性</title>
-      <link>https://shansec.github.io/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/</link>
+      <link>http://shansec.github.io/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/</link>
       <pubDate>Wed, 22 Mar 2023 10:28:10 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/</guid>
+      <guid>http://shansec.github.io/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/</guid>
       <description>前言 随着前端的不断发展，更多新的 CSS 属性不断加入提案，本文列举 5 个不常用但很有用且你见过也可能没见过的 CSS 属性，带大家领略 CSS 之美。 一、position: sticky 不知道大家平时业务开发中有没有碰到这样的需求：标题在滚动的时候，会一直贴着最顶上。这种场景实际上很多：比如表格的标题栏、网站的导航</description>
     </item>
     
     <item>
       <title>Pinia食用指南</title>
-      <link>https://shansec.github.io/blog/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/</link>
+      <link>http://shansec.github.io/blog/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/</link>
       <pubDate>Mon, 20 Mar 2023 14:24:21 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
+      <guid>http://shansec.github.io/blog/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
       <description>前言 Pinia ，发音为 /piːnjʌ/，来源于西班牙语 piña 。意思为菠萝，表示与菠萝一样，由很多小块组成。在 Pinia 中，每个 Store 都是单独存在，一同进行状态管理。与 Vuex 相比，Pinia 提供了更简单的 API，更少的规范，以及 Composition-API 风格的 API 。更重要的是，与 TypeScript 一起使用具有可靠的类型推断支持。 Pinia与Vu</description>
     </item>
     
     <item>
       <title>package.json配置解读</title>
-      <link>https://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</link>
+      <link>http://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</link>
       <pubDate>Mon, 20 Mar 2023 14:21:54 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</guid>
+      <guid>http://shansec.github.io/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/</guid>
       <description>前言 package.json是每个前端项目都会有的json文件，位于项目的根目录中。很多脚手架在创建项目的时候会帮我们自动初始化好 package.json。package.json有许多配置与项目息息相关，了解他们有助于对项目的开发，接下来让我们开始了解package.json的</description>
     </item>
     
     <item>
       <title>何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</title>
-      <link>https://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</link>
+      <link>http://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</link>
       <pubDate>Mon, 20 Mar 2023 14:15:59 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</guid>
+      <guid>http://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</guid>
       <description>前言 要说今年最热门的前端技术，Vue3 和 TS 绝对榜上有名了。今天就给大家分享一下如何在 Vue3 组件中结合 Composition-Api 使用 TS 类型。如果有不会或者不熟的小伙伴，一起学起来吧！ 一、为 props 标注类型 使用 &amp;lt; script setup &amp;gt; 当使用 &amp;lt; script setup &amp;gt; 时，defineProps() 宏函数支持从它的参数中推导类型： 这被称为 运行时声明 ，因为</description>
     </item>
     
     <item>
       <title>助你从Vue2过渡到Vue3的常见使用场景</title>
-      <link>https://shansec.github.io/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
+      <link>http://shansec.github.io/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</link>
       <pubDate>Mon, 20 Mar 2023 14:11:12 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
+      <guid>http://shansec.github.io/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/</guid>
       <description>前言 相信有很多人已经学习了 Vue3 的 API 和 新特性，但是令人头疼的是工作中依然使用的是 Vue2，也不知道自己的水平能否上手 Vue3 项目，今天把实践过程中常见使用场景分享给大家，希望对你们有所帮助。 场景一：父子组件数据传递 父组件数据传递到子组件 Vue3 中父组件同样是通过属性传递数据，但子组件接受数据的方</description>
     </item>
     
     <item>
       <title>Vue3中操作dom的四种方式，建议收藏！！！</title>
-      <link>https://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</link>
+      <link>http://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</link>
       <pubDate>Mon, 20 Mar 2023 14:09:39 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
+      <guid>http://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
       <description>前言 最近主管提出了许多优化用户体验的要求，其中很多涉及 dom 操作。本文将 Vue3 中常见的 dom 操作总结了一下。觉得文章不错、或对自己开发有所帮助，欢迎点赞收藏！ 一、通过 ref 拿到 dom 的引用 1 2 3 4 5 6 7 8 9 10 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;ref-container&amp;#34;&amp;gt; &amp;lt;div ref=&amp;#34;sectionRef&amp;#34; class=&amp;#34;ref-section&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script lang=&amp;#34;ts&amp;#34; setup&amp;gt; import { ref } from &amp;#39;vue&amp;#39; const sectionRef = ref() &amp;lt;/script&amp;gt; 通过对 div 元素添加 ref 属性，为了获取到这个元素，我们</description>
     </item>
     
     <item>
       <title>Vue 项目如何实现一个全局菜单搜索框</title>
-      <link>https://shansec.github.io/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</link>
+      <link>http://shansec.github.io/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</link>
       <pubDate>Mon, 20 Mar 2023 12:29:21 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</guid>
+      <guid>http://shansec.github.io/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</guid>
       <description>前言 本篇文章分享一下我在实际开发 Vue 项目时遇到的需要 —— 全局菜单搜索。全局菜单搜索本质是 router 的使用，该功能已经实现，接下来分享一下开发心得。 一、过滤路由 首先需要过滤出符合条件的路由信息，过滤的条件包含两个： 路由可以显示出现（hidden: false） 路由元信息中包含 title 属性 代码展示： 1</description>
     </item>
     
     <item>
       <title>从Vue2 到 Vue3，这些路由差异你需要掌握！</title>
-      <link>https://shansec.github.io/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</link>
+      <link>http://shansec.github.io/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</link>
       <pubDate>Mon, 20 Mar 2023 11:16:00 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</guid>
+      <guid>http://shansec.github.io/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</guid>
       <description>前言 Vue3 已经出来很长时间了，但对 Vue3 的路由却了解的非常少，甚至只知道最基本的跳转和参数获取，这些技能处理一些复杂的功能是不够的，最近把 Vue3 的路由版本差异给学习了一下，在这里把结果分享给大家！！！ 一、导航守卫 全局前置守卫 全局前置守卫通常用来做权限控制，使用 router.beforeEach 即可添加： 1 2 3 4 5 6 const router = createRouter({...})</description>
     </item>
     

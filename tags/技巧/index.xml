@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>技巧 on 飞雪无情的博客</title>
-    <link>https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/</link>
+    <link>http://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/</link>
     <description>Recent content in 技巧 on 飞雪无情的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 Mar 2023 14:09:39 +0000</lastBuildDate><atom:link href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Mar 2023 14:09:39 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vue3中操作dom的四种方式，建议收藏！！！</title>
-      <link>https://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</link>
+      <link>http://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</link>
       <pubDate>Mon, 20 Mar 2023 14:09:39 +0000</pubDate>
       
-      <guid>https://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
+      <guid>http://shansec.github.io/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
       <description>前言 最近主管提出了许多优化用户体验的要求，其中很多涉及 dom 操作。本文将 Vue3 中常见的 dom 操作总结了一下。觉得文章不错、或对自己开发有所帮助，欢迎点赞收藏！ 一、通过 ref 拿到 dom 的引用 1 2 3 4 5 6 7 8 9 10 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;ref-container&amp;#34;&amp;gt; &amp;lt;div ref=&amp;#34;sectionRef&amp;#34; class=&amp;#34;ref-section&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script lang=&amp;#34;ts&amp;#34; setup&amp;gt; import { ref } from &amp;#39;vue&amp;#39; const sectionRef = ref() &amp;lt;/script&amp;gt; 通过对 div 元素添加 ref 属性，为了获取到这个元素，我们</description>
     </item>
     
