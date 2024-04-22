@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title> | 飞雪无情的博客</title>
+    <meta property="og:title" content=" - 飞雪无情的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,飞雪无情,java,android,博客,项目管理,python,软件架构,公众号,小程序">
+    <meta name="description" content="">
+        
+    <meta name="author" content="飞雪无情">
+    <meta property="og:url" content="https://shansec.github.io/study/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://shansec.github.io">
+                        飞雪无情的博客
+                    </a>
+                
+                <p class="description">专注于Android、Java、Go语言(golang)、移动互联网、项目管理、软件架构</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://shansec.github.io">Home</a>
+                    
+                    <a  href="https://shansec.github.io/study/" title="学习">学习</a>
+                    
+                    <a  href="https://shansec.github.io/blog/" title="博客">博客</a>
+                    
+                    <a  href="https://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#整型">整型</a>
+      <ul>
+        <li><a href="#特殊整型">特殊整型</a></li>
+        <li><a href="#数字字面量语法">数字字面量语法</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#字符串转义符">字符串转义符</a></li>
+    <li><a href="#多行字符串">多行字符串</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#修改字符串">修改字符串</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title"></h1>
+        </header>
+        
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="基本数据类型">基本数据类型</h1>
+<h2 id="整型">整型</h2>
+<p>整型分为以下两个大类： 按长度分为：int8、int16、int32、int64 对应的无符号整型：uint8、uint16、uint32、uint64</p>
+<p>其中，<code>uint8</code>就是我们熟知的<code>byte</code>型，<code>int16</code>对应C语言中的<code>short</code>型，<code>int64</code>对应C语言中的<code>long</code>型。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uint8</td>
+<td style="text-align:left">无符号8位整型(0到255)</td>
+</tr>
+<tr>
+<td style="text-align:left">uint16</td>
+<td style="text-align:left">无符号16位整型(0到65535)</td>
+</tr>
+<tr>
+<td style="text-align:left">uint32</td>
+<td style="text-align:left">无符号32位整型（0到4294967295)</td>
+</tr>
+<tr>
+<td style="text-align:left">uint64</td>
+<td style="text-align:left">无符号64位整型（0到18446744073709551615)</td>
+</tr>
+<tr>
+<td style="text-align:left">int8</td>
+<td style="text-align:left">有符号8位整型(-128到127)</td>
+</tr>
+<tr>
+<td style="text-align:left">int16</td>
+<td style="text-align:left">有符号16位整型(-32768到32767)</td>
+</tr>
+<tr>
+<td style="text-align:left">int32</td>
+<td style="text-align:left">有符号32位整型（-2147483648到2147483647)</td>
+</tr>
+<tr>
+<td style="text-align:left">int64</td>
+<td style="text-align:left">有符号64位整型（-9223372036854775808到9223372036854775807)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊整型">特殊整型</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uint</td>
+<td style="text-align:left">32位操作系统上就是uint32，64位操作系统上就是uint64</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">32位操作系统上就是int32，64位操作系统上就是int64</td>
+</tr>
+<tr>
+<td style="text-align:left">uintptr</td>
+<td style="text-align:left">无符号整型，用于存放一个指针</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong> 在使用<code>int</code>和 <code>uint</code>类型时，不能假定它是32位或64位的整型，而是考虑<code>int</code>和<code>uint</code>可能在不同平台上的差异。</p>
+<p><strong>注意事项</strong> 获取对象的长度的内建<code>len()</code>函数返回的长度可以根据不同平台的字节长度进行变化。实际使用中，切片或 map 的元素数量等都可以用<code>int</code>来表示。在涉及到二进制传输、读写文件的结构描述时，为了保持文件的结构不会受到不同编译目标平台字节长度的影响，不要使用<code>int</code>和 <code>uint</code>。</p>
+<h3 id="数字字面量语法">数字字面量语法</h3>
+<p>Go1.13版本之后引入了数字字面量语法，这样便于开发者以二进制、八进制或十六进制浮点数的格式定义数字，例如：</p>
+<p><code>v := 0b00101101</code>， 代表二进制的 101101，相当于十进制的 45。 <code>v := 0o377</code>，代表八进制的 377，相当于十进制的 255。 <code>v := 0x1p-2</code>，代表十六进制的 1 除以 2²，也就是 0.25。</p>
+<p>而且还允许我们用 <code>_</code> 来分隔数字，比如说： <code>v := 123_456</code> 表示 v 的值等于 123456。</p>
+<p>我们可以借助fmt函数来将一个整数以不同进制形式展示。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> <span style="color:#d14">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>(){
+</span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// 十进制
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">var</span> a <span style="color:#458;font-weight:bold">int</span> = <span style="color:#099">10</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%d \n&#34;</span>, a)  <span style="color:#998;font-style:italic">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%b \n&#34;</span>, a)  <span style="color:#998;font-style:italic">// 1010  占位符%b表示二进制
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// 八进制  以0开头
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">var</span> b <span style="color:#458;font-weight:bold">int</span> = <span style="color:#099">077</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%o \n&#34;</span>, b)  <span style="color:#998;font-style:italic">// 77
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// 十六进制  以0x开头
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">var</span> c <span style="color:#458;font-weight:bold">int</span> = <span style="color:#099">0xff</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%x \n&#34;</span>, c)  <span style="color:#998;font-style:italic">// ff
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%X \n&#34;</span>, c)  <span style="color:#998;font-style:italic">// FF
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="浮点型">浮点型</h1>
+<p>Go语言支持两种浮点型数：<code>float32</code>和<code>float64</code>。这两种浮点型数据格式遵循<code>IEEE 754 </code>标准： <code>float32</code> 的浮点数的最大范围约为 <code>3.4e38</code>，可以使用常量定义：<code>math.MaxFloat32</code>。 <code>float64</code> 的浮点数的最大范围约为 <code>1.8e308</code>，可以使用一个常量定义：<code>math.MaxFloat64</code>。</p>
+<p>打印浮点数时，可以使用<code>fmt</code>包配合动词<code>%f</code>，代码如下：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>        <span style="color:#d14">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#d14">&#34;math&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%f\n&#34;</span>, math.Pi)
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%.2f\n&#34;</span>, math.Pi)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="复数">复数</h1>
+<p>complex64和complex128</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> c1 <span style="color:#458;font-weight:bold">complex64</span>
+</span></span><span style="display:flex;"><span>c1 = <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">2i</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> c2 <span style="color:#458;font-weight:bold">complex128</span>
+</span></span><span style="display:flex;"><span>c2 = <span style="color:#099">2</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">3i</span>
+</span></span><span style="display:flex;"><span>fmt.<span style="color:#900;font-weight:bold">Println</span>(c1)
+</span></span><span style="display:flex;"><span>fmt.<span style="color:#900;font-weight:bold">Println</span>(c2)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>复数有实部和虚部，complex64的实部和虚部为32位，complex128的实部和虚部为64位。</p>
+<h1 id="布尔值">布尔值</h1>
+<p>Go语言中以<code>bool</code>类型进行声明布尔型数据，布尔型数据只有<code>true（真）</code>和<code>false（假）</code>两个值。</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>布尔类型变量的默认值为 <code>false</code>。</li>
+<li>Go 语言中不允许将整型强制转换为布尔型.</li>
+<li>布尔型无法参与数值运算，也无法与其他类型进行转换。</li>
+</ol>
+<h1 id="字符串">字符串</h1>
+<p>Go语言中的字符串以原生数据类型出现，使用字符串就像使用其他原生数据类型（int、bool、float32、float64 等）一样。 Go 语言里的字符串的内部实现使用<code>UTF-8</code>编码。 字符串的值为<code>双引号(&quot;)</code>中的内容，可以在Go语言的源码中直接添加非ASCII码字符，例如：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>s1 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>s2 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;你好&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="字符串转义符">字符串转义符</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">转义符</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">\r</td>
+<td style="text-align:left">回车符</td>
+</tr>
+<tr>
+<td style="text-align:left">\n</td>
+<td style="text-align:left">换行符</td>
+</tr>
+<tr>
+<td style="text-align:left">\t</td>
+<td style="text-align:left">制表符</td>
+</tr>
+<tr>
+<td style="text-align:left">\'</td>
+<td style="text-align:left">单引号</td>
+</tr>
+<tr>
+<td style="text-align:left">\&quot;</td>
+<td style="text-align:left">双引号</td>
+</tr>
+<tr>
+<td style="text-align:left">\\</td>
+<td style="text-align:left">反斜杠</td>
+</tr>
+</tbody>
+</table>
+<h2 id="多行字符串">多行字符串</h2>
+<p>Go语言中要定义一个多行字符串时，就必须使用<code>反引号</code>字符：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>s1 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">`第一行
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">第二行
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">第三行
+</span></span></span><span style="display:flex;"><span><span style="color:#d14">`</span>
+</span></span><span style="display:flex;"><span>fmt.<span style="color:#900;font-weight:bold">Println</span>(s1)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>反引号间换行将被作为字符串中的换行，但是所有的转义字符均无效，文本将会原样输出。</p>
+<h1 id="byte和rune类型">byte和rune类型</h1>
+<p>组成每个字符串的元素叫做“字符”，可以通过遍历或者单个获取字符串元素获得字符。 字符用单引号（’）包裹起来，如：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> a = <span style="color:#d14">&#39;中&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> b = <span style="color:#d14">&#39;x&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Go 语言的字符有以下两种：</p>
+<ol>
+<li><code>uint8</code> 类型，或者叫 byte 型，代表一个 <code>ASCII码</code> 字符。</li>
+<li><code>rune</code> 类型，代表一个  <code>UTF-8 字符</code>。</li>
+</ol>
+<p>当需要处理中文、日文或者其他复合字符时，则需要用到<code>rune</code>类型。<code>rune</code>类型实际是一个<code>int32</code>。</p>
+<p>Go 使用了特殊的 rune 类型来处理 Unicode，让基于 Unicode 的文本处理更为方便，也可以使用 byte 型进行默认字符串处理，性能和扩展性都有照顾。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 遍历字符串
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">traversalString</span>() {
+</span></span><span style="display:flex;"><span>	s <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;hello沙河&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">:=</span> <span style="color:#099">0</span>; i &lt; <span style="color:#0086b3">len</span>(s); i<span style="color:#000;font-weight:bold">++</span> { <span style="color:#998;font-style:italic">//byte
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>		fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%v(%c) &#34;</span>, s[i], s[i])
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Println</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#000;font-weight:bold">for</span> _, r <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> s { <span style="color:#998;font-style:italic">//rune
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>		fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%v(%c) &#34;</span>, r, r)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Println</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为UTF8编码下一个中文汉字由3~4个字节组成，所以我们不能简单的按照字节去遍历一个包含中文的字符串，否则就会出现上面输出中第一行的结果。</p>
+<p>字符串底层是一个byte数组，所以可以和<code>[]byte</code>类型相互转换。字符串是不能修改的 字符串是由byte字节组成，所以字符串的长度是byte字节的长度。 rune类型用来表示utf8字符，一个rune字符由一个或多个byte组成。</p>
+<h2 id="修改字符串">修改字符串</h2>
+<p>要修改字符串，需要先将其转换成<code>[]rune</code>或<code>[]byte</code>，完成后再转换为<code>string</code>。无论哪种转换，都会重新分配内存，并复制字节数组。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">changeString</span>() {
+</span></span><span style="display:flex;"><span>	s1 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;big&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// 强制类型转换
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	byteS1 <span style="color:#000;font-weight:bold">:=</span> []<span style="color:#0086b3">byte</span>(s1)
+</span></span><span style="display:flex;"><span>	byteS1[<span style="color:#099">0</span>] = <span style="color:#d14">&#39;p&#39;</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#0086b3">string</span>(byteS1))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	s2 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;白萝卜&#34;</span>
+</span></span><span style="display:flex;"><span>	runeS2 <span style="color:#000;font-weight:bold">:=</span> []<span style="color:#0086b3">rune</span>(s2)
+</span></span><span style="display:flex;"><span>	runeS2[<span style="color:#099">0</span>] = <span style="color:#d14">&#39;红&#39;</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#0086b3">string</span>(runeS2))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="类型转换">类型转换</h1>
+<p>Go语言中只有强制类型转换，没有隐式类型转换。该语法只能在两个类型之间支持相互转换的时候使用。</p>
+<p>强制类型转换的基本语法如下：</p>
+<pre><code>T(表达式)
+</code></pre>
+<p>其中，T表示要转换的类型。表达式包括变量、复杂算子和函数返回值等.</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/study/Web/%E4%BD%BF%E7%94%A8zap%E6%8E%A5%E6%94%B6gin%E6%A1%86%E6%9E%B6%E9%BB%98%E8%AE%A4%E7%9A%84%E6%97%A5%E5%BF%97%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%BD%92%E6%A1%A3/"></a></li>
+        
+        <li><a href="/study/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"></a></li>
+        
+        <li><a href="/study/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bnethttp/"></a></li>
+        
+        <li><a href="/study/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%BB%93%E6%9E%84%E4%BD%93/"></a></li>
+        
+        <li><a href="/study/Web/%E4%BD%BF%E7%94%A8Air%E5%AE%9E%E7%8E%B0Go%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%97%B6%E7%83%AD%E9%87%8D%E8%BD%BD/"></a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            No tags
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="https://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://shansec.github.io/categories/CSS/">CSS (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/Vue/">Vue (9)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/Dom/">Dom</a>
+    
+    <a href="https://shansec.github.io/tags/HTML/">HTML</a>
+    
+    <a href="https://shansec.github.io/tags/JavaScript/">JavaScript</a>
+    
+    <a href="https://shansec.github.io/tags/Pinia/">Pinia</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
+    
+    <a href="https://shansec.github.io/tags/cookie/">cookie</a>
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/js%E5%BA%93/">js库</a>
+    
+    <a href="https://shansec.github.io/tags/package/">package</a>
+    
+    <a href="https://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/vue.js/">vue.js</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e" title="Android Gradle权威指南">Android Gradle权威指南</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="https://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

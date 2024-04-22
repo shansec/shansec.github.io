@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>typescript on 飞雪无情的博客</title>
+    <link>https://shansec.github.io/tags/typescript/</link>
+    <description>Recent content in typescript on 飞雪无情的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 20 Mar 2023 14:15:59 +0000</lastBuildDate><atom:link href="https://shansec.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</title>
+      <link>https://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</link>
+      <pubDate>Mon, 20 Mar 2023 14:15:59 +0000</pubDate>
+      
+      <guid>https://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</guid>
+      <description>前言 要说今年最热门的前端技术，Vue3 和 TS 绝对榜上有名了。今天就给大家分享一下如何在 Vue3 组件中结合 Composition-Api 使用 TS 类型。如果有不会或者不熟的小伙伴，一起学起来吧！ 一、为 props 标注类型 使用 &amp;lt; script setup &amp;gt; 当使用 &amp;lt; script setup &amp;gt; 时，defineProps() 宏函数支持从它的参数中推导类型： 这被称为 运行时声明 ，因为</description>
+    </item>
+    
+    <item>
+      <title>Vue 项目如何实现一个全局菜单搜索框</title>
+      <link>https://shansec.github.io/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</link>
+      <pubDate>Mon, 20 Mar 2023 12:29:21 +0000</pubDate>
+      
+      <guid>https://shansec.github.io/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</guid>
+      <description>前言 本篇文章分享一下我在实际开发 Vue 项目时遇到的需要 —— 全局菜单搜索。全局菜单搜索本质是 router 的使用，该功能已经实现，接下来分享一下开发心得。 一、过滤路由 首先需要过滤出符合条件的路由信息，过滤的条件包含两个： 路由可以显示出现（hidden: false） 路由元信息中包含 title 属性 代码展示： 1</description>
+    </item>
+    
+  </channel>
+</rss>

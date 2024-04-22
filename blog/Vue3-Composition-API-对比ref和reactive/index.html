@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Vue3 Composition API: 对比ref和reactive | 飞雪无情的博客</title>
+    <meta property="og:title" content="Vue3 Composition API: 对比ref和reactive - 飞雪无情的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2023-05-04T11:13:30&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2023-05-04T11:13:30&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,飞雪无情,java,android,博客,项目管理,python,软件架构,公众号,小程序">
+    <meta name="description" content="Vue3 Composition API: 对比ref和reactive">
+        
+    <meta name="author" content="飞雪无情">
+    <meta property="og:url" content="https://shansec.github.io/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://shansec.github.io">
+                        飞雪无情的博客
+                    </a>
+                
+                <p class="description">专注于Android、Java、Go语言(golang)、移动互联网、项目管理、软件架构</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://shansec.github.io">Home</a>
+                    
+                    <a  href="https://shansec.github.io/study/" title="学习">学习</a>
+                    
+                    <a  href="https://shansec.github.io/blog/" title="博客">博客</a>
+                    
+                    <a  href="https://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ref的使用">ref的使用</a></li>
+    <li><a href="#reactive的使用">reactive的使用</a></li>
+    <li><a href="#bug出现">Bug出现</a></li>
+    <li><a href="#torefs的作用">toRefs的作用</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Vue3 Composition API: 对比ref和reactive</h1>
+        </header>
+        
+  <time datetime="2023-05-04T11:13:30Z" class="post-meta meta-date dt-published">
+    2023-05-04
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/Vue' target="_blank">Vue</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="vue2-回顾">Vue2 回顾</h1>
+<p>首先回顾一下在Vue2中我们是如何创建一个响应式数据 (reactive data)的：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/65eced4f7231420f87a78f5b9ae88c29.png" />   
+    </p>
+<h1 id="vue3新特性">Vue3新特性</h1>
+<h2 id="ref的使用">ref的使用</h2>
+<p>而在Vue3中，我们可以用Composition API: ref 来改写上述代码：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/2a55fc03bf7342b9ad99010d2783b227.png" />   
+    
+ref 的作用就是将一个原始数据类型（primitive data type）转换成一个带有<a href="https://cn.vuejs.org/guide/extras/reactivity-in-depth.html#what-is-reactivity">响应式类型</a></p>
+<p>的数据类型，原始数据类型共有7个，分别是：</p>
+<ul>
+<li>String</li>
+<li>Number</li>
+<li>BigInt</li>
+<li>Boolean</li>
+<li>Symbol</li>
+<li>Null</li>
+<li>Undefined</li>
+</ul>
+<p>相比于Vue2，用ref 的好处就是传值时可以不用再写this
+那么，如果我想让一个对象（Object）也具有响应性(reactive) 这一特点呢？</p>
+<h2 id="reactive的使用">reactive的使用</h2>
+<p>Vue3提供了一个方法：reactive （等价于Vue2中的Vue.observable() ）来赋予对象(Object) 响应式的特性，那么我们可以将上述代码用对象的形式改写为：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/0bd988844f3f4f7a9447cb83072bc25b.png" />   
+    
+你可能会觉得data.xxx 的写法太麻烦，那么我们可以使用es6新语法扩展运算符来简化一下：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/cb459567ee3646089e1fee6144c6a293.png" />   
+    </p>
+<h2 id="bug出现">Bug出现</h2>
+<p>不出意外，你会发现这个简化后的代码竟然无效，不管怎么点按钮，页面并没有发生变化！事实上，这样写没有效果的原因就在于一个响应型对象(reactive object) 一旦被销毁或展开（如上面代码那样）,其响应式特性(reactivity)就会丢失。通过类型检查我们可以知道，虽然 data.title 的值确实发生了变化，但data.title的类型只是一个普通的字符串(String) ，并不具有响应式特性(reactivity)，故而页面也没有随着其值的变化而重新渲染。</p>
+<h2 id="torefs的作用">toRefs的作用</h2>
+<p>为了解决上述问题，Vue3又提供了一个新的API：toRefs，它可以将一个响应型对象(reactive object) 转化为普通对象(plain object)，同时又把该对象中的每一个属性转化成对应的响应式属性(ref)。说白了就是放弃该对象(Object)本身的响应式特性(reactivity)，转而给对象里的属性赋予响应式特性(reactivity)。故而我们可以将代码修复成下面这样：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/7ff3d70d746d47b6aa290c332795a9bb.png" />   
+    </p>
+<h1 id="总结">总结</h1>
+<p>ref 和 reactive 一个针对原始数据类型，而另一个用于对象，这两个API都是为了给JavaScript普通的数据类型赋予响应式特性(reactivity)。根据Vue3官方文档，这两者的主要区别在于每个人写JavaScript时的风格不同，有人喜欢用原始数据类型(primitives)，把变量单独拎出来写；而有人喜欢用对象(Object)，把变量当作对象里的属性，都写在一个对象里头，比如：</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> updatePosition(e) {
+</span></span><span style="display:flex;"><span>  x <span style="color:#000;font-weight:bold">=</span> e.pageX
+</span></span><span style="display:flex;"><span>  y <span style="color:#000;font-weight:bold">=</span> e.pageY
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// --- compared to ---
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> pos <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>  y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> updatePosition(e) {
+</span></span><span style="display:flex;"><span>  pos.x <span style="color:#000;font-weight:bold">=</span> e.pageX
+</span></span><span style="display:flex;"><span>  pos.y <span style="color:#000;font-weight:bold">=</span> e.pageY
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/">何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</a></li>
+        
+        <li><a href="/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">助你从Vue2过渡到Vue3的常见使用场景</a></li>
+        
+        <li><a href="/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/">Vue3开发踩坑</a></li>
+        
+        <li><a href="/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/">谈谈我对 path.resolve 的理解</a></li>
+        
+        <li><a href="/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/">七个 Vue 项目用得上的 JavaScript 库分享</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Vue' target="_blank">Vue</a></li>
+                
+                <li><a href='/tags/%E5%89%8D%E7%AB%AF' target="_blank">前端</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="https://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://shansec.github.io/categories/CSS/">CSS (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/Vue/">Vue (9)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/Dom/">Dom</a>
+    
+    <a href="https://shansec.github.io/tags/HTML/">HTML</a>
+    
+    <a href="https://shansec.github.io/tags/JavaScript/">JavaScript</a>
+    
+    <a href="https://shansec.github.io/tags/Pinia/">Pinia</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
+    
+    <a href="https://shansec.github.io/tags/cookie/">cookie</a>
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/js%E5%BA%93/">js库</a>
+    
+    <a href="https://shansec.github.io/tags/package/">package</a>
+    
+    <a href="https://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/vue.js/">vue.js</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e" title="Android Gradle权威指南">Android Gradle权威指南</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="https://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

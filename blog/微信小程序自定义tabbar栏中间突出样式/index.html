@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>微信小程序自定义tabbar栏【中间突出样式】 | 飞雪无情的博客</title>
+    <meta property="og:title" content="微信小程序自定义tabbar栏【中间突出样式】 - 飞雪无情的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2023-03-22T10:43:59&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2023-03-22T10:43:59&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,飞雪无情,java,android,博客,项目管理,python,软件架构,公众号,小程序">
+    <meta name="description" content="微信小程序自定义tabbar栏【中间突出样式】">
+        
+    <meta name="author" content="飞雪无情">
+    <meta property="og:url" content="https://shansec.github.io/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://shansec.github.io">
+                        飞雪无情的博客
+                    </a>
+                
+                <p class="description">专注于Android、Java、Go语言(golang)、移动互联网、项目管理、软件架构</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://shansec.github.io">Home</a>
+                    
+                    <a  href="https://shansec.github.io/study/" title="学习">学习</a>
+                    
+                    <a  href="https://shansec.github.io/blog/" title="博客">博客</a>
+                    
+                    <a  href="https://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#添加组件代码">添加组件代码</a></li>
+        <li><a href="#创建全局字段">创建全局字段</a></li>
+        <li><a href="#在组件中保存重要字段">在组件中保存重要字段</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">微信小程序自定义tabbar栏【中间突出样式】</h1>
+        </header>
+        
+  <time datetime="2023-03-22T10:43:59Z" class="post-meta meta-date dt-published">
+    2023-03-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F' target="_blank">小程序</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="前言">前言</h1>
+<blockquote>
+<p>昨天主管突然给我说微信小程序默认的 <code>tabBar</code> 不美观，让我改成中间突出的那种样式。纵然我心里面有千般不情愿，但还是接下了这个任务。查了一下文档  <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/custom-tabbar.html">自定义 tabBar</a> 发现有这个方法，有思路了就赶紧搞起来，以下是我的开发经验分享。</p>
+</blockquote>
+<hr>
+<h1 id="一自定义tabbar栏-配置">一、自定义tabbar栏 配置</h1>
+<ul>
+<li>在 app.json 文件中的 tabBar 中指定 custom 字段为 true（意思是允许使用自定义 tabBar）；</li>
+<li>在 app.json 中全局开启使用组件，或者在所有涉及的 tab 页 json 中申明usingComponents 项；</li>
+<li>在 app.json 中添加作为 tabBar 栏的页面；</li>
+</ul>
+<p><strong>示例代码</strong></p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#d14">&#34;tabBar&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000080">&#34;custom&#34;</span>: <span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000080">&#34;color&#34;</span>: <span style="color:#d14">&#34;#afafaf&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000080">&#34;selectedColor&#34;</span>: <span style="color:#d14">&#34;#0099f6&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000080">&#34;backgroundColor&#34;</span>: <span style="color:#d14">&#34;#F7F8F8&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#000080">&#34;list&#34;</span>: [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;pagePath&#34;</span>: <span style="color:#d14">&#34;pages/index/index&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;text&#34;</span>: <span style="color:#d14">&#34;首页&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;pagePath&#34;</span>: <span style="color:#d14">&#34;pages/goodIndexCopy/goodIndexCopy&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;text&#34;</span>: <span style="color:#d14">&#34;易购商城&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;pagePath&#34;</span>: <span style="color:#d14">&#34;pages/release/release&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;text&#34;</span>: <span style="color:#d14">&#34;发布&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;pagePath&#34;</span>: <span style="color:#d14">&#34;pages/nearby/nearby&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;text&#34;</span>: <span style="color:#d14">&#34;本地&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;pagePath&#34;</span>: <span style="color:#d14">&#34;pages/mine/mine&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#000080">&#34;text&#34;</span>: <span style="color:#d14">&#34;我的&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }<span style="color:#a61717;background-color:#e3d2d2">,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;usingComponents&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {}<span style="color:#a61717;background-color:#e3d2d2">,</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>pagePath</code> 是自己添加的页面，<code>text</code> 是tabBar上展示的文字。</p>
+<h1 id="二添加自定义tabbar栏组件">二、添加自定义tabbar栏组件</h1>
+<p>在根目录下创建 <code>custom-tab-bar</code> 文件夹，并在该文件夹下新建 <code>Component</code>，或者新建 <code>Page</code>，但是这种创建方式需要自己改动一些代码，在这里我们选用新建 <code>Component</code> 的方式。</p>
+<h3 id="添加组件代码">添加组件代码</h3>
+<p>1、完善 <code>wxml</code> 文件代码，<code>tabBar</code> 栏需要展示的页面是一个固定的数组，可以使用 <code>wx:for</code> 循环展示，在这里用到 <code>selected</code> 这个字段，这个字段的作用是帮助展示 <code>tabBar</code> 选中和未选中的样式。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#998;font-style:italic">&lt;!--custom-tab-bar/index.wxml--&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">view</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;tab-bar&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">view</span> <span style="color:#008080">wx:for</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{list}}&#34;</span> <span style="color:#008080">wx:key</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;index&#34;</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;tab-bar-item {{item.bulge?&#39;bulge&#39;:&#39;&#39;}}&#34;</span> <span style="color:#008080">data-path</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{item.pagePath}}&#34;</span> <span style="color:#008080">data-index</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{index}}&#34;</span> <span style="color:#008080">bindtap</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;switchTab&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">view</span>  <span style="color:#008080">wx:if</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;item.bulge&#34;</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;tab-bar-bulge&#34;</span>&gt;&lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">image</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;image&#34;</span> <span style="color:#008080">src</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{{selected == index ? item.selectedIconPath : item.iconPath}}&#34;</span>&gt;&lt;/<span style="color:#000080">image</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">&lt;!-- &lt;view  wx:if=&#34;{{item.text}}&#34; style=&#34;color: {{selected === index ? selectedColor : color}}&#34; class=&#34;tab-bar-view&#34;&gt;{{item.text}}&lt;/view&gt; --&gt;</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">view</span>  <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;tab-bar-view&#34;</span> <span style="color:#008080">style</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;color: {{selected === index ? selectedColor : color}}&#34;</span>&gt;{{item.text}}&lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#000080">view</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">view</span>&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2、完善 <code>js</code> 文件代码，<code>list</code> 数组就是在 <code>tabBar</code> 栏展示的页面信息，<code>switchTab</code> 方法作用可以出看来是负责跳转页面。其它的字段相信各位都知道，这里就不再描述。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   * 组件的初始数据
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  data<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    selected<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>    color<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#afafaf&#34;</span>,
+</span></span><span style="display:flex;"><span>    selectedColor<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#0099f6&#34;</span>,
+</span></span><span style="display:flex;"><span>    backgroundColor<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#F7F8F8&#34;</span>,
+</span></span><span style="display:flex;"><span>    list<span style="color:#000;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/index/index&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_zhuye2.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_zhuye2_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;首页&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/goodIndexCopy/goodIndexCopy&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan2.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan2_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;易购商城&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/release/release&#34;</span>,
+</span></span><span style="display:flex;"><span>        bulge<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/add.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/add-active.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;发布&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/nearby/nearby&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan3.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan3_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;本地&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/mine/mine&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_wode3.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_wode3_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;我的&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   * 组件的方法列表
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  methods<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    switchTab(e) {
+</span></span><span style="display:flex;"><span>      <span style="color:#998;font-style:italic">// console.log(e);
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>      <span style="color:#000;font-weight:bold">const</span> data <span style="color:#000;font-weight:bold">=</span> e.currentTarget.dataset;
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">const</span> url <span style="color:#000;font-weight:bold">=</span> data.path;
+</span></span><span style="display:flex;"><span>      wx.switchTab({url})
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3、完善 <code>wxss</code> 文件代码。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">tab-bar</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">position</span>: <span style="color:#000;font-weight:bold">fixed</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">bottom</span>: <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">left</span>: <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">right</span>: <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">height</span>: <span style="color:#099">50</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">background</span>: <span style="color:#099">#FFF</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">flex</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">line-height</span>: <span style="color:#099">1.2</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">padding-bottom</span>: <span style="color:#900;font-weight:bold">env</span>(safe<span style="color:#000;font-weight:bold">-</span>area<span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">inset</span><span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">bottom</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">border-top</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#e6e6e6</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">tab-bar-item</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">flex</span>: <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">text-align</span>: <span style="color:#000;font-weight:bold">center</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">display</span>: <span style="color:#000;font-weight:bold">flex</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">justify-content</span>: <span style="color:#000;font-weight:bold">center</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">align-items</span>: <span style="color:#000;font-weight:bold">center</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">flex-direction</span>: <span style="color:#000;font-weight:bold">column</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">tab-bar-item</span> .<span style="color:#458;font-weight:bold">image</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">width</span>: <span style="color:#099">26</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">height</span>: <span style="color:#099">26</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">bulge</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#099">#FFF</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">bulge</span> .<span style="color:#458;font-weight:bold">tab-bar-bulge</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">position</span>: <span style="color:#000;font-weight:bold">absolute</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">z-index</span>: <span style="color:#099">-1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">width</span>: <span style="color:#099">64</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">height</span>: <span style="color:#099">64</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">top</span>: <span style="color:#099">-24</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">border-radius</span>: <span style="color:#099">50</span><span style="color:#458;font-weight:bold">%</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">border-top</span>: <span style="color:#099">1</span><span style="color:#458;font-weight:bold">px</span> <span style="color:#000;font-weight:bold">solid</span> <span style="color:#099">#e6e6e6</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#099">#FFF</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">bulge</span> .<span style="color:#458;font-weight:bold">image</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">position</span>: <span style="color:#000;font-weight:bold">absolute</span>; 
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">width</span>: <span style="color:#099">50</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">height</span>: <span style="color:#099">50</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">top</span>: <span style="color:#099">-20</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">bulge</span> .<span style="color:#458;font-weight:bold">tab-bar-view</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">position</span>: <span style="color:#000;font-weight:bold">relative</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">bottom</span>: <span style="color:#099">-16</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">margin-top</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">tab-bar-item</span> .<span style="color:#458;font-weight:bold">tab-bar-view</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">font-size</span>: <span style="color:#099">12</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">margin-top</span>: <span style="color:#099">4</span><span style="color:#458;font-weight:bold">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="创建全局字段">创建全局字段</h3>
+<p>做完以上工作之后，我们可以就可以看一下效果了，是不是就以为这样就可以了呢？但是事与愿违，会发现这里存在 <code>bug</code>，在我们点击 <code>tabBar</code> 栏进行跳转的时候会发现页面跳转过去了，但是对应页面的 <code>tabBar</code> 没有改变颜色。为了解决这个 <code>bug</code>，需要添加全局字段。在 app.js 文件中创建该字段。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  globalData<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    selected<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="在组件中保存重要字段">在组件中保存重要字段</h3>
+<p>全局字段创建完成之后，我们需要在组件 js 文件中使用该字段，在 <code>ready</code> 函数中保存这个字段，在点击 <code>tabBar</code> 栏时，把相应的<code>index</code> 赋值给这个全局字段。</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 引入全局函数
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> app <span style="color:#000;font-weight:bold">=</span> getApp()
+</span></span><span style="display:flex;"><span>Component({
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   * 组件的初始数据
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  data<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    selected<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>    color<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#afafaf&#34;</span>,
+</span></span><span style="display:flex;"><span>    selectedColor<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#0099f6&#34;</span>,
+</span></span><span style="display:flex;"><span>    backgroundColor<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;#F7F8F8&#34;</span>,
+</span></span><span style="display:flex;"><span>    list<span style="color:#000;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/index/index&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_zhuye2.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_zhuye2_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;首页&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/goodIndexCopy/goodIndexCopy&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan2.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan2_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;易购商城&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/release/release&#34;</span>,
+</span></span><span style="display:flex;"><span>        bulge<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/add.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/add-active.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;发布&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/nearby/nearby&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan3.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_pintuan3_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;本地&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        pagePath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/pages/mine/mine&#34;</span>,
+</span></span><span style="display:flex;"><span>        iconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_wode3.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        selectedIconPath<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;/images/icon/wtc/icon_wode3_d.png&#34;</span>,
+</span></span><span style="display:flex;"><span>        text<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;我的&#34;</span>
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  ready<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.setData({
+</span></span><span style="display:flex;"><span>      selected<span style="color:#000;font-weight:bold">:</span> app.globalData.selected
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   * 组件的方法列表
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  methods<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    switchTab(e) {
+</span></span><span style="display:flex;"><span>      <span style="color:#998;font-style:italic">// console.log(e);
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>      <span style="color:#000;font-weight:bold">const</span> data <span style="color:#000;font-weight:bold">=</span> e.currentTarget.dataset;
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">const</span> url <span style="color:#000;font-weight:bold">=</span> data.path;
+</span></span><span style="display:flex;"><span>      app.globalData.selected <span style="color:#000;font-weight:bold">=</span> data.index;
+</span></span><span style="display:flex;"><span>      wx.switchTab({url})
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加完成后，可以测试一下效果，发现刚才的 <code>bug</code> 已经解决。<code>perfect！！</code></p>
+<h1 id="三效果展示">三、效果展示</h1>
+<p>
+        <img class="mx-auto" alt="效果展示" src="https://img.myaof.cn/myaof/applet_5.jpg#pic_center" />   
+    </p>
+<h1 id="总结">总结</h1>
+<p>经过了不断探索终于完成了这个功能，事后想了一下还是自己的本事不到家，以后还是需要不断提升自己的能力 ~ ~ ~</p>
+
+        </div>
+
+        
+
+
+        
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F' target="_blank">小程序</a></li>
+                
+                <li><a href='/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F' target="_blank">微信小程序</a></li>
+                
+                <li><a href='/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF' target="_blank">大前端</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="https://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://shansec.github.io/categories/CSS/">CSS (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/Vue/">Vue (9)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/Dom/">Dom</a>
+    
+    <a href="https://shansec.github.io/tags/HTML/">HTML</a>
+    
+    <a href="https://shansec.github.io/tags/JavaScript/">JavaScript</a>
+    
+    <a href="https://shansec.github.io/tags/Pinia/">Pinia</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
+    
+    <a href="https://shansec.github.io/tags/cookie/">cookie</a>
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/js%E5%BA%93/">js库</a>
+    
+    <a href="https://shansec.github.io/tags/package/">package</a>
+    
+    <a href="https://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/vue.js/">vue.js</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e" title="Android Gradle权威指南">Android Gradle权威指南</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="https://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

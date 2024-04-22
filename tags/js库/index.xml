@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>js库 on 飞雪无情的博客</title>
+    <link>https://shansec.github.io/tags/js%E5%BA%93/</link>
+    <description>Recent content in js库 on 飞雪无情的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 22 Mar 2023 10:39:46 +0000</lastBuildDate><atom:link href="https://shansec.github.io/tags/js%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>谈谈我对 path.resolve 的理解</title>
+      <link>https://shansec.github.io/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Wed, 22 Mar 2023 10:39:46 +0000</pubDate>
+      
+      <guid>https://shansec.github.io/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/</guid>
+      <description>前言 前一段时间在阅读源码的时候，遇到了path.resolve()，经过请教，终于知道了这个方法的作用。这边文章用来记录自己的使用心得。 正文 path.resolve() 作用：path.resolve() 该方法将一些的 路径/路径段 解析为绝对路径。 语法：path.resolve( [from…],to )。 说明：</description>
+    </item>
+    
+  </channel>
+</rss>

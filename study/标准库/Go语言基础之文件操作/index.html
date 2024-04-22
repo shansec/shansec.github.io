@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title> | 飞雪无情的博客</title>
+    <meta property="og:title" content=" - 飞雪无情的博客">
+    <meta property="og:type" content="article">
+        
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,飞雪无情,java,android,博客,项目管理,python,软件架构,公众号,小程序">
+    <meta name="description" content="">
+        
+    <meta name="author" content="飞雪无情">
+    <meta property="og:url" content="https://shansec.github.io/study/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://shansec.github.io">
+                        飞雪无情的博客
+                    </a>
+                
+                <p class="description">专注于Android、Java、Go语言(golang)、移动互联网、项目管理、软件架构</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://shansec.github.io">Home</a>
+                    
+                    <a  href="https://shansec.github.io/study/" title="学习">学习</a>
+                    
+                    <a  href="https://shansec.github.io/blog/" title="博客">博客</a>
+                    
+                    <a  href="https://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fileread">file.Read()</a>
+      <ul>
+        <li><a href="#基本使用">基本使用</a></li>
+        <li><a href="#循环读取">循环读取</a></li>
+      </ul>
+    </li>
+    <li><a href="#bufio读取文件">bufio读取文件</a></li>
+    <li><a href="#读取整个文件">读取整个文件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#write和writestring">Write和WriteString</a></li>
+    <li><a href="#bufionewwriter">bufio.NewWriter</a></li>
+    <li><a href="#ioutilwritefile">ioutil.WriteFile</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title"></h1>
+        </header>
+        
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="打开和关闭文件">打开和关闭文件</h1>
+<p><code>os.Open()</code>函数能够打开一个文件，返回一个<code>*File</code>和一个<code>err</code>。对得到的文件实例调用<code>close()</code>方法能够关闭文件。</p>
+<pre tabindex="0"><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;os&#34;
+)
+
+func main() {
+	// 只读方式打开当前目录下的main.go文件
+	file, err := os.Open(&#34;./main.go&#34;)
+	if err != nil {
+		fmt.Println(&#34;open file failed!, err:&#34;, err)
+		return
+	}
+	// 关闭文件
+	file.Close()
+}
+</code></pre><p>为了防止文件忘记关闭，我们通常使用defer注册文件关闭语句。</p>
+<h1 id="读取文件">读取文件</h1>
+<h2 id="fileread">file.Read()</h2>
+<h3 id="基本使用">基本使用</h3>
+<p>Read方法定义如下：</p>
+<pre tabindex="0"><code>func (f *File) Read(b []byte) (n int, err error)
+</code></pre><p>它接收一个字节切片，返回读取的字节数和可能的具体错误，读到文件末尾时会返回<code>0</code>和<code>io.EOF</code>。 举个例子：</p>
+<pre tabindex="0"><code>func main() {
+	// 只读方式打开当前目录下的main.go文件
+	file, err := os.Open(&#34;./main.go&#34;)
+	if err != nil {
+		fmt.Println(&#34;open file failed!, err:&#34;, err)
+		return
+	}
+	defer file.Close()
+	// 使用Read方法读取数据
+	var tmp = make([]byte, 128)
+	n, err := file.Read(tmp)
+	if err == io.EOF {
+		fmt.Println(&#34;文件读完了&#34;)
+		return
+	}
+	if err != nil {
+		fmt.Println(&#34;read file failed, err:&#34;, err)
+		return
+	}
+	fmt.Printf(&#34;读取了%d字节数据\n&#34;, n)
+	fmt.Println(string(tmp[:n]))
+}
+</code></pre><h3 id="循环读取">循环读取</h3>
+<p>使用for循环读取文件中的所有数据。</p>
+<pre tabindex="0"><code>func main() {
+	// 只读方式打开当前目录下的main.go文件
+	file, err := os.Open(&#34;./main.go&#34;)
+	if err != nil {
+		fmt.Println(&#34;open file failed!, err:&#34;, err)
+		return
+	}
+	defer file.Close()
+	// 循环读取文件
+	var content []byte
+	var tmp = make([]byte, 128)
+	for {
+		n, err := file.Read(tmp)
+		if err == io.EOF {
+			fmt.Println(&#34;文件读完了&#34;)
+			break
+		}
+		if err != nil {
+			fmt.Println(&#34;read file failed, err:&#34;, err)
+			return
+		}
+		content = append(content, tmp[:n]...)
+	}
+	fmt.Println(string(content))
+}
+</code></pre><h2 id="bufio读取文件">bufio读取文件</h2>
+<p>bufio 是在 file 的基础上封装了一层API，支持更多的功能。</p>
+<pre tabindex="0"><code>package main
+
+import (
+	&#34;bufio&#34;
+	&#34;fmt&#34;
+	&#34;os&#34;
+)
+
+func main() {
+	file, err := os.Open(&#34;./xx.txt&#34;)
+	if err != nil {
+		fmt.Println(&#34;open file failed, err:&#34;, err)
+		return
+	}
+	defer file.Close()
+	scanner := bufio.NewScanner(file) // MaxScanTokenSize = 64 * 1024
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Println(&#34;read file failed, err:&#34;, err)
+	}
+}
+</code></pre><h2 id="读取整个文件">读取整个文件</h2>
+<p><code>io/ioutil</code>包的<code>ReadFile</code>方法能够读取完整的文件，只需要将文件名作为参数传入。</p>
+<pre tabindex="0"><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;io/ioutil&#34;
+)
+
+// ioutil.ReadFile读取整个文件
+func main() {
+	content, err := ioutil.ReadFile(&#34;./main.go&#34;)
+	if err != nil {
+		fmt.Println(&#34;read file failed, err:&#34;, err)
+		return
+	}
+	fmt.Println(string(content))
+}
+</code></pre><h1 id="文件写入操作">文件写入操作</h1>
+<p><code>os.OpenFile()</code>函数能够以指定模式打开文件，从而实现文件写入相关功能。</p>
+<pre tabindex="0"><code>func OpenFile(name string, flag int, perm FileMode) (*File, error) {
+	...
+}
+</code></pre><p>其中：</p>
+<p><code>name</code>：要打开的文件名 <code>flag</code>：打开文件的模式。 模式有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>os.O_WRONLY</code></td>
+<td style="text-align:center">只写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.O_CREATE</code></td>
+<td style="text-align:center">创建文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.O_RDONLY</code></td>
+<td style="text-align:center">只读</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.O_RDWR</code></td>
+<td style="text-align:center">读写</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.O_TRUNC</code></td>
+<td style="text-align:center">清空</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.O_APPEND</code></td>
+<td style="text-align:center">追加</td>
+</tr>
+</tbody>
+</table>
+<p><code>perm</code>：文件权限，一个八进制数。r（读）04，w（写）02，x（执行）01。</p>
+<h2 id="write和writestring">Write和WriteString</h2>
+<pre tabindex="0"><code>func main() {
+	file, err := os.OpenFile(&#34;xx.txt&#34;, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0666)
+	if err != nil {
+		fmt.Println(&#34;open file failed, err:&#34;, err)
+		return
+	}
+	defer file.Close()
+	str := &#34;hello 沙河&#34;
+	file.Write([]byte(str))       //写入字节切片数据
+	file.WriteString(&#34;hello 小王子&#34;) //直接写入字符串数据
+}
+</code></pre><h2 id="bufionewwriter">bufio.NewWriter</h2>
+<pre tabindex="0"><code>func main() {
+	file, err := os.OpenFile(&#34;xx.txt&#34;, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0666)
+	if err != nil {
+		fmt.Println(&#34;open file failed, err:&#34;, err)
+		return
+	}
+	defer file.Close()
+	writer := bufio.NewWriter(file)
+	for i := 0; i &lt; 10; i++ {
+		writer.WriteString(&#34;hello沙河\n&#34;) //将数据先写入缓存
+	}
+	writer.Flush() //将缓存中的内容写入文件
+}
+</code></pre><h2 id="ioutilwritefile">ioutil.WriteFile</h2>
+<pre><code>func main() {
+	str := &quot;hello 沙河&quot;
+	err := ioutil.WriteFile(&quot;./xx.txt&quot;, []byte(str), 0666)
+	if err != nil {
+		fmt.Println(&quot;write file failed, err:&quot;, err)
+		return
+	}
+}
+</code></pre>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/study/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/"></a></li>
+        
+        <li><a href="/study/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BD%BF%E7%94%A8sqlx%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%96%B9%E6%B3%95/"></a></li>
+        
+        <li><a href="/study/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/"></a></li>
+        
+        <li><a href="/study/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%B3%9B%E5%9E%8B/"></a></li>
+        
+        <li><a href="/archives/"></a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            No tags
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="https://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://shansec.github.io/categories/CSS/">CSS (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/Vue/">Vue (9)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/Dom/">Dom</a>
+    
+    <a href="https://shansec.github.io/tags/HTML/">HTML</a>
+    
+    <a href="https://shansec.github.io/tags/JavaScript/">JavaScript</a>
+    
+    <a href="https://shansec.github.io/tags/Pinia/">Pinia</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
+    
+    <a href="https://shansec.github.io/tags/cookie/">cookie</a>
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/js%E5%BA%93/">js库</a>
+    
+    <a href="https://shansec.github.io/tags/package/">package</a>
+    
+    <a href="https://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/vue.js/">vue.js</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e" title="Android Gradle权威指南">Android Gradle权威指南</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="https://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

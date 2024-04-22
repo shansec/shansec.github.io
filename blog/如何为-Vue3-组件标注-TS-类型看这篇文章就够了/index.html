@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>何为 Vue3 组件标注 TS 类型，看这篇文章就够了！ | 飞雪无情的博客</title>
+    <meta property="og:title" content="何为 Vue3 组件标注 TS 类型，看这篇文章就够了！ - 飞雪无情的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2023-03-20T14:15:59&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2023-03-20T14:15:59&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,飞雪无情,java,android,博客,项目管理,python,软件架构,公众号,小程序">
+    <meta name="description" content="何为 Vue3 组件标注 TS 类型，看这篇文章就够了！">
+        
+    <meta name="author" content="飞雪无情">
+    <meta property="og:url" content="https://shansec.github.io/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://shansec.github.io">
+                        飞雪无情的博客
+                    </a>
+                
+                <p class="description">专注于Android、Java、Go语言(golang)、移动互联网、项目管理、软件架构</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://shansec.github.io">Home</a>
+                    
+                    <a  href="https://shansec.github.io/study/" title="学习">学习</a>
+                    
+                    <a  href="https://shansec.github.io/blog/" title="博客">博客</a>
+                    
+                    <a  href="https://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#使用--script-setup-">使用 &lt; script setup &gt;</a></li>
+        <li><a href="#非--script-setup-">非 &lt; script setup &gt;</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#使用--script-setup--1">使用 &lt; script setup &gt;</a></li>
+        <li><a href="#非--script-setup--1">非 &lt; script setup &gt;</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#默认推导类型">默认推导类型</a></li>
+        <li><a href="#通过接口指定类型">通过接口指定类型</a></li>
+        <li><a href="#通过泛型指定类型">通过泛型指定类型</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#默认推导类型-1">默认推导类型</a></li>
+        <li><a href="#通过接口指定类型-1">通过接口指定类型</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#默认推导类型-2">默认推导类型</a></li>
+        <li><a href="#通过泛型指定类型-1">通过泛型指定类型</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</h1>
+        </header>
+        
+  <time datetime="2023-03-20T14:15:59Z" class="post-meta meta-date dt-published">
+    2023-03-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/Vue' target="_blank">Vue</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="前言">前言</h1>
+<blockquote>
+<p>要说今年最热门的前端技术，Vue3 和 TS 绝对榜上有名了。今天就给大家分享一下如何在 Vue3 组件中结合 Composition-Api 使用 TS 类型。如果有不会或者不熟的小伙伴，一起学起来吧！</p>
+</blockquote>
+<h1 id="一为-props-标注类型">一、为 props 标注类型</h1>
+<h3 id="使用--script-setup-">使用 &lt; script setup &gt;</h3>
+<p>当使用 <code>&lt; script setup &gt;</code> 时，<code>defineProps()</code> 宏函数支持从它的参数中推导类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/5063693d49e740b59c6d7a2941614eb7.png#pic_center" />   
+    
+这被称为 运行时声明 ，因为传递给 <code>defineProps()</code> 的参数会作为运行时的 props 选项使用。
+第二种方式，通过泛型参数来定义 <code>props</code> 的类型，这种方式更加直接：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/50df4c70b1d84b9db029b73664097594.png#pic_center" />   
+    
+这被称为 基于类型的声明 ，编译器会尽可能地尝试根据类型参数推导出等价的运行时选项。 这种方式的不足之处在于，失去了定义 <code>props</code> 默认值的能力。为了解决这个问题，我们可以使用 withDefaults 编译器宏：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/de3ce415d04648bfba8763db0b08ae77.png#pic_center" />   
+    
+上面代码会被编译为等价的运行时 <code>props</code> 的 <code>default</code> 选项。</p>
+<h3 id="非--script-setup-">非 &lt; script setup &gt;</h3>
+<p>如果没有使用 <code>&lt; script setup &gt;</code>，那么为了开启 <code>props</code> 的类型推导，必须使用 <code>defineComponent()</code>。传入 <code>setup()</code> 的 <code>props</code> 对象类型是从 props 选项中推导而来。
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/73f1e5d8faf349fab29ae498297e4f1a.png#pic_center" />   
+    </p>
+<h1 id="二为-emits-标注类型">二、为 emits 标注类型</h1>
+<h3 id="使用--script-setup--1">使用 &lt; script setup &gt;</h3>
+<p>在 <code>&lt; script setup &gt;</code> 中，emit 函数的类型标注也可以使用 运行时声明 或者 基于类型的声明 ：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/152edc99d2294dd5bb471a747d877862.png#pic_center" />   
+    
+我们可以看到，基于类型的声明 可以使我们对所触发事件的类型进行更细粒度的控制。</p>
+<h3 id="非--script-setup--1">非 &lt; script setup &gt;</h3>
+<p>若没有使用 <code>&lt; script setup &gt;</code>，<code>defineComponent()</code> 也可以根据 <code>emits</code> 选项推导暴露在 <code>setup</code> 上下文中的 <code>emit </code> 函数的类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/f25ac22be481483fb79c1cf40d1c8dc6.png#pic_center" />   
+    </p>
+<h1 id="三为-ref-标注类型">三、为 ref() 标注类型</h1>
+<h3 id="默认推导类型">默认推导类型</h3>
+<p><code>ref</code> 会根据初始化时的值自动推导其类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/d88910e64c4b4047926c0ea6a17230fb.png#pic_center" />   
+    </p>
+<h3 id="通过接口指定类型">通过接口指定类型</h3>
+<p>有时我们可能想为 <code> ref</code> 内的值指定一个更复杂的类型，可以使用 <code>Ref</code> 这个接口：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/784b04e6bab54f6da8da8dd9e90362bc.png#pic_center" />   
+    </p>
+<h3 id="通过泛型指定类型">通过泛型指定类型</h3>
+<p>或者，在调用 <code>ref()</code> 时传入一个泛型参数，来覆盖默认的推导行为：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/93f0b658937f4ca39339cd698c9191e4.png#pic_center" />   
+    
+注意：如果你指定了一个泛型参数但没有给出初始值，那么最后得到的就将是一个包含 <code>undefined</code> 的联合类型。</p>
+<h1 id="四为-reactive-标注类型">四、为 reactive() 标注类型</h1>
+<h3 id="默认推导类型-1">默认推导类型</h3>
+<p><code>reactive()</code> 也会隐式地从它的参数中推导类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/47dc4b9da17f47afaa6aaca9b053cf0f.png#pic_center" />   
+    </p>
+<h3 id="通过接口指定类型-1">通过接口指定类型</h3>
+<p>要显式地指定一个 <code>reactive</code> 变量的类型，我们可以使用接口：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/98f4d83934184ef1973183e40a9911b0.png#pic_center" />   
+    </p>
+<h1 id="五为-computed-标注类型">五、为 computed() 标注类型</h1>
+<h3 id="默认推导类型-2">默认推导类型</h3>
+<p><code>computed()</code> 会自动从其计算函数的返回值上推导出类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/ac5eb8c75b60464f8755ca47ca2698f1.png#pic_center" />   
+    </p>
+<h3 id="通过泛型指定类型-1">通过泛型指定类型</h3>
+<p>你还可以通过泛型参数显式指定类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/7afce3aa22864feca9a1c113687b568f.png#pic_center" />   
+    </p>
+<h1 id="六为事件处理函数标注类型">六、为事件处理函数标注类型</h1>
+<p>在处理原生 <code>DOM</code> 事件时，应该给事件处理函数的参数正确地标注类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/e96f9d0bb5ae4ae488ce9c15388fa984.png#pic_center" />   
+    
+当没有类型标注时，这个 <code>event</code> 参数会隐式地标注为 <code>any</code> 类型。这也会在 <code>tsconfig.json</code> 中配置了 <code>&quot;strict&quot;: true 或 &quot;noImplicitAny&quot;: true</code> 时报出一个 TS 错误。因此，建议显式地为事件处理函数的参数标注类型。此外，你可能需要显式地强制转换 <code>event</code> 上的属性：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/f36ef5d6d70b4b14a86210ec4ca041f8.png#pic_center" />   
+    </p>
+<h1 id="七为-provide--inject-标注类型">七、为 provide / inject 标注类型</h1>
+<p><code>provide</code> 和 <code>inject</code> 通常会在不同的组件中运行。要正确地为注入的值标记类型，Vue 提供了一个 <code>InjectionKey</code> 接口，它是一个继承自 <code>Symbol</code> 的泛型类型，可以用来在提供者和消费者之间同步注入值的类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/7f89e5426ecc422caf06c953ac772627.png#pic_center" />   
+    
+建议将注入 <code>key</code> 的类型放在一个单独的文件中，这样它就可以被多个组件导入。
+当使用字符串注入 <code>key</code> 时，注入值的类型是 <code>unknown</code>，需要通过泛型参数显式声明：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/3387119a1e55468aa8ec74a9bc83e2fe.png#pic_center" />   
+    
+注意注入的值仍然可以是 <code>undefined</code>，因为无法保证提供者一定会在运行时 <code>provide</code> 这个值。当提供了一个默认值后，这个 <code>undefined</code> 类型就可以被移除：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/259fa739fdb44b538c4f05dd53bddc75.png#pic_center" />   
+    
+如果你确定该值将始终被提供，则还可以强制转换该值：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/230fc93eb40143ba89b57f1becfde7a5.png#pic_center" />   
+    </p>
+<h1 id="八为-dom-模板引用标注类型">八、为 dom 模板引用标注类型</h1>
+<p>模板 <code>ref</code> 需要通过一个显式指定的泛型参数和一个初始值 <code>null</code> 来创建：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/c9ae2c0985a040559ef0e9ddd7e8685c.png#pic_center" />   
+    
+注意为了严格的类型安全，有必要在访问 <code>el.value</code> 时使用可选链或类型守卫。这是因为直到组件被挂载前，这个 <code>ref</code> 的值都是初始的 null，并且 v-if 将引用的元素卸载时也会被设置为 null。</p>
+<h1 id="九为组件模板引用标注类型">九、为组件模板引用标注类型</h1>
+<p>有时，我们需要为一个子组件添加一个模板 <code>ref</code>，以便调用它公开的方法。比如，我们有一个 <code>MyComponent</code> 子组件，它有一个打开模态框的方法：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/89296458fca6434c9c9e6d6abf07ee7e.png#pic_center" />   
+    </p>
+<p>为了获取 <code>MyComponent</code> 的类型，我们首先需要通过 <code>typeof</code> 得到其类型，再使用 <code>TypeScript</code> 内置的 <code>InstanceType</code> 工具类型来获取其实例类型：
+
+        <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/8c191053699748e980590d9217b8c112.png#pic_center" />   
+    </p>
+<h1 id="小结">小结</h1>
+<p>好了，以上就是在 Vue3 组件中使用 TS 类型的基本方法，也是我最近的 Vue3 学习笔记。欢迎在评论区交流讨论，一起学习成长！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">助你从Vue2过渡到Vue3的常见使用场景</a></li>
+        
+        <li><a href="/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/">Vue 项目如何实现一个全局菜单搜索框</a></li>
+        
+        <li><a href="/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/">Vue3中操作dom的四种方式，建议收藏！！！</a></li>
+        
+        <li><a href="/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/">从Vue2 到 Vue3，这些路由差异你需要掌握！</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/Vue' target="_blank">Vue</a></li>
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+                <li><a href='/tags/%E5%89%8D%E7%AB%AF' target="_blank">前端</a></li>
+                
+                <li><a href='/tags/JavaScript' target="_blank">JavaScript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="https://shansec.github.io">飞雪无情的博客 By 飞雪无情</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="https://shansec.github.io/categories/CSS/">CSS (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/Vue/">Vue (9)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端 (5)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序 (4)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理 (1)</a></li>
+    
+    <li><a href="https://shansec.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础 (2)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/Dom/">Dom</a>
+    
+    <a href="https://shansec.github.io/tags/HTML/">HTML</a>
+    
+    <a href="https://shansec.github.io/tags/JavaScript/">JavaScript</a>
+    
+    <a href="https://shansec.github.io/tags/Pinia/">Pinia</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/Vue%E9%A1%B9%E7%9B%AE/">Vue项目</a>
+    
+    <a href="https://shansec.github.io/tags/cookie/">cookie</a>
+    
+    <a href="https://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="https://shansec.github.io/tags/js%E5%BA%93/">js库</a>
+    
+    <a href="https://shansec.github.io/tags/package/">package</a>
+    
+    <a href="https://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="https://shansec.github.io/tags/Vue/">Vue</a>
+    
+    <a href="https://shansec.github.io/tags/vue.js/">vue.js</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/">大前端</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%8A%80%E5%B7%A7/">技巧</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/">浏览器</a>
+    
+    <a href="https://shansec.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86/">浏览器原理</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%9B%91%E5%90%AC%E5%99%A8/">监听器</a>
+    
+    <a href="https://shansec.github.io/tags/%E7%BB%84%E4%BB%B6/">组件</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+    
+    <a href="https://shansec.github.io/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.flysnow.org/" title="飞雪无情的博客">飞雪无情的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://yuedu.baidu.com/ebook/14a722970740be1e640e9a3e" title="Android Gradle权威指南">Android Gradle权威指南</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="https://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
