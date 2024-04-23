@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>es6 on 未来可期的博客</title>
+    <link>http://shansec.github.io/tags/es6/</link>
+    <description>Recent content in es6 on 未来可期的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 23 Apr 2024 10:31:38 +0800</lastBuildDate><atom:link href="http://shansec.github.io/tags/es6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reflect</title>
+      <link>http://shansec.github.io/post/es6/Reflect/</link>
+      <pubDate>Tue, 23 Apr 2024 10:31:38 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Reflect/</guid>
+      <description>概述 Reflect对象与Proxy对象一样，也是 ES6 为了操作对象而提供的新 API。Reflect对象的设计目的有这样几个。 （1） 将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Obje</description>
+    </item>
+    
+    <item>
+      <title>Proxy</title>
+      <link>http://shansec.github.io/post/es6/Proxy/</link>
+      <pubDate>Tue, 23 Apr 2024 10:28:38 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Proxy/</guid>
+      <description>概述 Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。 Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。</description>
+    </item>
+    
+    <item>
+      <title>Promise对象</title>
+      <link>http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Tue, 23 Apr 2024 10:25:57 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/</guid>
+      <description>Promise 的含义 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结</description>
+    </item>
+    
+    <item>
+      <title>Module的语法</title>
+      <link>http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Tue, 23 Apr 2024 10:22:07 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/</guid>
+      <description>概述 历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、</description>
+    </item>
+    
+    <item>
+      <title>Module的加载实现</title>
+      <link>http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Tue, 23 Apr 2024 10:17:05 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/</guid>
+      <description>上一章介绍了模块的语法，本章介绍如何在浏览器和 Node.js 之中加载 ES6 模块，以及实际开发中经常遇到的一些问题（比如循环加载）。 浏览器加载 传统方法 HTML 网页中，浏览器通过&amp;lt;script&amp;gt;标签加载 JavaScript 脚本。 1 2 3 4 5 6 7 &amp;lt;!-- 页面内嵌的脚本 --&amp;gt; &amp;lt;script type=&amp;#34;application/javascript&amp;#34;&amp;gt; // module code &amp;lt;/script&amp;gt; &amp;lt;!-- 外部脚本 --&amp;gt; &amp;lt;script type=&amp;#34;application/javascript&amp;#34; src=&amp;#34;path/to/myModule.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; 上面代码中，由于浏览器</description>
+    </item>
+    
+    <item>
+      <title>Mixin</title>
+      <link>http://shansec.github.io/post/es6/Mixin/</link>
+      <pubDate>Tue, 23 Apr 2024 10:16:14 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Mixin/</guid>
+      <description>JavaScript 语言的设计是单一继承，即子类只能继承一个父类，不允许继承多个父类。这种设计保证了对象继承的层次结构是树状的，而不是复杂的网状结构。 但是，这大大降低了编程的灵活性。因为实际开发中，有时不可避免，子类需要继承多个父类。举例来说，“猫”可以继承“哺乳类动物”，也可以继承“宠物”。 各种</description>
+    </item>
+    
+    <item>
+      <title>Let和const命令</title>
+      <link>http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Tue, 23 Apr 2024 10:14:15 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/</guid>
+      <description>let 命令 基本用法 ES6 新增了let命令，用来声明变量。它的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。 1 2 3 4 5 6 7 { let a = 10; var b = 1; } a // ReferenceError: a is not defined. b // 1 上面代码在代码块之中，分别用let和var声明了两个变量。然后在代码块之外调用这两个变量，结果let声明</description>
+    </item>
+    
+    <item>
+      <title>Iterator和for...of循环</title>
+      <link>http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/</link>
+      <pubDate>Tue, 23 Apr 2024 09:52:00 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/</guid>
+      <description>Iterator（遍历器）的概念 JavaScript 原有的表示“集合”的数据结构，主要是数组（Array）和对象（Object），ES6 又添加了Map和Set。这样就有了四种数据集合，用户还可以组合使用它们，定义自己的数据结构，比如数组的成员是Map，Map的成员是对象。这样就需要一种统一的接口机</description>
+    </item>
+    
+    <item>
+      <title>Generator函数的语法</title>
+      <link>http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Tue, 23 Apr 2024 09:48:29 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/</guid>
+      <description>简介 基本概念 Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。本章详细介绍 Generator 函数的语法和 API，它的异步编程应用请看《Generator 函数的异步应用》一章。 Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</description>
+    </item>
+    
+    <item>
+      <title>Generator函数的异步应用</title>
+      <link>http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Tue, 23 Apr 2024 09:44:19 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/</guid>
+      <description>异步编程对 JavaScript 语言太重要。JavaScript 语言的执行环境是“单线程”的，如果没有异步编程，根本没法用，非卡死不可。本章主要介绍 Generator 函数如何完成异步操作。 传统方法 ES6 诞生以前，异步编程的方法，大概有下面四种。 回调函数 事件监听 发布/订阅 Promise 对象 Generator 函数将 JavaScript 异步编程带入了一个全新的阶段。 基本</description>
+    </item>
+    
+    <item>
+      <title>Class继承</title>
+      <link>http://shansec.github.io/post/es6/class%E7%BB%A7%E6%89%BF/</link>
+      <pubDate>Tue, 23 Apr 2024 09:41:22 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/class%E7%BB%A7%E6%89%BF/</guid>
+      <description>Class 的继承 简介 Class 可以通过extends关键字实现继承，让子类继承父类的属性和方法。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。 1 2 3 4 5 class Point { } class ColorPoint extends Point { } 上面示例中，Point是父类，ColorPoint是子类，它通过extends关键字，继承了Point类的所有属性</description>
+    </item>
+    
+    <item>
+      <title>Class的基本语法</title>
+      <link>http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Tue, 23 Apr 2024 09:32:20 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</guid>
+      <description>类的由来 JavaScript 语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。 1 2 3 4 5 6 7 8 9 10 function Point(x, y) { this.x = x; this.y = y; } Point.prototype.toString = function () { return &amp;#39;(&amp;#39; + this.x + &amp;#39;, &amp;#39; + this.y + &amp;#39;)&amp;#39;; }; var p = new Point(1, 2); 上面这种写法跟传统的面向对象语言（比如 C++ 和 Java）差异很大，很容易让新学习这门语言的程序员感到困惑。 ES6 提供了更接近传统</description>
+    </item>
+    
+    <item>
+      <title>Async函数</title>
+      <link>http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Tue, 23 Apr 2024 09:29:35 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/</guid>
+      <description>含义 ES2017 标准引入了 async 函数，使得异步操作变得更加方便。 async 函数是什么？一句话，它就是 Generator 函数的语法糖。 前文有一个 Generator 函数，依次读取两个文件。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 const fs = require(&amp;#39;fs&amp;#39;); const readFile = function (fileName) { return new Promise(function (resolve, reject) { fs.readFile(fileName, function(error, data) { if (error) return reject(error); resolve(data); }); }); }; const gen = function* () { const f1 = yield readFile(&amp;#39;/etc/fstab&amp;#39;); const f2 = yield readFile(&amp;#39;/etc/shells&amp;#39;); console.log(f1.toString()); console.log(f2.toString()); }; 上面代码的函数gen可</description>
+    </item>
+    
+    <item>
+      <title>ArrayBuffer</title>
+      <link>http://shansec.github.io/post/es6/ArrayBuffer/</link>
+      <pubDate>Tue, 23 Apr 2024 09:27:20 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/es6/ArrayBuffer/</guid>
+      <description>`ArrayBuffer` 对象、TypedArray视图和DataView视图是 JavaScript 操作二进制数据的一个接口。这些对象早就存在，属于独立的规格（2011 年 2 月发布），ES6 将它们纳入了 ECMAScript 规格，并且增加了新的方法。它们都是以数组的语法处理二进制数据，所以统称为二进制数组。 这个接口的原始设计目的，与 WebGL 项目有关</description>
+    </item>
+    
+  </channel>
+</rss>
