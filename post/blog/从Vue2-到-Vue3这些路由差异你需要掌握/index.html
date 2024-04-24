@@ -237,25 +237,13 @@
 <h1 id="一导航守卫">一、导航守卫</h1>
 <h2 id="全局前置守卫">全局前置守卫</h2>
 <p>全局前置守卫通常用来做权限控制，使用 <code>router.beforeEach</code> 即可添加：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({...})
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({...})
 </span></span><span style="display:flex;"><span>router.beforeEach((to, <span style="color:#000;font-weight:bold">from</span>) <span style="color:#000;font-weight:bold">=&gt;</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	<span style="color:#998;font-style:italic">// 返回 false 取消导航
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>;
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>每个守卫方法接收两个参数：</p>
+</span></span></code></pre></div><p>每个守卫方法接收两个参数：</p>
 <ul>
 <li><code>to</code>:：即将进入的目标路由</li>
 <li><code>from</code>：当前正要离开的路由
@@ -264,47 +252,16 @@
 <li><code>true | undefined</code>：调用下一个守卫</li>
 <li>一个路由地址：字符串或对象。表示中断当前导航，进行下一个新的导航</li>
 </ul>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.beforeEach(<span style="color:#000;font-weight:bold">async</span>(to, <span style="color:#000;font-weight:bold">from</span>) <span style="color:#000;font-weight:bold">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.beforeEach(<span style="color:#000;font-weight:bold">async</span>(to, <span style="color:#000;font-weight:bold">from</span>) <span style="color:#000;font-weight:bold">=&gt;</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// 检查用户是否已经登录
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">if</span> (<span style="color:#000;font-weight:bold">!</span>isAuthenticated  <span style="color:#000;font-weight:bold">&amp;&amp;</span> to.name <span style="color:#000;font-weight:bold">!==</span> <span style="color:#d14">&#39;Login) {
 </span></span></span><span style="display:flex;"><span><span style="color:#d14">		return { name: &#39;</span>Login<span style="color:#a61717;background-color:#e3d2d2">&#39;</span> }
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>注意：在全局前置守卫中，要确保 <code>next</code> 在导航守卫中只被调用一次。</p>
+</span></span></code></pre></div><p>注意：在全局前置守卫中，要确保 <code>next</code> 在导航守卫中只被调用一次。</p>
 <h2 id="全局解析守卫">全局解析守卫</h2>
 <p><code>router.beforeResolve</code> 用法和 <code>router.beforeEach</code> 类似。它是在导航被确认之前，所有组件内守卫和异步路由组件被解析之后被调用。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.beforeResolve(<span style="color:#000;font-weight:bold">async</span> to <span style="color:#000;font-weight:bold">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.beforeResolve(<span style="color:#000;font-weight:bold">async</span> to <span style="color:#000;font-weight:bold">=&gt;</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">if</span> (to.meta.requiresCamera) {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">try</span> {
 </span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">await</span> askForCameraPermission()
@@ -319,42 +276,20 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>上面这个例子，是为了确保用户可以访问自定义 meta 属性。</p>
+</span></span></code></pre></div><p>上面这个例子，是为了确保用户可以访问自定义 meta 属性。</p>
 <h2 id="全局后置钩子">全局后置钩子</h2>
 <p><code>router.afterEach</code> 和守卫不通，全局后置钩子不接受 <code>next</code> 函数，也不能跳转到其他的路由地址。但是它对于访问分析、更改页面标题、生命页面等辅助功能很有帮助。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.afterEach((to, <span style="color:#000;font-weight:bold">from</span>) <span style="color:#000;font-weight:bold">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.afterEach((to, <span style="color:#000;font-weight:bold">from</span>) <span style="color:#000;font-weight:bold">=&gt;</span> {
 </span></span><span style="display:flex;"><span>	sendTo(to.fullPath)
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="二路由模式">二、路由模式</h1>
+</span></span></code></pre></div><h1 id="二路由模式">二、路由模式</h1>
 <p>Vue3 中不再使用 <code>new Router()</code> 创建 router，而是调用 <code>createRouter</code> 方法：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { createRouter } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;vue-router&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { createRouter } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;vue-router&#39;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>路由模式 <code>mode</code> 配置为 <code>history</code>，属性值调整为：</p>
+</span></span></code></pre></div><p>路由模式 <code>mode</code> 配置为 <code>history</code>，属性值调整为：</p>
 <ul>
 <li>&lsquo;history&rsquo;  		 =&gt;  <code>createWebHistory()</code></li>
 <li>
@@ -368,59 +303,22 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { createRouter, createWebHistory } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;vue-router&#39;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { createRouter, createWebHistory } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;vue-router&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// createWebHashHistory 和 createMemoryHistory (SSR相关) 同理
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
 </span></span><span style="display:flex;"><span>createRouter({
 </span></span><span style="display:flex;"><span>  history: <span style="color:#458;font-weight:bold">createWebHistory</span>(),
 </span></span><span style="display:flex;"><span>  routes<span style="color:#000;font-weight:bold">:</span> []
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>基础路径 <code>base</code> 被作为 <code>createWebHistory</code> 的第一个参数进行传递（其他路由模式也是一样）：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { createRouter, createWebHistory } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;vue-router&#39;</span>
+</span></span></code></pre></div><p>基础路径 <code>base</code> 被作为 <code>createWebHistory</code> 的第一个参数进行传递（其他路由模式也是一样）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { createRouter, createWebHistory } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;vue-router&#39;</span>
 </span></span><span style="display:flex;"><span>createRouter({
 </span></span><span style="display:flex;"><span>  history: <span style="color:#458;font-weight:bold">createWebHistory</span>(<span style="color:#d14">&#39;/base-url/&#39;</span>),
 </span></span><span style="display:flex;"><span>  routes<span style="color:#000;font-weight:bold">:</span> []
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="三路由组件传参">三、路由组件传参</h1>
+</span></span></code></pre></div><h1 id="三路由组件传参">三、路由组件传参</h1>
 <p>当我们获取路由参数时，通常在模板中使用 <code>$route</code>，在逻辑中调用 <code>useRoute()</code> 方法，如：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">template</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">template</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;User {{ $route.params.id }}&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">template</span>&gt;
 </span></span><span style="display:flex;"><span>
@@ -429,22 +327,8 @@
 </span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> route <span style="color:#000;font-weight:bold">=</span> useRoute()
 </span></span><span style="display:flex;"><span>console.log(route.params.id)
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>以上方法比较麻烦，而且与路由紧密耦合，不利于组件封装。我们可以在创建路由时通过 <code>props</code> 配置来解除这种行为：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
+</span></span></code></pre></div><p>以上方法比较麻烦，而且与路由紧密耦合，不利于组件封装。我们可以在创建路由时通过 <code>props</code> 配置来解除这种行为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/user/:id&#39;</span>,
 </span></span><span style="display:flex;"><span>    name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;user&#39;</span>,
@@ -452,24 +336,8 @@
 </span></span><span style="display:flex;"><span>    props: <span style="color:#458;font-weight:bold">true</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此时 <code>route.params</code> 将直接被设置为组件的 <code>props</code>，这样组件就和路由参数解耦了：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">template</span>&gt;
+</span></span></code></pre></div><p>此时 <code>route.params</code> 将直接被设置为组件的 <code>props</code>，这样组件就和路由参数解耦了：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">template</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;User {{ id }}&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">template</span>&gt;
 </span></span><span style="display:flex;"><span>
@@ -479,138 +347,58 @@
 </span></span><span style="display:flex;"><span>}<span style="color:#000;font-weight:bold">&gt;</span>()
 </span></span><span style="display:flex;"><span>console.log(props.id)
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">script</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="布尔模式">布尔模式</h2>
+</span></span></code></pre></div><h2 id="布尔模式">布尔模式</h2>
 <p>当 <code>props</code> 设置为 <code>true</code> 时，<code>route.params</code> 将被设置为组件的 <code>props</code>。</p>
 <h2 id="命名视图">命名视图</h2>
 <p>对于有命名视图的路由，你必须为每个命名视图定义 <code>props</code> 配置：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/user/:id&#39;</span>,
 </span></span><span style="display:flex;"><span>    components<span style="color:#000;font-weight:bold">:</span> { <span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span> User, sidebar: <span style="color:#458;font-weight:bold">Sidebar</span> },
 </span></span><span style="display:flex;"><span>    props<span style="color:#000;font-weight:bold">:</span> { <span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>, sidebar: <span style="color:#458;font-weight:bold">false</span> }
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="对象模式">对象模式</h2>
+</span></span></code></pre></div><h2 id="对象模式">对象模式</h2>
 <p>当 <code>props</code> 是一个对象时，它会将此对象设置为组件 <code>props</code> 。当 <code>props</code> 是静态的时候很有用。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/user&#39;</span>,
 </span></span><span style="display:flex;"><span>    component: <span style="color:#458;font-weight:bold">User</span>,
 </span></span><span style="display:flex;"><span>    props<span style="color:#000;font-weight:bold">:</span> { newsletterPopup: <span style="color:#458;font-weight:bold">false</span> }
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="函数模式">函数模式</h2>
+</span></span></code></pre></div><h2 id="函数模式">函数模式</h2>
 <p>我们也可以创建一个返回 <code>props</code> 的函数。这允许你将参数转换为其他类型：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/user&#39;</span>,
 </span></span><span style="display:flex;"><span>    component: <span style="color:#458;font-weight:bold">User</span>,
 </span></span><span style="display:flex;"><span>    props: <span style="color:#458;font-weight:bold">route</span> <span style="color:#000;font-weight:bold">=&gt;</span> ({ id: <span style="color:#458;font-weight:bold">route.query.id</span> })
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如 <code>/user?id=123</code> 参数会被转为 <code>{ id: '123' }</code> 作为 <code>props</code> 传给组件。</p>
+</span></span></code></pre></div><p>如 <code>/user?id=123</code> 参数会被转为 <code>{ id: '123' }</code> 作为 <code>props</code> 传给组件。</p>
 <h1 id="四滚动行为">四、滚动行为</h1>
 <p>我们可以通过 <code>vue-router</code> 自定义路由切换时页面如何滚动。比如，当跳转到新路由时，页面滚动到某个位置；切换路由时页面回到之前的滚动位置。
 当创建路由实例时，我们只需要提供一个 <code>scrollBehavior</code> 方法：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>  history: <span style="color:#458;font-weight:bold">createWebHashHistory</span>(),
 </span></span><span style="display:flex;"><span>  routes<span style="color:#000;font-weight:bold">:</span> [...],
 </span></span><span style="display:flex;"><span>  scrollBehavior (to, <span style="color:#000;font-weight:bold">from</span>, savedPosition) {
 </span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// return 期望滚动到哪个的位置
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  }
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>scrollBehavior</code> 函数接收 <code>to</code> 和 <code>from</code> 路由对象。第三个参数 <code>savedPosition</code>，只有当这是一个 <code>popstate</code> 导航时才可用（点击浏览器的后退/前进按钮，或者调用 <code>router.go()</code> 方法）</p>
+</span></span></code></pre></div><p><code>scrollBehavior</code> 函数接收 <code>to</code> 和 <code>from</code> 路由对象。第三个参数 <code>savedPosition</code>，只有当这是一个 <code>popstate</code> 导航时才可用（点击浏览器的后退/前进按钮，或者调用 <code>router.go()</code> 方法）</p>
 <h2 id="滚动到固定距离">滚动到固定距离</h2>
 <p>该函数可以返回一个 <code>ScrollToOptions</code> 位置对象：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>  scrollBehavior(to, <span style="color:#000;font-weight:bold">from</span>, savedPosition) {
 </span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 始终滚动到顶部
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">return</span> { top: <span style="color:#458;font-weight:bold">0</span> }
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="滚动到元素位置">滚动到元素位置</h2>
+</span></span></code></pre></div><h2 id="滚动到元素位置">滚动到元素位置</h2>
 <p>可以通过 <code>el</code> 传递一个 <code>CSS</code> 选择器或一个 <code>DOM</code> 元素。在这种情况下，<code>top</code> 和 <code>left</code> 将被视为该元素的相对偏移量。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>  scrollBehavior(to, <span style="color:#000;font-weight:bold">from</span>, savedPosition) {
 </span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 始终在元素 #main 上方滚动 10px
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">return</span> {
@@ -620,23 +408,8 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="滚动到锚点位置">滚动到锚点位置</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
+</span></span></code></pre></div><h2 id="滚动到锚点位置">滚动到锚点位置</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>  scrollBehavior(to, <span style="color:#000;font-weight:bold">from</span>, savedPosition) {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (to.hash) {
 </span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">return</span> {
@@ -645,24 +418,9 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="滚动到之前的位置">滚动到之前的位置</h2>
+</span></span></code></pre></div><h2 id="滚动到之前的位置">滚动到之前的位置</h2>
 <p>在按下浏览器 <code>后退/前进</code> 按钮，或者调用 <code>router.go()</code> 方法时，页面会回到之前的滚动位置：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>  scrollBehavior(to, <span style="color:#000;font-weight:bold">from</span>, savedPosition) {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (savedPosition) {
 </span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">return</span> savedPosition
@@ -671,25 +429,10 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>注意：如果返回一个 <code>false</code> 的值，或者是一个<code>空对象</code>，则不会发生滚动。我们还可以在返回的对象中添加 <code>behavior: 'smooth'</code> ，让滚动更加丝滑。</p>
+</span></span></code></pre></div><p>注意：如果返回一个 <code>false</code> 的值，或者是一个<code>空对象</code>，则不会发生滚动。我们还可以在返回的对象中添加 <code>behavior: 'smooth'</code> ，让滚动更加丝滑。</p>
 <h2 id="延迟滚动">延迟滚动</h2>
 <p>有时候我们不希望立即执行滚动行为。例如当页面做了过渡动效，我们希望过渡结束后再执行滚动。要做到这一点，我们可以返回一个 <code>Promise</code>：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> router <span style="color:#000;font-weight:bold">=</span> createRouter({
 </span></span><span style="display:flex;"><span>  scrollBehavior(to, <span style="color:#000;font-weight:bold">from</span>, savedPosition) {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">new</span> Promise((resolve, reject) <span style="color:#000;font-weight:bold">=&gt;</span> {
 </span></span><span style="display:flex;"><span>      setTimeout(() <span style="color:#000;font-weight:bold">=&gt;</span> {
@@ -698,53 +441,17 @@
 </span></span><span style="display:flex;"><span>    })
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="五过渡动效">五、过渡动效</h1>
+</span></span></code></pre></div><h1 id="五过渡动效">五、过渡动效</h1>
 <h2 id="基本用法">基本用法</h2>
 <p>如果想要在路由组件上使用转场，对导航进行动画处理，我可以使用 <code>v-slot</code> 结合 <code>Animete.css</code> 来实现：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">RouterView</span> <span style="color:#008080">v-slot</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ Component }&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">RouterView</span> <span style="color:#008080">v-slot</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ Component }&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">transition</span> <span style="color:#008080">enter-active-class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;animate__animated animate__fadeIn&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">component</span> <span style="color:#008080">:is</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Component&#34;</span> /&gt;
 </span></span><span style="display:flex;"><span>  &lt;/<span style="color:#000080">transition</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">RouterView</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="单个路由的过渡">单个路由的过渡</h2>
+</span></span></code></pre></div><h2 id="单个路由的过渡">单个路由的过渡</h2>
 <p>上面的用法会对所有的路由使用相同的过渡。如果你想让每个路由的组件有不同的过渡，可以将 <code>元信息</code> 和动态的 <code>enter-active-class</code> 结合在一起，放在 <code>&lt;transition&gt;</code> 上：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>// js
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>// js
 </span></span><span style="display:flex;"><span>const routes = [
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    path: &#39;/home&#39;,
@@ -763,138 +470,58 @@
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">component</span> <span style="color:#008080">:is</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Component&#34;</span> /&gt;
 </span></span><span style="display:flex;"><span>  &lt;/<span style="color:#000080">transition</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">RouterView</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="复用的组件之间进行过渡">复用的组件之间进行过渡</h2>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
+</span></span></code></pre></div><h2 id="复用的组件之间进行过渡">复用的组件之间进行过渡</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> routes <span style="color:#000;font-weight:bold">=</span> [
 </span></span><span style="display:flex;"><span>  {
 </span></span><span style="display:flex;"><span>    path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/user/:id&#39;</span>,
 </span></span><span style="display:flex;"><span>    component: <span style="color:#458;font-weight:bold">User</span>,
 </span></span><span style="display:flex;"><span>    meta<span style="color:#000;font-weight:bold">:</span> { transition<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;animate__bounceIn&#39;</span> },
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>定义以上路由，当从 <code>/user/123</code> 切换到 <code>/user/456</code> 时是没有任何过渡效果的。这时候我们可以添加一个 <code>key</code> 属性来强制进行过渡，<code>key</code> 值只要不同就行了。说白了就是让 <code>Dom</code> 不要被复用，和 <code>v-for</code> 的 <code>key</code> 属性原理刚好相反。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">router-view</span> <span style="color:#008080">v-slot</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ Component, route }&#34;</span>&gt;
+</span></span></code></pre></div><p>定义以上路由，当从 <code>/user/123</code> 切换到 <code>/user/456</code> 时是没有任何过渡效果的。这时候我们可以添加一个 <code>key</code> 属性来强制进行过渡，<code>key</code> 值只要不同就行了。说白了就是让 <code>Dom</code> 不要被复用，和 <code>v-for</code> 的 <code>key</code> 属性原理刚好相反。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">router-view</span> <span style="color:#008080">v-slot</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;{ Component, route }&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">transition</span> <span style="color:#008080">:enter-active-class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;`animate__animated ${$route.meta.transition}`&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">component</span> <span style="color:#008080">:is</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Component&#34;</span> <span style="color:#008080">:key</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;route.path&#34;</span> /&gt;
 </span></span><span style="display:flex;"><span>  &lt;/<span style="color:#000080">transition</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">router-view</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="六动态路由">六、动态路由</h1>
+</span></span></code></pre></div><h1 id="六动态路由">六、动态路由</h1>
 <h2 id="添加路由">添加路由</h2>
 <p>当我们做用户权限的时候，添加路由非常有用。可以使用 <code>router.addRoute()</code> 来添加一个路由：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/about&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">About</span> })
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>注意：跟之前版本不同的是，路由只能一个一个添加，不能批量添加。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/about&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">About</span> })
+</span></span></code></pre></div><p>注意：跟之前版本不同的是，路由只能一个一个添加，不能批量添加。</p>
 <h2 id="删除路由">删除路由</h2>
 <p>以下几个方法都可以删除路由：</p>
 <ol>
 <li>通过使用 <code>router.removeRoute()</code> 按名称删除路由：</li>
 </ol>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/about&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">About</span> })
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/about&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">About</span> })
 </span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 删除路由
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>router.removeRoute(<span style="color:#d14">&#39;about&#39;</span>)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="2">
+</span></span></code></pre></div><ol start="2">
 <li>通过添加一个名称相同的路由，替换掉之前的路由：</li>
 </ol>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/about&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">About</span> })
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/about&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">About</span> })
 </span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 这将会删除之前已经添加的路由，因为他们具有相同的名字且名字必须是唯一的
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>router.addRoute({ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/other&#39;</span>, name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;about&#39;</span>, component: <span style="color:#458;font-weight:bold">Other</span> })
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
+</span></span></code></pre></div><ol start="3">
 <li>通过调用 <code>router.addRoute()</code> 返回的回调函数：</li>
 </ol>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> removeRoute <span style="color:#000;font-weight:bold">=</span> router.addRoute(routeRecord)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> removeRoute <span style="color:#000;font-weight:bold">=</span> router.addRoute(routeRecord)
 </span></span><span style="display:flex;"><span>removeRoute() <span style="color:#998;font-style:italic">// 删除路由如果存在的话
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>当路由没有名称时，这种方法非常有用。</p>
+</span></span></span></code></pre></div><p>当路由没有名称时，这种方法非常有用。</p>
 <h2 id="添加嵌套路由">添加嵌套路由</h2>
 <p>要将嵌套路由添加到现有的路由中，可以将路由的 <code>name</code> 作为第一个参数传递给 <code>router.addRoute()</code> ，这和通过 <code>children</code> 添加的效果一样：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;admin&#39;</span>, path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/admin&#39;</span>, component: <span style="color:#458;font-weight:bold">Admin</span> })
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({ name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;admin&#39;</span>, path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/admin&#39;</span>, component: <span style="color:#458;font-weight:bold">Admin</span> })
 </span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 添加嵌套路由
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>router.addRoute(<span style="color:#d14">&#39;admin&#39;</span>, { path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;settings&#39;</span>, component: <span style="color:#458;font-weight:bold">AdminSettings</span> })
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>相当于：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({
+</span></span></code></pre></div><p>相当于：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>router.addRoute({
 </span></span><span style="display:flex;"><span>  name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;admin&#39;</span>,
 </span></span><span style="display:flex;"><span>  path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;/admin&#39;</span>,
 </span></span><span style="display:flex;"><span>  component: <span style="color:#458;font-weight:bold">Admin</span>,
 </span></span><span style="display:flex;"><span>  children<span style="color:#000;font-weight:bold">:</span> [{ path<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;settings&#39;</span>, component: <span style="color:#458;font-weight:bold">AdminSettings</span> }]
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="结论">结论</h1>
+</span></span></code></pre></div><h1 id="结论">结论</h1>
 <p>本片文章大部分来自官网，也有一些来自自己的实践心得。希望对你的开发工作有所帮助。当然这并不是 Vue-Router4 的所有内容，比如还有路由匹配、重定向和别名等等，大家可以自行在官网查看。如果今天的分享对你有所帮助。</p>
 
         </div>
@@ -1095,43 +722,43 @@ div.highlight:hover .copy-code,pre:hover .copy-code {
 <ul class="widget-list">
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Proxy/" title="Proxy" target="_blank">Proxy</a>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" title="Promise对象" target="_blank">Promise对象</a>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Module的语法" target="_blank">Module的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" title="Module的加载实现" target="_blank">Module的加载实现</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Mixin/" title="Mixin" target="_blank">Mixin</a>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" title="Let和const命令" target="_blank">Let和const命令</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/" title="Iterator和for...of循环" target="_blank">Iterator和for...of循环</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Generator函数的语法" target="_blank">Generator函数的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" title="Generator函数的异步应用" target="_blank">Generator函数的异步应用</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
     </li>
     
 </ul>
@@ -1145,7 +772,7 @@ div.highlight:hover .copy-code,pre:hover .copy-code {
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (37)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
     
 </ul>
     </section>

@@ -74,11 +74,151 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/class%E7%BB%A7%E6%89%BF/" title="Class继承" target="_blank">Class继承</a>
+                <a href="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" title="变量解构赋值" target="_blank">变量解构赋值</a>
             </h1>
         </header>
         
-  <time datetime="2024-04-23T01:41:22Z" class="post-meta meta-date dt-published">
+  <time datetime="2024-04-24T01:55:21Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            变量的解构赋值 数组的解构赋值 基本用法 ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。 以前，为变量赋值，只能直接指定值。 let a = 1; let b = 2; let c = 3; ES6 允许写成下面这样。 let [a, b, c] = [1, 2, 3]; 上面代码表示，可以从数组中提取值，按照对应位置，……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/" title="函数的扩展" target="_blank">函数的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:49:04Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            函数参数的默认值 基本用法 ES6 之前，不能直接为函数的参数指定默认值，只能采用变通的方法。 function log(x, y) { y = y || &#39;World&#39;; console.log(x, y); } log(&#39;Hello&#39;) // Hello World log(&#39;Hello&#39;, &#39;China&#39;) // Hello China log(&#39;Hello&#39;, &#39;&#39;) // Hello World 上面代码检查函数log()的参数y有没有赋值，如果没有，则指定默认值为World。这种写法的缺点在于，如果参数y赋值了，但是对应的布尔值为fal……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" title="函数式编程" target="_blank">函数式编程</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:47:58Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            JavaScript 语言从一诞生，就具有函数式编程的烙印。它将函数作为一种独立的数据类型，与其他数据类型处于完全平等的地位。在 JavaScript 语言中，你可以采用面向对象编程，也可以采用函数式编程。有人甚至说，JavaScript 是有史以来第一种被大规模采用的函数式编程语言。 ES6 的种种新增功能，使得函数式编程变得更……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/Symbol/" title="Symbol" target="_blank">Symbol</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:43:59Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            概述 ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Sy……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Symbol/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Set和Map数据结构" target="_blank">Set和Map数据结构</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:39:22Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            Set 基本用法 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x)); for (let i of s) { console.log(i); } // 2 3 5 4 上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。 Set函数可以……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T02:31:38Z" class="post-meta meta-date dt-published">
     2024-04-23
   </time>
 
@@ -92,9 +232,9 @@
 
 
         <div class="post-content">
-            Class 的继承 简介 Class 可以通过extends关键字实现继承，让子类继承父类的属性和方法。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。 1 2 3 4 5 class Point { } class ColorPoint extends Point { } 上面示例中，Point是父类，ColorPoint是子类，它通过extends关键字，继承了Point类的所有属性……
+            概述 Reflect对象与Proxy对象一样，也是 ES6 为了操作对象而提供的新 API。Reflect对象的设计目的有这样几个。 （1） 将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Obje……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/class%E7%BB%A7%E6%89%BF/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Reflect/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -102,11 +242,11 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" title="Class的基本语法" target="_blank">Class的基本语法</a>
+                <a href="http://shansec.github.io/post/es6/Proxy/" title="Proxy" target="_blank">Proxy</a>
             </h1>
         </header>
         
-  <time datetime="2024-04-23T01:32:20Z" class="post-meta meta-date dt-published">
+  <time datetime="2024-04-23T02:28:38Z" class="post-meta meta-date dt-published">
     2024-04-23
   </time>
 
@@ -120,9 +260,9 @@
 
 
         <div class="post-content">
-            类的由来 JavaScript 语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。 1 2 3 4 5 6 7 8 9 10 function Point(x, y) { this.x = x; this.y = y; } Point.prototype.toString = function () { return &#39;(&#39; + this.x + &#39;, &#39; + this.y + &#39;)&#39;; }; var p = new Point(1, 2); 上面这种写法跟传统的面向对象语言（比如 C++ 和 Java）差异很大，很容易让新学习这门语言的程序员感到困惑。 ES6 提供了更接近传统……
+            概述 Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。 Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Proxy/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -130,11 +270,11 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/" title="Async函数" target="_blank">Async函数</a>
+                <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" title="Promise对象" target="_blank">Promise对象</a>
             </h1>
         </header>
         
-  <time datetime="2024-04-23T01:29:35Z" class="post-meta meta-date dt-published">
+  <time datetime="2024-04-23T02:25:57Z" class="post-meta meta-date dt-published">
     2024-04-23
   </time>
 
@@ -148,9 +288,9 @@
 
 
         <div class="post-content">
-            含义 ES2017 标准引入了 async 函数，使得异步操作变得更加方便。 async 函数是什么？一句话，它就是 Generator 函数的语法糖。 前文有一个 Generator 函数，依次读取两个文件。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 const fs = require(&#39;fs&#39;); const readFile = function (fileName) { return new Promise(function (resolve, reject) { fs.readFile(fileName, function(error, data) { if (error) return reject(error); resolve(data); }); }); }; const gen = function* () { const f1 = yield readFile(&#39;/etc/fstab&#39;); const f2 = yield readFile(&#39;/etc/shells&#39;); console.log(f1.toString()); console.log(f2.toString()); }; 上面代码的函数gen可……
+            Promise 的含义 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -158,11 +298,11 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/ArrayBuffer/" title="ArrayBuffer" target="_blank">ArrayBuffer</a>
+                <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Module的语法" target="_blank">Module的语法</a>
             </h1>
         </header>
         
-  <time datetime="2024-04-23T01:27:20Z" class="post-meta meta-date dt-published">
+  <time datetime="2024-04-23T02:22:07Z" class="post-meta meta-date dt-published">
     2024-04-23
   </time>
 
@@ -176,9 +316,9 @@
 
 
         <div class="post-content">
-            `ArrayBuffer` 对象、TypedArray视图和DataView视图是 JavaScript 操作二进制数据的一个接口。这些对象早就存在，属于独立的规格（2011 年 2 月发布），ES6 将它们纳入了 ECMAScript 规格，并且增加了新的方法。它们都是以数组的语法处理二进制数据，所以统称为二进制数组。 这个接口的原始设计目的，与 WebGL 项目有关……
+            概述 历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/ArrayBuffer/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -186,167 +326,27 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" title="部署Go语言项目" target="_blank">部署Go语言项目</a>
+                <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" title="Module的加载实现" target="_blank">Module的加载实现</a>
             </h1>
         </header>
         
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
+  <time datetime="2024-04-23T02:17:05Z" class="post-meta meta-date dt-published">
+    2024-04-23
   </time>
 
 
 <div class="post-meta meta-category">
   <span>&nbsp;|</span>
   
-    <a href='/categories/go' target="_blank">go</a>
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
   
 </div>
 
 
         <div class="post-content">
-            部署Go语言项目 本文以部署 Go Web 程序为例，介绍了在 CentOS7 服务器上部署 Go 语言程序的若干方法。 独立部署 Go 语言支持跨平台交叉编译，也就是说我们可以在 Windows 或 Mac 平台下编写代码，并且将代码编译成能够在 Linux amd64 服务器上运行的程序。 对于简单的项目，通常我们只需要将编译后的二进制文件拷贝到服务器上，然后设置为……
+            上一章介绍了模块的语法，本章介绍如何在浏览器和 Node.js 之中加载 ES6 模块，以及实际开发中经常遇到的一些问题（比如循环加载）。 浏览器加载 传统方法 HTML 网页中，浏览器通过&lt;script&gt;标签加载 JavaScript 脚本。 &lt;!-- 页面内嵌的脚本 --&gt; &lt;script type=&#34;application/javascript&#34;&gt; // module code &lt;/script&gt; &lt;!-- 外部脚本 --&gt; &lt;script type=&#34;application/javascript&#34; src=&#34;path/to/myModule.js&#34;&gt;&lt;/script&gt; 上面代码中，由于浏览器脚本的默认语言……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E6%BC%8F%E6%A1%B6%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E4%BB%8B%E7%BB%8D/" title="常用限流策略——漏桶与令牌桶介绍" target="_blank">常用限流策略——漏桶与令牌桶介绍</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            限流又称为流量控制（流控），通常是指限制到达系统的并发请求数，本文列举了常见的限流策略，并以gin框架为例演示了如何为项目添加限流组件。 限流 限流又称为流量控制（流控），通常是指限制到达系统的并发请求数。 我们生活中也会经常遇到限流的场景，比如：某景区限制每日进入景区的游客数量为8万……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E6%BC%8F%E6%A1%B6%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E4%BB%8B%E7%BB%8D/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/" title="常用的HTTP服务压测工具介绍" target="_blank">常用的HTTP服务压测工具介绍</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            HTTP服务压力测试工具 在项目正式上线之前，我们通常需要通过压测来评估当前系统能够支撑的请求量、排查可能存在的隐藏bug，同时了解了程序的实际处理能力能够帮我们更好的匹配项目的实际需求，节约资源成本。 压测相关术语 响应时间(RT) ：指系统对请求作出响应的时间. 吞吐量(Through……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/" title="如何使用Docker部署Go Web应用" target="_blank">如何使用Docker部署Go Web应用</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            为什么需要Docker？ 使用docker的主要目标是容器化。也就是为你的应用程序提供一致的环境，而不依赖于它运行的主机。 想象一下你是否也会遇到下面这个场景，你在本地开发了你的应用程序，它很可能有很多的依赖环境或包，甚至对依赖的具体版本都有严格的要求，当开发过程完成后，你希望将应用……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E5%9C%A8gin%E6%A1%86%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8JWT/" title="在gin框架中使用JWT" target="_blank">在gin框架中使用JWT</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            JWT全称JSON Web Token是一种跨域认证解决方案，属于一个开放的标准，它规定了一种Token实现方式，目前多用于前后端分离项目和OAuth2.0业务场景下。 什么是JWT？ JWT全称JSON Web Token是一种跨域认证解决方案，属于一个开放的标准，它规定了一种Token 实现方式，……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%9C%A8gin%E6%A1%86%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8JWT/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8zap%E6%8E%A5%E6%94%B6gin%E6%A1%86%E6%9E%B6%E9%BB%98%E8%AE%A4%E7%9A%84%E6%97%A5%E5%BF%97%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%BD%92%E6%A1%A3/" title="使用zap接收gin框架默认的日志并配置日志归档" target="_blank">使用zap接收gin框架默认的日志并配置日志归档</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            gin默认的中间件 首先我们来看一个最简单的gin项目： 1 2 3 4 5 6 7 func main() { r := gin.Default() r.GET(&#34;/hello&#34;, func(c *gin.Context) { c.String(&#34;hello liwenzhou.com!&#34;) }) r.Run( } 接下来我们看一下gin.Default()的源码： 1 2 3 4 5 6 func Default() *Engine { debugPrintWARNINGDefault() engine := New() engine.Use(Logger(), Recovery()) return engine } 也就是我们在使用gin.Default()的同时是用到了gin框架内的两个默认中间件Logge……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8zap%E6%8E%A5%E6%94%B6gin%E6%A1%86%E6%9E%B6%E9%BB%98%E8%AE%A4%E7%9A%84%E6%97%A5%E5%BF%97%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%BD%92%E6%A1%A3/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -392,6 +392,14 @@
     
     <li >
         <a href="http://shansec.github.io/post/page/8/">8</a>
+    </li>
+    
+    <li >
+        <a href="http://shansec.github.io/post/page/9/">9</a>
+    </li>
+    
+    <li >
+        <a href="http://shansec.github.io/post/page/10/">10</a>
     </li>
     
 
@@ -455,43 +463,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Proxy/" title="Proxy" target="_blank">Proxy</a>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" title="Promise对象" target="_blank">Promise对象</a>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Module的语法" target="_blank">Module的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" title="Module的加载实现" target="_blank">Module的加载实现</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Mixin/" title="Mixin" target="_blank">Mixin</a>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" title="Let和const命令" target="_blank">Let和const命令</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/" title="Iterator和for...of循环" target="_blank">Iterator和for...of循环</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Generator函数的语法" target="_blank">Generator函数的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" title="Generator函数的异步应用" target="_blank">Generator函数的异步应用</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
     </li>
     
 </ul>
@@ -505,7 +513,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (37)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
     
 </ul>
     </section>

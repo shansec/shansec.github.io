@@ -266,15 +266,8 @@
 <p>主要是项目的基本信息，包括名称、版本、描述、仓库、作者等。</p>
 <h2 id="name">name</h2>
 <p>项目的名称，如果是第三方包的话，可以通过该名称通过 npm install 安装。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">npm</span> <span style="color:#a61717;background-color:#e3d2d2">install</span> <span style="color:#a61717;background-color:#e3d2d2">name</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="version">version</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">npm</span> <span style="color:#a61717;background-color:#e3d2d2">install</span> <span style="color:#a61717;background-color:#e3d2d2">name</span>
+</span></span></code></pre></div><h2 id="version">version</h2>
 <p>项目的版本号，开源项目的版本号遵循 semver 语义化规范，具体如下所示：
 
         <img class="mx-auto" alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/c8365470dcf1470b89969832f8021e22.png" />   
@@ -288,48 +281,17 @@
 <p>回到 package.json 的 version 字段，name + version 能共同构成一个完全唯一的项目标识符，所以它两是最重要的两个字段。</p>
 <h2 id="repository">repository</h2>
 <p>项目的仓库地址以及版本控制信息。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;repository&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;repository&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#000080">&#34;type&#34;</span>: <span style="color:#d14">&#34;git&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#000080">&#34;url&#34;</span>: <span style="color:#d14">&#34;https://github.com/facebook/react.git&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#000080">&#34;directory&#34;</span>: <span style="color:#d14">&#34;packages/react&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="description">description</h2>
+</span></span></code></pre></div><h2 id="description">description</h2>
 <p>关于项目的描述，会在 npm 官网展示，让其他人更快了解该项目。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;description&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;package.json配置解读&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="keywords">keywords</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;description&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;package.json配置解读&#34;</span>
+</span></span></code></pre></div><h2 id="keywords">keywords</h2>
 <p>项目的技术关键词，合适的关键词可以在 npm 官网更好的检索到该项目。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;keywords&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;keywords&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;component&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;components&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;design&#34;</span>,
@@ -338,264 +300,97 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;ui&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;axios&#34;</span>
 </span></span><span style="display:flex;"><span> ]<span style="color:#a61717;background-color:#e3d2d2">,</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="license">license</h2>
+</span></span></code></pre></div><h2 id="license">license</h2>
 <p>项目的开源许可证。项目的版权拥有人可以使用开源许可证来限制源码的使用、复制、修改和再发布等行为。常见的开源许可证有 BSD、MIT、Apache 等。具体可以参考阮一峰老师的这篇文章 <a href="https://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html">如何选择开源许可证</a>。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;license&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;BSD&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="author">author</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;license&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;BSD&#34;</span>
+</span></span></code></pre></div><h2 id="author">author</h2>
 <p>这个字段不用多说，指的是该项目的作者。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;author&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;May&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="二文件配置">二、文件配置</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;author&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;May&#34;</span><span style="color:#a61717;background-color:#e3d2d2">,</span>
+</span></span></code></pre></div><h1 id="二文件配置">二、文件配置</h1>
 <p>包括项目所包含的文件以及入口等信息。</p>
 <h2 id="files">files</h2>
 <p>项目在进行发布时，可以通过 files 指定需要跟随一起发布的内容来控制 npm 包的大小，避免安装时间太长。发布时默认会包括 package.json，license，README 和main 字段里指定的文件。忽略 node_modules，lockfile 等文件。<!-- raw HTML omitted -->在此基础上我们可以指定其他可以发布的内容，可以是单独的文件，文件件以及通配符匹配到的文件。一般情况下，files 里会指定构建出来的产物以及类型文件，而 src 目录下的文件不需要跟随发布。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;files&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;files&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;file.js&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;may/&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;global/*.{js,json}&#34;</span>
 </span></span><span style="display:flex;"><span> ]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="type">type</h2>
+</span></span></code></pre></div><h2 id="type">type</h2>
 <p>在node支持ES模块后，要求ES模块采用 .mjs 后缀文件名，只要遇到 .mjs 结尾的文件，就认为它是ES模块。如果不想修改文件后缀名，可以在 package.json 中修改 type 值为 module。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;type&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;module&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果还要使用 CommonJs 模块规范，那么需要将 CommonJS 模块的文件以 .cjs 结尾，不过建议这两种模块不要混合使用，会有异常报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;type&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;module&#34;</span>
+</span></span></code></pre></div><p>如果还要使用 CommonJs 模块规范，那么需要将 CommonJS 模块的文件以 .cjs 结尾，不过建议这两种模块不要混合使用，会有异常报错。</p>
 <h2 id="main">main</h2>
 <p>项目发布时，默认会包括 package.json，license，README 和 main 字段里指定的文件，因为 main 字段里指定的是项目的入口文件，在 browser 和 Node 环境中都可以使用。<!-- raw HTML omitted -->如果不设置 main 字段，那么入口文件就是根目录下的 index.js。</p>
 <h2 id="browser">browser</h2>
 <p>main 字段里指定的入口文件在 browser 和 Node 环境中都可以使用。如果只想在 web 端使用，不允许在 server 端使用，可以通过 browser 字段指定入口。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;browser&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;./browser/index.js&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="module">module</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;browser&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;./browser/index.js&#34;</span>
+</span></span></code></pre></div><h2 id="module">module</h2>
 <p>module 字段可以用来指定 ES 模块的入口文件。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;module&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;./index.mjs&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>当一个项目同时定义了 main，browser 和 module，webpack，rollup 等构建工具会感知这些字段，并会根据环境以及不同的模块规范来进行不同的入口文件查找。<!-- raw HTML omitted -->比如 webpack 构建项目时默认的 target 为 &lsquo;web&rsquo;，也就是 Web 构建。它的 resolve.mainFeilds 字段默认为 [&lsquo;browser&rsquo;, &lsquo;module&rsquo;, &lsquo;main&rsquo;]。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>module.exports <span style="color:#000;font-weight:bold">=</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#d14">&#34;module&#34;</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#34;./index.mjs&#34;</span>
+</span></span></code></pre></div><p>当一个项目同时定义了 main，browser 和 module，webpack，rollup 等构建工具会感知这些字段，并会根据环境以及不同的模块规范来进行不同的入口文件查找。<!-- raw HTML omitted -->比如 webpack 构建项目时默认的 target 为 &lsquo;web&rsquo;，也就是 Web 构建。它的 resolve.mainFeilds 字段默认为 [&lsquo;browser&rsquo;, &lsquo;module&rsquo;, &lsquo;main&rsquo;]。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>module.exports <span style="color:#000;font-weight:bold">=</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">//...
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  resolve<span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>    mainFields<span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#39;browser&#39;</span>, <span style="color:#d14">&#39;module&#39;</span>, <span style="color:#d14">&#39;main&#39;</span>],
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>};
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>此时会按照 browser -&gt; module -&gt; main 的顺序来查找入口文件。</p>
+</span></span></code></pre></div><p>此时会按照 browser -&gt; module -&gt; main 的顺序来查找入口文件。</p>
 <h2 id="exports">exports</h2>
 <p>node 在 14.13 支持在 package.json 里定义 exports 字段，拥有了条件导出的功能。exports 字段可以配置不同环境对应的模块入口文件，并且当它存在时，它的优先级最高。比如使用 require 和 import 字段根据模块规范分别定义入口：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;exports&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;exports&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;require&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./index.js&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;import&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./index.mjs&#34;</span>
 </span></span><span style="display:flex;"><span> }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这样的配置在使用 import &lsquo;xxx&rsquo; 和 require(&lsquo;xxx&rsquo;) 时会从不同的入口引入文件，exports 也支持使用 browser 和 node 字段定义 browser 和 Node 环境中的入口。上方的写法其实等同于：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;exports&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span></code></pre></div><p>这样的配置在使用 import &lsquo;xxx&rsquo; 和 require(&lsquo;xxx&rsquo;) 时会从不同的入口引入文件，exports 也支持使用 browser 和 node 字段定义 browser 和 Node 环境中的入口。上方的写法其实等同于：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;exports&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;.&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;require&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./index.js&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;import&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./index.mjs&#34;</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span> }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>为什么要加一个层级，把 require 和 import 放在 &ldquo;.&rdquo; 下面呢？<!-- raw HTML omitted -->因为 exports 除了支持配置包的默认导出，还支持配置包的子路径。</p>
+</span></span></code></pre></div><p>为什么要加一个层级，把 require 和 import 放在 &ldquo;.&rdquo; 下面呢？<!-- raw HTML omitted -->因为 exports 除了支持配置包的默认导出，还支持配置包的子路径。</p>
 <h2 id="workspaces">workspaces</h2>
 <p>项目的工作区配置，用于在本地的根目录下管理多个子项目。可以自动地在 npm install 时将 workspaces 下面的包，软链到根目录的 node_modules 中，不用手动执行 npm link 操作。<!-- raw HTML omitted -->workspaces 字段接收一个数组，数组里可以是文件夹名称或者通配符。比如：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;workspaces&#34;</span><span style="color:#000;font-weight:bold">:</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;workspaces&#34;</span><span style="color:#000;font-weight:bold">:</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;workspace-s&#34;</span>
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>表示在 workspace-s 目录下还有一个项目，它也有自己的 package.json。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">package</span>.json
+</span></span></code></pre></div><p>表示在 workspace-s 目录下还有一个项目，它也有自己的 package.json。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">package</span>.json
 </span></span><span style="display:flex;"><span>workspace<span style="color:#000;font-weight:bold">-</span>a
 </span></span><span style="display:flex;"><span>  <span style="color:#a61717;background-color:#e3d2d2">└──</span> <span style="color:#000;font-weight:bold">package</span>.json
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>通常子项目都会平铺管理在 packages 目录下，所以根目录下 workspaces 通常配置为：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;workspaces&#34;</span><span style="color:#000;font-weight:bold">:</span> [
+</span></span></code></pre></div><p>通常子项目都会平铺管理在 packages 目录下，所以根目录下 workspaces 通常配置为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;workspaces&#34;</span><span style="color:#000;font-weight:bold">:</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;packages/*&#34;</span>
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="三脚本配置">三、脚本配置</h1>
+</span></span></code></pre></div><h1 id="三脚本配置">三、脚本配置</h1>
 <h2 id="scripts">scripts</h2>
 <p>指定项目的一些内置脚本命令，这些命令可以通过 npm run 来执行。通常包含项目开发，构建 等 CI 命令，比如：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;scripts&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;scripts&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;build&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;webpack&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>我们可以使用命令 npm run build 来执行项目构建。<!-- raw HTML omitted -->除了指定基础命令，还可以配合 pre 和 post 完成命令的前置和后续操作，比如：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;scripts&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span></code></pre></div><p>我们可以使用命令 npm run build 来执行项目构建。<!-- raw HTML omitted -->除了指定基础命令，还可以配合 pre 和 post 完成命令的前置和后续操作，比如：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;scripts&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;build&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;webpack&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;prebuild&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;xxx&#34;</span>, <span style="color:#998;font-style:italic">// build 执行之前的钩子
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#d14">&#34;postbuild&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;xxx&#34;</span> <span style="color:#998;font-style:italic">// build 执行之后的钩子
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>当执行 npm run build 命令时，会按照 prebuild -&gt; build -&gt; postbuild 的顺序依次执行上方的命令。<!-- raw HTML omitted -->但是这样的隐式逻辑很可能会造成执行工作流的混乱，所以 pnpm 和 yarn2 都已经废弃掉了这种 pre/post 自动执行的逻辑。<!-- raw HTML omitted -->如果需要手动开启，pnpm 项目可以设置</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>enable<span style="color:#000;font-weight:bold">-</span>pre<span style="color:#000;font-weight:bold">-</span>post<span style="color:#000;font-weight:bold">-</span>scripts<span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">true</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="config">config</h2>
+</span></span></code></pre></div><p>当执行 npm run build 命令时，会按照 prebuild -&gt; build -&gt; postbuild 的顺序依次执行上方的命令。<!-- raw HTML omitted -->但是这样的隐式逻辑很可能会造成执行工作流的混乱，所以 pnpm 和 yarn2 都已经废弃掉了这种 pre/post 自动执行的逻辑。<!-- raw HTML omitted -->如果需要手动开启，pnpm 项目可以设置</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>enable<span style="color:#000;font-weight:bold">-</span>pre<span style="color:#000;font-weight:bold">-</span>post<span style="color:#000;font-weight:bold">-</span>scripts<span style="color:#000;font-weight:bold">=</span><span style="color:#000;font-weight:bold">true</span>
+</span></span></code></pre></div><h2 id="config">config</h2>
 <p>config 用于设置 scripts 里的脚本在运行时的参数。比如设置 port 为 3001：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;config&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;config&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;port&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;8080&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在执行脚本时，我们可以通过 npm_package_config_port 这个变量访问到 3001。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 8080
+</span></span></code></pre></div><p>在执行脚本时，我们可以通过 npm_package_config_port 这个变量访问到 3001。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 8080
 </span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>console.log(process.env.npm_package_config_port); 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="四依赖配置">四、依赖配置</h1>
+</span></span></code></pre></div><h1 id="四依赖配置">四、依赖配置</h1>
 <p>项目开发过程中会依赖其他包，需要在 package.json 里配置这些依赖的信息。</p>
 <h2 id="dependencies">dependencies</h2>
 <p>运行依赖，也就是项目生产环境下需要用到的依赖。比如 vue，vuex以及组件库等。<!-- raw HTML omitted -->使用 npm install xxx 或则 npm install xxx &ndash;save 时，会被自动插入到该字段中。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#d14">&#34;dependencies&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#d14">&#34;dependencies&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;element-plus&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^2.2.28&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;pinia&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^2.0.28&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;sass&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^1.57.1&#34;</span>,
@@ -603,33 +398,9 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;vue&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^3.2.45&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;vue-router&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^4.1.6&#34;</span>
 </span></span><span style="display:flex;"><span>  },
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="devdependencies">devDependencies</h2>
+</span></span></code></pre></div><h2 id="devdependencies">devDependencies</h2>
 <p>开发依赖，项目开发环境需要用到而运行时不需要的依赖，用于辅助开发，通常包括项目工程化工具比如 vite，eslint 等。<!-- raw HTML omitted -->使用 npm install xxx -D 或者 npm install xxx &ndash;save-dev 时，会被自动插入到该字段中。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#d14">&#34;devDependencies&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#d14">&#34;devDependencies&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;cz-git&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^1.4.1&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;eslint&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^8.30.0&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;eslint-config-airbnb-base&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^15.0.0&#34;</span>,
@@ -647,9 +418,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;stylelint&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^14.16.0&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;stylelint-config-html&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;^1.1.0&#34;</span>,
 </span></span><span style="display:flex;"><span>  }
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="peerdependencies">peerDependencies</h2>
+</span></span></code></pre></div><h2 id="peerdependencies">peerDependencies</h2>
 <p>同伴依赖是一种特殊的依赖，不会被自动安装，通常用于表示与另一个包的依赖与兼容性关系来警示使用者。</p>
 <h2 id="optionaldependencies">optionalDependencies</h2>
 <p>可选依赖，表示依赖是可选的，它不会阻塞主功能的使用，安装或者引入失败也无妨。这类依赖如果安装失败，那么 npm 的整个安装过程也是成功的。<!-- raw HTML omitted -->使用 npm install xxx -O 或者 npm install xxx &ndash;save-optional 时，依赖会被自动插入到该字段中。</p>
@@ -662,126 +431,50 @@
 <p>主要是一些和项目发布有关的配置</p>
 <h2 id="private">private</h2>
 <p>如果是私有项目，不希望发布到公共 npm 仓库上，可以将 private 设为 true。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;private&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="publishconfig">publishConfig</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;private&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>
+</span></span></code></pre></div><h2 id="publishconfig">publishConfig</h2>
 <p>publishConfig 就是 npm 包发布时使用的配置。<!-- raw HTML omitted -->比如在安装依赖时指定了 registry 为 taobao 镜像源，但发布时希望在公网发布，就可以指定 publishConfig.registry。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;publishConfig&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;publishConfig&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;registry&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;https://registry.npmjs.org/&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="六系统配置">六、系统配置</h1>
+</span></span></code></pre></div><h1 id="六系统配置">六、系统配置</h1>
 <p>项目有关的系统配置，比如 node 版本或操作系统兼容性之类。但是值得注意的是这些要求只会起到提示警告的作用，即使用户的环境不符合要求，也不影响安装依赖包。</p>
 <h2 id="engines">engines</h2>
 <p>一些项目由于兼容性问题会对 node 或者包管理器有特定的版本号要求，比如：要求 node 版本大于等于 12 且小于 16，同时 pnpm 版本号需要大于 7。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;engines&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;engines&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;node&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;&gt;=12 &lt;16&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;pnpm&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;&gt;7&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="os">os</h2>
+</span></span></code></pre></div><h2 id="os">os</h2>
 <p>在 linux 上能正常运行的项目可能在 windows 上会出现异常，使用 os 字段可以指定项目对操作系统的兼容性要求。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;os&#34;</span><span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;darwin&#34;</span>, <span style="color:#d14">&#34;linux&#34;</span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="cpu">cpu</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;os&#34;</span><span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;darwin&#34;</span>, <span style="color:#d14">&#34;linux&#34;</span>]
+</span></span></code></pre></div><h2 id="cpu">cpu</h2>
 <p>指定项目只能在特定的 CPU 体系上运行。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;cpu&#34;</span><span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;x64&#34;</span>, <span style="color:#d14">&#34;ia32&#34;</span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="七第三方配置">七、第三方配置</h1>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;cpu&#34;</span><span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;x64&#34;</span>, <span style="color:#d14">&#34;ia32&#34;</span>]
+</span></span></code></pre></div><h1 id="七第三方配置">七、第三方配置</h1>
 <p>一些第三方库或应用在进行某些内部处理时会依赖这些字段，使用它们时需要安装对应的第三方库。</p>
 <h2 id="types-或者-typings">types 或者 typings</h2>
 <p>指定 TypeScript 的类型定义的入口文件</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;types&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./index.ts&#34;</span>,
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="browserslist">browserslist</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;types&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./index.ts&#34;</span>,
+</span></span></code></pre></div><h2 id="browserslist">browserslist</h2>
 <p>设置项目的浏览器兼容情况。babel 和 autoprefixer 等工具会使用该配置对代码进行转换。当然你也可以使用 .browserslistrc 单文件配置。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;browserslist&#34;</span><span style="color:#000;font-weight:bold">:</span> [
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;browserslist&#34;</span><span style="color:#000;font-weight:bold">:</span> [
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;&gt; 1%&#34;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;last 2 versions&#34;</span>
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="sideeffects">sideEffects</h2>
+</span></span></code></pre></div><h2 id="sideeffects">sideEffects</h2>
 <p>显示设置某些模块具有副作用，用于 webpack 的 tree-shaking 优化。<!-- raw HTML omitted -->比如在项目中整体引入 Ant Design 组件库的 css 文件。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> <span style="color:#d14">&#39;antd/dist/antd.css&#39;</span>; 
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果 Ant Design 的 package.json 里不设置 sideEffects，那么 webapck 构建打包时会认为这段代码只是引入了但并没有使用，可以 tree-shaking 剔除掉，最终导致产物缺少样式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> <span style="color:#d14">&#39;antd/dist/antd.css&#39;</span>; 
+</span></span></code></pre></div><p>如果 Ant Design 的 package.json 里不设置 sideEffects，那么 webapck 构建打包时会认为这段代码只是引入了但并没有使用，可以 tree-shaking 剔除掉，最终导致产物缺少样式。</p>
 <h2 id="lint-staged">lint-staged</h2>
 <p>lint-staged 是用于对 git 的暂存区的文件进行操作的工具，比如可以在代码提交前执行 lint 校验，类型检查，图片优化等操作。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;lint-staged&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#d14">&#34;lint-staged&#34;</span><span style="color:#000;font-weight:bold">:</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;src/**/*.{js,jsx,ts,tsx}&#34;</span><span style="color:#000;font-weight:bold">:</span> [
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;eslint --fix&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;git add -A&#34;</span>
 </span></span><span style="display:flex;"><span>  ]
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>lint-staged 通常配合 husky 这样的 git-hooks 工具一起使用。git-hooks 用来定义一个钩子，这些钩子方法会在 git 工作流程中比如 pre-commit，commit-msg 时触发，可以把 lint-staged 放到这些钩子方法中。</p>
+</span></span></code></pre></div><p>lint-staged 通常配合 husky 这样的 git-hooks 工具一起使用。git-hooks 用来定义一个钩子，这些钩子方法会在 git 工作流程中比如 pre-commit，commit-msg 时触发，可以把 lint-staged 放到这些钩子方法中。</p>
 <h1 id="结语">结语</h1>
 <p>今天我们简单了解了 package.json 的常见配置。有了这些知识，我们可以更好的了解项目。但 package.json 里的内容远不止如此，需要我们进一步学习。</p>
 
@@ -985,43 +678,43 @@ div.highlight:hover .copy-code,pre:hover .copy-code {
 <ul class="widget-list">
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Proxy/" title="Proxy" target="_blank">Proxy</a>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" title="Promise对象" target="_blank">Promise对象</a>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Module的语法" target="_blank">Module的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" title="Module的加载实现" target="_blank">Module的加载实现</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Mixin/" title="Mixin" target="_blank">Mixin</a>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" title="Let和const命令" target="_blank">Let和const命令</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/" title="Iterator和for...of循环" target="_blank">Iterator和for...of循环</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Generator函数的语法" target="_blank">Generator函数的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" title="Generator函数的异步应用" target="_blank">Generator函数的异步应用</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
     </li>
     
 </ul>
@@ -1035,7 +728,7 @@ div.highlight:hover .copy-code,pre:hover .copy-code {
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (37)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
     
 </ul>
     </section>

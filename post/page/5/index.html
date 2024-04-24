@@ -74,7 +74,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8E%A5%E5%8F%A3/" title="Go语言基础之接口" target="_blank">Go语言基础之接口</a>
+                <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlx%E5%BA%93%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="sqlx库使用指南" target="_blank">sqlx库使用指南</a>
             </h1>
         </header>
         
@@ -92,9 +92,9 @@
 
 
         <div class="post-content">
-            接口 接口类型 接口是一种由程序员来定义的类型，一个接口类型就是一组方法的集合，它规定了需要实现的所有方法。 相较于使用结构体类型，当我们使用接口类型说明相比于它是什么更关心它能做什么。 接口的定义 每个接口类型由任意个方法签名组成，接口的定义格式如下： 1 2 3 4 5 type 接口类型名 interface{ 方法名1( 参……
+            在项目中我们通常可能会使用database/sql连接MySQL数据库。本文借助使用sqlx实现批量插入数据的例子，介绍了sqlx中可能被你忽视了的sqlx.In和DB.NamedExec方法。 sqlx介绍 在项目中我们通常可能会使用database/sql连接MySQL数据库。s……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8E%A5%E5%8F%A3/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlx%E5%BA%93%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -102,7 +102,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/" title="Go语言基础之指针" target="_blank">Go语言基础之指针</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Btime/" title="Go语言标准库之time" target="_blank">Go语言标准库之time</a>
             </h1>
         </header>
         
@@ -120,9 +120,9 @@
 
 
         <div class="post-content">
-            指针 任何程序数据载入内存后，在内存都有他们的地址，这就是指针。而为了保存一个数据在内存中的地址，我们就需要指针变量。 Go语言中的指针不能进行偏移和运算，因此Go语言中的指针操作非常简单，我们只需要记住两个符号：&amp;（取地址）和*（根据地址取值）。 指针地址和指针类型 每个变量在……
+            time包 时间和日期是我们编程中经常会用到的，本文主要介绍了 Go 语言内置的 time 包的基本用法。time 包提供了一些关于时间显示和测量用的函数。time 包中日历的计算采用的是公历，不考虑润秒。 时间类型 Go 语言中使用time.Time类型表示时间。我们可以通过time.Now函数获取当前的时……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Btime/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -130,7 +130,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E9%94%99%E8%AF%AF/" title="Go语言基础之处理并发错误" target="_blank">Go语言基础之处理并发错误</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bstrconv/" title="Go语言标准库之strconv" target="_blank">Go语言标准库之strconv</a>
             </h1>
         </header>
         
@@ -148,9 +148,9 @@
 
 
         <div class="post-content">
-            recover goroutine中的panic 我们知道可以在代码中使用 recover 来会恢复程序中意想不到的 panic，而 panic 只会触发当前 goroutine 中的 defer 操作。 例如在下面的示例代码中，无法在 main 函数中 recover 另一个goroutine中引发的 panic。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 func f1() { defer func() { if e := recover(); e != nil { fmt.Printf(&#34;recover panic:%v\n&#34;, e) } }()……
+            strconv包 strconv包实现了基本数据类型与其字符串表示的转换，主要有以下常用函数： Atoi()、Itoa()、parse系列、format系列、append系列。 更多函数请查看官方文档。 string与int类型转换 这一组函数是我们平时编程中用的最多的。 Atoi() Atoi()函数……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E9%94%99%E8%AF%AF/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bstrconv/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -158,7 +158,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Go语言基础之基本数据类型" target="_blank">Go语言基础之基本数据类型</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bnethttp/" title="Go语言标准库之net&amp;http" target="_blank">Go语言标准库之net&amp;http</a>
             </h1>
         </header>
         
@@ -176,9 +176,9 @@
 
 
         <div class="post-content">
-            基本数据类型 整型 整型分为以下两个大类： 按长度分为：int8、int16、int32、int64 对应的无符号整型：uint8、uint16、uint32、uint64 其中，uint8就是我们熟知的byte型，int16对应C语言中的short型，int64对应C语言中的long型。……
+            net/http介绍 Go语言内置的net/http包提供了HTTP客户端和服务端的实现。 HTTP协议 超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准。设计HTTP最初的目的是为了提供一种发……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bnethttp/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -186,7 +186,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" title="Go语言基础之变量与常亮" target="_blank">Go语言基础之变量与常亮</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Blog/" title="Go语言标准库之log" target="_blank">Go语言标准库之log</a>
             </h1>
         </header>
         
@@ -204,9 +204,9 @@
 
 
         <div class="post-content">
-            标识符和关键字 标识符 在编程语言中标识符就是程序员定义的具有特殊意义的词，比如变量名、常量名、函数名等等。 Go语言中标识符由字母数字和_(下划线）组成，并且只能以字母和开头。 关键字 关键字是指编程语言中预先定义好的具有特殊含义的标识符。 关键字和保留字都不建议用作变量名。 Go语言中有2……
+            log Go语言内置的log包实现了简单的日志服务。本文介绍了标准库log的基本使用。 使用Logger log包定义了Logger类型，该类型提供了一些格式化输出的方法。本包也提供了一个预定义的“标准”logger，可以通过调用函数Print系列(Print|Printf|Println……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Blog/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -214,7 +214,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" title="Go语言基础之单元测试" target="_blank">Go语言基础之单元测试</a>
+                <a href="http://shansec.github.io/post/Web/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bhttptemplate/" title="Go语言标准库之http&amp;template" target="_blank">Go语言标准库之http&amp;template</a>
             </h1>
         </header>
         
@@ -232,9 +232,9 @@
 
 
         <div class="post-content">
-            go test工具 Go语言中的测试依赖go test命令。编写测试代码和编写普通的Go代码过程是类似的，并不需要学习新的语法、规则或工具。 go test命令是一个按照一定约定和组织的测试代码的驱动程序。在包目录内，所有以_test.go为后缀名的源代码文件都是go test测试的一部分，不会……
+            html/template包实现了数据驱动的模板，用于生成可防止代码注入的安全的HTML内容。它提供了和text/template包相同的接口，Go语言中输出HTML的场景都应使用html/template这个包。 模板与渲染 在一些前后端不分离的Web架构中，我们通常需要在后端将一……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bhttptemplate/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -242,7 +242,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包" target="_blank">Go语言基础之包</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bfmt%E4%B8%8E%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6/" title="Go语言标准库之fmt与格式化占位符" target="_blank">Go语言标准库之fmt与格式化占位符</a>
             </h1>
         </header>
         
@@ -260,9 +260,9 @@
 
 
         <div class="post-content">
-            包与依赖管理 包（package） 包介绍 Go语言中支持模块化的开发理念，在Go语言中使用包（package）来支持代码模块化和代码复用。一个包是由一个或多个Go源码文件（.go结尾的文件）组成，是一种高级的代码复用方案，Go语言为我们提供了很多内置包，如fmt、os、io等。 定义包……
+            fmt fmt包实现了类似C语言printf和scanf的格式化I/O。主要分为向外输出内容和获取输入内容两大部分。 向外输出 标准库fmt提供了以下几种输出相关函数。 Print Print系列函数会将内容输出到系统的标准输出，区别在于Print函数直接输出内容，Printf函数支持格式化输出字符串……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bfmt%E4%B8%8E%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -270,7 +270,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87/" title="Go语言基础之切片" target="_blank">Go语言基础之切片</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bflag/" title="Go语言标准库之flag" target="_blank">Go语言标准库之flag</a>
             </h1>
         </header>
         
@@ -288,9 +288,9 @@
 
 
         <div class="post-content">
-            引子 因为数组的长度是固定的并且数组长度属于类型的一部分，所以数组有很多的局限性。 例如： 1 2 3 4 5 6 7 func arraySum(x [3]int) int{ sum := 0 for _, v := range x{ sum = sum + v } return sum } 这个求和函数只能接受[3]int类型，其他的都不支持。 再比如， 1 a := [3]int{1, 2, 3} 数组a中已经有三个元素了，我们不能再继续往数组a中添加新元素了……
+            os.Args 如果你只是简单的想要获取命令行参数，可以像下面的代码示例一样使用os.Args来获取命令行参数。 package main import ( &#34;fmt&#34; &#34;os&#34; ) //os.Args demo func main() { //os.Args是一个[]string if len(os.Args) &gt; 0 { for index, arg := range os.Args { fmt.Printf(&#34;args[%d]=%v\n&#34;, index, arg) } } } 将上面的代码执行go build -o &quot;args_demo&quot;编译之后，执行：……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%88%87%E7%89%87/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bflag/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -298,7 +298,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" title="Go语言基础之函数" target="_blank">Go语言基础之函数</a>
+                <a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bcontext/" title="Go语言标准库之context" target="_blank">Go语言标准库之context</a>
             </h1>
         </header>
         
@@ -316,9 +316,9 @@
 
 
         <div class="post-content">
-            函数 Go语言中支持函数、匿名函数和闭包，并且函数在Go语言中属于“一等公民”。 函数定义 Go语言中定义函数使用 func 关键字，具体格式如下： 1 2 3 func 函数名(参数)(返回值){ 函数体 } 其中： 函数名：由字母、数字、下划线组成。但函数名的第一个字母不能是数字。在同一个包内，函数名也称不能重名（……
+            为什么需要Context 基本示例 package main import ( &#34;fmt&#34; &#34;sync&#34; &#34;time&#34; ) var wg sync.WaitGroup // 初始的例子 func worker() { for { fmt.Println(&#34;worker&#34;) time.Sleep(time.Second) } // 如何接收外部命令实现退出 wg.Done() } func main() { wg.Add(1) go worker() // 如何优雅的实现结束子goroutine wg.Wait() fmt.Println(&#34;over&#34;) } 全局变量方式 package main import ( &#34;fmt&#34; &#34;sync&#34; &#34;time&#34; ) var wg sync.WaitGroup var exit bool // 全局变量方式存在的问题： // 1. 使用全局变量在跨包调用时不容易统一 // 2. 如……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%87%BD%E6%95%B0/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%A0%87%E5%87%86%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86%E5%BA%93%E4%B9%8Bcontext/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -326,7 +326,7 @@
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Bmap/" title="Go语言基础之map" target="_blank">Go语言基础之map</a>
+                <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9CRedis/" title="Go语言操作Redis" target="_blank">Go语言操作Redis</a>
             </h1>
         </header>
         
@@ -344,9 +344,9 @@
 
 
         <div class="post-content">
-            Go语言中提供的映射关系容器为map，其内部使用散列表（hash）实现。 map map是一种无序的基于key-value的数据结构，Go语言中的map是引用类型，必须初始化才能使用。 map 定义 Go语言中 map的定义语法如下： 1 map[KeyType]ValueType 其中： KeyType:表示键的类型。 ValueType:表示键……
+            Redis 在项目开发中redis的使用也比较频繁，本文介绍了Go语言中go-redis库的基本使用。 Redis介绍 Redis是一个开源的内存数据库，Redis提供了多种不同类型的数据结构，很多业务场景下的问题都可以很自然地映射到这些数据结构上。除此之外，通过复制、持久化和客户端分片等特性……
         </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Bmap/" target="_blank">Continue reading</a></p>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/Go%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9CRedis/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -392,6 +392,14 @@
     
     <li >
         <a href="http://shansec.github.io/post/page/8/">8</a>
+    </li>
+    
+    <li >
+        <a href="http://shansec.github.io/post/page/9/">9</a>
+    </li>
+    
+    <li >
+        <a href="http://shansec.github.io/post/page/10/">10</a>
     </li>
     
 
@@ -455,43 +463,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Proxy/" title="Proxy" target="_blank">Proxy</a>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" title="Promise对象" target="_blank">Promise对象</a>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Module的语法" target="_blank">Module的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" title="Module的加载实现" target="_blank">Module的加载实现</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Mixin/" title="Mixin" target="_blank">Mixin</a>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" title="Let和const命令" target="_blank">Let和const命令</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/" title="Iterator和for...of循环" target="_blank">Iterator和for...of循环</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Generator函数的语法" target="_blank">Generator函数的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" title="Generator函数的异步应用" target="_blank">Generator函数的异步应用</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
     </li>
     
 </ul>
@@ -505,7 +513,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (37)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
     
 </ul>
     </section>

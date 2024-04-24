@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>函数式编程 | 未来可期的博客</title>
+    <meta property="og:title" content="函数式编程 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-04-24T09:47:58&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-04-24T09:47:58&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="函数式编程">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#柯里化">柯里化</a></li>
+    <li><a href="#函数合成">函数合成</a></li>
+    <li><a href="#参数倒置">参数倒置</a></li>
+    <li><a href="#执行边界">执行边界</a></li>
+    <li><a href="#队列操作">队列操作</a></li>
+    <li><a href="#合并操作">合并操作</a></li>
+    <li><a href="#配对操作">配对操作</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">函数式编程</h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:47:58Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>JavaScript 语言从一诞生，就具有函数式编程的烙印。它将函数作为一种独立的数据类型，与其他数据类型处于完全平等的地位。在 JavaScript 语言中，你可以采用面向对象编程，也可以采用函数式编程。有人甚至说，JavaScript 是有史以来第一种被大规模采用的函数式编程语言。</p>
+<p>ES6 的种种新增功能，使得函数式编程变得更方便、更强大。本章介绍 ES6 如何进行函数式编程。</p>
+<h2 id="柯里化">柯里化</h2>
+<p>柯里化（currying）指的是将一个多参数的函数拆分成一系列函数，每个拆分后的函数都只接受一个参数（unary）。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> add (a, b) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> a <span style="color:#000;font-weight:bold">+</span> b;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>add(<span style="color:#099">1</span>, <span style="color:#099">1</span>) <span style="color:#998;font-style:italic">// 2
+</span></span></span></code></pre></div><p>上面代码中，函数<code>add</code>接受两个参数<code>a</code>和<code>b</code>。</p>
+<p>柯里化就是将上面的函数拆分成两个函数，每个函数都只接受一个参数。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> add (a) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">function</span> (b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> a <span style="color:#000;font-weight:bold">+</span> b;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 或者采用箭头函数写法
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> add <span style="color:#000;font-weight:bold">=</span> x =&gt; y =&gt; x <span style="color:#000;font-weight:bold">+</span> y;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> f <span style="color:#000;font-weight:bold">=</span> add(<span style="color:#099">1</span>);
+</span></span><span style="display:flex;"><span>f(<span style="color:#099">1</span>) <span style="color:#998;font-style:italic">// 2
+</span></span></span></code></pre></div><p>上面代码中，函数<code>add</code>只接受一个参数<code>a</code>，返回一个函数<code>f</code>。函数<code>f</code>也只接受一个参数<code>b</code>。</p>
+<h2 id="函数合成">函数合成</h2>
+<p>函数合成（function composition）指的是，将多个函数合成一个函数。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> compose <span style="color:#000;font-weight:bold">=</span> f =&gt; g =&gt; x =&gt; f(g(x));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> f <span style="color:#000;font-weight:bold">=</span> compose (x =&gt; x <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">4</span>) (x =&gt; x <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">3</span>);
+</span></span><span style="display:flex;"><span>f(<span style="color:#099">2</span>) <span style="color:#998;font-style:italic">// 20
+</span></span></span></code></pre></div><p>上面代码中，<code>compose</code>就是一个函数合成器，用于将两个函数合成一个函数。</p>
+<p>可以发现，柯里化与函数合成有着密切的联系。前者用于将一个函数拆成多个函数，后者用于将多个函数合并成一个函数。</p>
+<h2 id="参数倒置">参数倒置</h2>
+<p>参数倒置（flip）指的是改变函数前两个参数的顺序。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> divide <span style="color:#000;font-weight:bold">=</span> (a, b) =&gt; a <span style="color:#000;font-weight:bold">/</span> b;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> flip <span style="color:#000;font-weight:bold">=</span> f.flip(divide);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flip(<span style="color:#099">10</span>, <span style="color:#099">5</span>) <span style="color:#998;font-style:italic">// 0.5
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>flip(<span style="color:#099">1</span>, <span style="color:#099">10</span>) <span style="color:#998;font-style:italic">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> three <span style="color:#000;font-weight:bold">=</span> (a, b, c) =&gt; [a, b, c];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> flip <span style="color:#000;font-weight:bold">=</span> f.flip(three);
+</span></span><span style="display:flex;"><span>flip(<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>); <span style="color:#998;font-style:italic">// =&gt; [2, 1, 3]
+</span></span></span></code></pre></div><p>上面代码中，如果按照正常的参数顺序，10 除以 5 等于 2。但是，参数倒置以后得到的新函数，结果就是 5 除以 10，结果得到 0.5。如果原函数有 3 个参数，则只颠倒前两个参数的位置。</p>
+<p>参数倒置的代码非常简单。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> f <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>f.flip <span style="color:#000;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span>  fn =&gt;
+</span></span><span style="display:flex;"><span>    (a, b, ...args) =&gt; fn(b, a, ...args.reverse());
+</span></span></code></pre></div><h2 id="执行边界">执行边界</h2>
+<p>执行边界（until）指的是函数执行到满足条件为止。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> condition <span style="color:#000;font-weight:bold">=</span> x =&gt; x <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">100</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> inc <span style="color:#000;font-weight:bold">=</span> x =&gt; x <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> until <span style="color:#000;font-weight:bold">=</span> f.until(condition, inc);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>until(<span style="color:#099">0</span>) <span style="color:#998;font-style:italic">// 101
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>condition <span style="color:#000;font-weight:bold">=</span> x =&gt; x <span style="color:#000;font-weight:bold">===</span> <span style="color:#099">5</span>;
+</span></span><span style="display:flex;"><span>until <span style="color:#000;font-weight:bold">=</span> f.until(condition, inc);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>until(<span style="color:#099">3</span>) <span style="color:#998;font-style:italic">// 5
+</span></span></span></code></pre></div><p>上面代码中，第一段的条件是执行到<code>x</code>大于 100 为止，所以<code>x</code>初值为 0 时，会一直执行到 101。第二段的条件是执行到等于 5 为止，所以<code>x</code>最后的值是 5。</p>
+<p>执行边界的实现如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> f <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>f.until <span style="color:#000;font-weight:bold">=</span> (condition, f) =&gt;
+</span></span><span style="display:flex;"><span>  (...args) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">var</span> r <span style="color:#000;font-weight:bold">=</span> f.apply(<span style="color:#000;font-weight:bold">null</span>, args);
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> condition(r) <span style="color:#000;font-weight:bold">?</span> r <span style="color:#000;font-weight:bold">:</span> f.until(condition, f)(r);
+</span></span><span style="display:flex;"><span>  };
+</span></span></code></pre></div><p>上面代码的关键就是，如果满足条件就返回结果，否则不断递归执行。</p>
+<h2 id="队列操作">队列操作</h2>
+<p>队列（list）操作包括以下几种。</p>
+<ul>
+<li><code>head</code>： 取出队列的第一个非空成员。</li>
+<li><code>last</code>： 取出有限队列的最后一个非空成员。</li>
+<li><code>tail</code>： 取出除了“队列头”以外的其他非空成员。</li>
+<li><code>init</code>： 取出除了“队列尾”以外的其他非空成员。</li>
+</ul>
+<p>下面是例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>f.head(<span style="color:#099">5</span>, <span style="color:#099">27</span>, <span style="color:#099">3</span>, <span style="color:#099">1</span>) <span style="color:#998;font-style:italic">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>f.last(<span style="color:#099">5</span>, <span style="color:#099">27</span>, <span style="color:#099">3</span>, <span style="color:#099">1</span>) <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>f.tail(<span style="color:#099">5</span>, <span style="color:#099">27</span>, <span style="color:#099">3</span>, <span style="color:#099">1</span>) <span style="color:#998;font-style:italic">// [27, 3, 1]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>f.init(<span style="color:#099">5</span>, <span style="color:#099">27</span>, <span style="color:#099">3</span>, <span style="color:#099">1</span>) <span style="color:#998;font-style:italic">// [5, 27, 3]
+</span></span></span></code></pre></div><p>这些方法的实现如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> f <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>f.head <span style="color:#000;font-weight:bold">=</span> (...xs) =&gt; xs[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>f.last <span style="color:#000;font-weight:bold">=</span> (...xs) =&gt; xs.slice(<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
+</span></span><span style="display:flex;"><span>f.tail <span style="color:#000;font-weight:bold">=</span> (...xs) =&gt; <span style="color:#0086b3">Array</span>.prototype.slice.call(xs, <span style="color:#099">1</span>);
+</span></span><span style="display:flex;"><span>f.init <span style="color:#000;font-weight:bold">=</span> (...xs) =&gt; xs.slice(<span style="color:#099">0</span>, <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
+</span></span></code></pre></div><h2 id="合并操作">合并操作</h2>
+<p>合并操作分为<code>concat</code>和<code>concatMap</code>两种。前者就是将多个数组合成一个，后者则是先处理一下参数，然后再将处理结果合成一个数组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>f.concat([<span style="color:#099">5</span>], [<span style="color:#099">27</span>], [<span style="color:#099">3</span>]) <span style="color:#998;font-style:italic">// [5, 27, 3]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>f.concatMap(x =&gt; <span style="color:#d14">&#39;hi &#39;</span> <span style="color:#000;font-weight:bold">+</span> x, <span style="color:#099">1</span>, [[<span style="color:#099">2</span>]], <span style="color:#099">3</span>) <span style="color:#998;font-style:italic">// [&#39;hi 1&#39;, &#39;hi 2&#39;, &#39;hi 3&#39;]
+</span></span></span></code></pre></div><p>这两种方法的实现代码如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> f <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>f.concat <span style="color:#000;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span>  (...xs) =&gt; xs.reduce((a, b) =&gt; a.concat(b));
+</span></span><span style="display:flex;"><span>f.concatMap <span style="color:#000;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span>  (f, ...xs) =&gt; f.concat(xs.map(f));
+</span></span></code></pre></div><h2 id="配对操作">配对操作</h2>
+<p>配对操作分为<code>zip</code>和<code>zipWith</code>两种方法。<code>zip</code>操作将两个队列的成员，一一配对，合成一个新的队列。如果两个队列不等长，较长的那个队列多出来的成员，会被忽略。<code>zipWith</code>操作的第一个参数是一个函数，然后会将后面的队列成员一一配对，输入该函数，返回值就组成一个新的队列。</p>
+<p>下面是例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">0</span>, <span style="color:#099">1</span>, <span style="color:#099">2</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> b <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">3</span>, <span style="color:#099">4</span>, <span style="color:#099">5</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> c <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">6</span>, <span style="color:#099">7</span>, <span style="color:#099">8</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f.zip(a, b) <span style="color:#998;font-style:italic">// [[0, 3], [1, 4], [2, 5]]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>f.zipWith((a, b) =&gt; a <span style="color:#000;font-weight:bold">+</span> b, a, b, c) <span style="color:#998;font-style:italic">// [9, 12, 15]
+</span></span></span></code></pre></div><p>上面代码中，<code>zipWith</code>方法的第一个参数是一个求和函数，它将后面三个队列的成员，一一配对进行相加。</p>
+<p>这两个方法的实现如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> f <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f.zip <span style="color:#000;font-weight:bold">=</span> (...xs) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">let</span> r <span style="color:#000;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">let</span> nple <span style="color:#000;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">let</span> length <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Math</span>.min.apply(<span style="color:#000;font-weight:bold">null</span>, xs.map(x =&gt; x.length));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">var</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; i <span style="color:#000;font-weight:bold">&lt;</span> length; i<span style="color:#000;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>    xs.forEach(
+</span></span><span style="display:flex;"><span>      x =&gt; nple.push(x[i])
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    r.push(nple);
+</span></span><span style="display:flex;"><span>    nple <span style="color:#000;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> r;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f.zipWith <span style="color:#000;font-weight:bold">=</span> (op, ...xs) =&gt;
+</span></span><span style="display:flex;"><span>  f.zip.apply(<span style="color:#000;font-weight:bold">null</span>, xs).map(
+</span></span><span style="display:flex;"><span>    (x) =&gt; x.reduce(op)
+</span></span><span style="display:flex;"><span>  );
+</span></span></code></pre></div><h2 id="参考链接">参考链接</h2>
+<ul>
+<li>Mateo Gianolio, <a href="http://casualjavascript.com/?1">Haskell in ES6: Part 1</a></li>
+</ul>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/es6/Symbol/">Symbol</a></li>
+        
+        <li><a href="/post/es6/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Set和Map数据结构</a></li>
+        
+        <li><a href="/post/es6/Reflect/">Reflect</a></li>
+        
+        <li><a href="/post/es6/Proxy/">Proxy</a></li>
+        
+        <li><a href="/post/es6/Promise%E5%AF%B9%E8%B1%A1/">Promise对象</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/javaScript' target="_blank">javaScript</a></li>
+                
+                <li><a href='/tags/es6' target="_blank">es6</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

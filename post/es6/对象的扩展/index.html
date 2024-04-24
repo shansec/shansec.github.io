@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>对象的扩展 | 未来可期的博客</title>
+    <meta property="og:title" content="对象的扩展 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-04-24T10:05:20&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-04-24T10:05:20&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="对象的扩展">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#属性的简洁表示法">属性的简洁表示法</a></li>
+    <li><a href="#属性名表达式">属性名表达式</a></li>
+    <li><a href="#方法的-name-属性">方法的 name 属性</a></li>
+    <li><a href="#属性的可枚举性和遍历">属性的可枚举性和遍历</a>
+      <ul>
+        <li><a href="#可枚举性">可枚举性</a></li>
+        <li><a href="#属性的遍历">属性的遍历</a></li>
+      </ul>
+    </li>
+    <li><a href="#super-关键字">super 关键字</a></li>
+    <li><a href="#对象的扩展运算符">对象的扩展运算符</a>
+      <ul>
+        <li><a href="#解构赋值">解构赋值</a></li>
+        <li><a href="#扩展运算符">扩展运算符</a></li>
+      </ul>
+    </li>
+    <li><a href="#aggregateerror-错误对象">AggregateError 错误对象</a></li>
+    <li><a href="#error-对象的-cause-属性">Error 对象的 cause 属性</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">对象的扩展</h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:05:20Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>对象（object）是 JavaScript 最重要的数据结构。ES6 对它进行了重大升级，本章介绍数据结构本身的改变，下一章介绍<code>Object</code>对象的新增方法。</p>
+<h2 id="属性的简洁表示法">属性的简洁表示法</h2>
+<p>ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;bar&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> baz <span style="color:#000;font-weight:bold">=</span> {foo};
+</span></span><span style="display:flex;"><span>baz <span style="color:#998;font-style:italic">// {foo: &#34;bar&#34;}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> baz <span style="color:#000;font-weight:bold">=</span> {foo<span style="color:#000;font-weight:bold">:</span> foo};
+</span></span></code></pre></div><p>上面代码中，变量<code>foo</code>直接写在大括号里面。这时，属性名就是变量名, 属性值就是变量值。下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> f(x, y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> {x, y};
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> f(x, y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> {x<span style="color:#000;font-weight:bold">:</span> x, y<span style="color:#000;font-weight:bold">:</span> y};
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f(<span style="color:#099">1</span>, <span style="color:#099">2</span>) <span style="color:#998;font-style:italic">// Object {x: 1, y: 2}
+</span></span></span></code></pre></div><p>除了属性简写，方法也可以简写。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> o <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  method() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#34;Hello!&#34;</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> o <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  method<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#34;Hello!&#34;</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>下面是一个实际的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> birth <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;2000/01/01&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> Person <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;张三&#39;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">//等同于birth: birth
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  birth,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 等同于hello: function ()...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  hello() { console.log(<span style="color:#d14">&#39;我的名字是&#39;</span>, <span style="color:#000;font-weight:bold">this</span>.name); }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>这种写法用于函数的返回值，将会非常方便。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> getPoint() {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">const</span> x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">const</span> y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">10</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> {x, y};
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>getPoint()
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// {x:1, y:10}
+</span></span></span></code></pre></div><p>CommonJS 模块输出一组变量，就非常合适使用简洁写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> ms <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> getItem (key) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> key <span style="color:#000;font-weight:bold">in</span> ms <span style="color:#000;font-weight:bold">?</span> ms[key] <span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> setItem (key, value) {
+</span></span><span style="display:flex;"><span>  ms[key] <span style="color:#000;font-weight:bold">=</span> value;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> clear () {
+</span></span><span style="display:flex;"><span>  ms <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>module.exports <span style="color:#000;font-weight:bold">=</span> { getItem, setItem, clear };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>module.exports <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  getItem<span style="color:#000;font-weight:bold">:</span> getItem,
+</span></span><span style="display:flex;"><span>  setItem<span style="color:#000;font-weight:bold">:</span> setItem,
+</span></span><span style="display:flex;"><span>  clear<span style="color:#000;font-weight:bold">:</span> clear
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>属性的赋值器（setter）和取值器（getter），事实上也是采用这种写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> cart <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  _wheels<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">4</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  get wheels () {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">this</span>._wheels;
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  set wheels (value) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">if</span> (value <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#000;font-weight:bold">this</span>._wheels) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">throw</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Error</span>(<span style="color:#d14">&#39;数值太小了！&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>._wheels <span style="color:#000;font-weight:bold">=</span> value;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>简洁写法在打印对象时也很有用。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> user <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;test&#39;</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> foo <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;baz&#39;</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>console.log(user, foo)
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// {name: &#34;test&#34;} {bar: &#34;baz&#34;}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>console.log({user, foo})
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// {user: {name: &#34;test&#34;}, foo: {bar: &#34;baz&#34;}}
+</span></span></span></code></pre></div><p>上面代码中，<code>console.log</code>直接输出<code>user</code>和<code>foo</code>两个对象时，就是两组键值对，可能会混淆。把它们放在大括号里面输出，就变成了对象的简洁表示法，每组键值对前面会打印对象名，这样就比较清晰了。</p>
+<p>注意，简写的对象方法不能用作构造函数，会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  f() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;bar&#39;</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">new</span> obj.f() <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面代码中，<code>f</code>是一个简写的对象方法，所以<code>obj.f</code>不能当作构造函数使用。</p>
+<h2 id="属性名表达式">属性名表达式</h2>
+<p>JavaScript 定义对象的属性，有两种方法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 方法一
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>obj.foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 方法二
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>obj[<span style="color:#d14">&#39;a&#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39;bc&#39;</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">123</span>;
+</span></span></code></pre></div><p>上面代码的方法一是直接用标识符作为属性名，方法二是用表达式作为属性名，这时要将表达式放在方括号之内。</p>
+<p>但是，如果使用字面量方式定义对象（使用大括号），在 ES5 中只能使用方法一（标识符）定义属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>  abc<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">123</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>ES6 允许字面量定义对象时，用方法二（表达式）作为对象的属性名，即把表达式放在方括号内。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> propKey <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;foo&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [propKey]<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>  [<span style="color:#d14">&#39;a&#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39;bc&#39;</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">123</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> lastWord <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;last word&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> a <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#39;first word&#39;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello&#39;</span>,
+</span></span><span style="display:flex;"><span>  [lastWord]<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;world&#39;</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a[<span style="color:#d14">&#39;first word&#39;</span>] <span style="color:#998;font-style:italic">// &#34;hello&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>a[lastWord] <span style="color:#998;font-style:italic">// &#34;world&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>a[<span style="color:#d14">&#39;last word&#39;</span>] <span style="color:#998;font-style:italic">// &#34;world&#34;
+</span></span></span></code></pre></div><p>表达式还可以用于定义方法名。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [<span style="color:#d14">&#39;h&#39;</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39;ello&#39;</span>]() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#39;hi&#39;</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obj.hello() <span style="color:#998;font-style:italic">// hi
+</span></span></span></code></pre></div><p>注意，属性名表达式与简洁表示法，不能同时使用，会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;bar&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> bar <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;abc&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> baz <span style="color:#000;font-weight:bold">=</span> { [foo] };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;bar&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> baz <span style="color:#000;font-weight:bold">=</span> { [foo]<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;abc&#39;</span>};
+</span></span></code></pre></div><p>注意，属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串<code>[object Object]</code>，这一点要特别小心。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> keyA <span style="color:#000;font-weight:bold">=</span> {a<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>};
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> keyB <span style="color:#000;font-weight:bold">=</span> {b<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> myObject <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [keyA]<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;valueA&#39;</span>,
+</span></span><span style="display:flex;"><span>  [keyB]<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;valueB&#39;</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>myObject <span style="color:#998;font-style:italic">// Object {[object Object]: &#34;valueB&#34;}
+</span></span></span></code></pre></div><p>上面代码中，<code>[keyA]</code>和<code>[keyB]</code>得到的都是<code>[object Object]</code>，所以<code>[keyB]</code>会把<code>[keyA]</code>覆盖掉，而<code>myObject</code>最后只有一个<code>[object Object]</code>属性。</p>
+<h2 id="方法的-name-属性">方法的 name 属性</h2>
+<p>函数的<code>name</code>属性，返回函数名。对象方法也是函数，因此也有<code>name</code>属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> person <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  sayName() {
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#d14">&#39;hello!&#39;</span>);
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>person.sayName.name   <span style="color:#998;font-style:italic">// &#34;sayName&#34;
+</span></span></span></code></pre></div><p>上面代码中，方法的<code>name</code>属性返回函数名（即方法名）。</p>
+<p>如果对象的方法使用了取值函数（<code>getter</code>）和存值函数（<code>setter</code>），则<code>name</code>属性不是在该方法上面，而是该方法的属性的描述对象的<code>get</code>和<code>set</code>属性上面，返回值是方法名前加上<code>get</code>和<code>set</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  get foo() {},
+</span></span><span style="display:flex;"><span>  set foo(x) {}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obj.foo.name
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// TypeError: Cannot read property &#39;name&#39; of undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> descriptor <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.getOwnPropertyDescriptor(obj, <span style="color:#d14">&#39;foo&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>descriptor.get.name <span style="color:#998;font-style:italic">// &#34;get foo&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>descriptor.set.name <span style="color:#998;font-style:italic">// &#34;set foo&#34;
+</span></span></span></code></pre></div><p>有两种特殊情况：<code>bind</code>方法创造的函数，<code>name</code>属性返回<code>bound</code>加上原函数的名字；<code>Function</code>构造函数创造的函数，<code>name</code>属性返回<code>anonymous</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>(<span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Function</span>()).name <span style="color:#998;font-style:italic">// &#34;anonymous&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> doSomething <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>};
+</span></span><span style="display:flex;"><span>doSomething.bind().name <span style="color:#998;font-style:italic">// &#34;bound doSomething&#34;
+</span></span></span></code></pre></div><p>如果对象的方法是一个 Symbol 值，那么<code>name</code>属性返回的是这个 Symbol 值的描述。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> key1 <span style="color:#000;font-weight:bold">=</span> Symbol(<span style="color:#d14">&#39;description&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> key2 <span style="color:#000;font-weight:bold">=</span> Symbol();
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [key1]() {},
+</span></span><span style="display:flex;"><span>  [key2]() {},
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>obj[key1].name <span style="color:#998;font-style:italic">// &#34;[description]&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>obj[key2].name <span style="color:#998;font-style:italic">// &#34;&#34;
+</span></span></span></code></pre></div><p>上面代码中，<code>key1</code>对应的 Symbol 值有描述，<code>key2</code>没有。</p>
+<h2 id="属性的可枚举性和遍历">属性的可枚举性和遍历</h2>
+<h3 id="可枚举性">可枚举性</h3>
+<p>对象的每个属性都有一个描述对象（Descriptor），用来控制该属性的行为。<code>Object.getOwnPropertyDescriptor</code>方法可以获取该属性的描述对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">123</span> };
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.getOwnPropertyDescriptor(obj, <span style="color:#d14">&#39;foo&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//  {
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//    value: 123,
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//    writable: true,
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//    enumerable: true,
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//    configurable: true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//  }
+</span></span></span></code></pre></div><p>描述对象的<code>enumerable</code>属性，称为“可枚举性”，如果该属性为<code>false</code>，就表示某些操作会忽略当前属性。</p>
+<p>目前，有四个操作会忽略<code>enumerable</code>为<code>false</code>的属性。</p>
+<ul>
+<li><code>for...in</code>循环：只遍历对象自身的和继承的可枚举的属性。</li>
+<li><code>Object.keys()</code>：返回对象自身的所有可枚举的属性的键名。</li>
+<li><code>JSON.stringify()</code>：只串行化对象自身的可枚举的属性。</li>
+<li><code>Object.assign()</code>： 忽略<code>enumerable</code>为<code>false</code>的属性，只拷贝对象自身的可枚举的属性。</li>
+</ul>
+<p>这四个操作之中，前三个是 ES5 就有的，最后一个<code>Object.assign()</code>是 ES6 新增的。其中，只有<code>for...in</code>会返回继承的属性，其他三个方法都会忽略继承的属性，只处理对象自身的属性。实际上，引入“可枚举”（<code>enumerable</code>）这个概念的最初目的，就是让某些属性可以规避掉<code>for...in</code>操作，不然所有内部属性和方法都会被遍历到。比如，对象原型的<code>toString</code>方法，以及数组的<code>length</code>属性，就通过“可枚举性”，从而避免被<code>for...in</code>遍历到。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.getOwnPropertyDescriptor(<span style="color:#0086b3">Object</span>.prototype, <span style="color:#d14">&#39;toString&#39;</span>).enumerable
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.getOwnPropertyDescriptor([], <span style="color:#d14">&#39;length&#39;</span>).enumerable
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// false
+</span></span></span></code></pre></div><p>上面代码中，<code>toString</code>和<code>length</code>属性的<code>enumerable</code>都是<code>false</code>，因此<code>for...in</code>不会遍历到这两个继承自原型的属性。</p>
+<p>另外，ES6 规定，所有 Class 的原型的方法都是不可枚举的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.getOwnPropertyDescriptor(<span style="color:#000;font-weight:bold">class</span> {foo() {}}.prototype, <span style="color:#d14">&#39;foo&#39;</span>).enumerable
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// false
+</span></span></span></code></pre></div><p>总的来说，操作中引入继承的属性会让问题复杂化，大多数时候，我们只关心对象自身的属性。所以，尽量不要用<code>for...in</code>循环，而用<code>Object.keys()</code>代替。</p>
+<h3 id="属性的遍历">属性的遍历</h3>
+<p>ES6 一共有 5 种方法可以遍历对象的属性。</p>
+<p><strong>（1）for&hellip;in</strong></p>
+<p><code>for...in</code>循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。</p>
+<p><strong>（2）Object.keys(obj)</strong></p>
+<p><code>Object.keys</code>返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。</p>
+<p><strong>（3）Object.getOwnPropertyNames(obj)</strong></p>
+<p><code>Object.getOwnPropertyNames</code>返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。</p>
+<p><strong>（4）Object.getOwnPropertySymbols(obj)</strong></p>
+<p><code>Object.getOwnPropertySymbols</code>返回一个数组，包含对象自身的所有 Symbol 属性的键名。</p>
+<p><strong>（5）Reflect.ownKeys(obj)</strong></p>
+<p><code>Reflect.ownKeys</code>返回一个数组，包含对象自身的（不含继承的）所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。</p>
+<p>以上的 5 种方法遍历对象的键名，都遵守同样的属性遍历的次序规则。</p>
+<ul>
+<li>首先遍历所有数值键，按照数值升序排列。</li>
+<li>其次遍历所有字符串键，按照加入时间升序排列。</li>
+<li>最后遍历所有 Symbol 键，按照加入时间升序排列。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>Reflect.ownKeys({ [Symbol()]<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>, b<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>, <span style="color:#099">10</span><span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>, <span style="color:#099">2</span><span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span>, a<span style="color:#000;font-weight:bold">:</span><span style="color:#099">0</span> })
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// [&#39;2&#39;, &#39;10&#39;, &#39;b&#39;, &#39;a&#39;, Symbol()]
+</span></span></span></code></pre></div><p>上面代码中，<code>Reflect.ownKeys</code>方法返回一个数组，包含了参数对象的所有属性。这个数组的属性次序是这样的，首先是数值属性<code>2</code>和<code>10</code>，其次是字符串属性<code>b</code>和<code>a</code>，最后是 Symbol 属性。</p>
+<h2 id="super-关键字">super 关键字</h2>
+<p>我们知道，<code>this</code>关键字总是指向函数所在的当前对象，ES6 又新增了另一个类似的关键字<code>super</code>，指向当前对象的原型对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> proto <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello&#39;</span>
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;world&#39;</span>,
+</span></span><span style="display:flex;"><span>  find() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">super</span>.foo;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.setPrototypeOf(obj, proto);
+</span></span><span style="display:flex;"><span>obj.find() <span style="color:#998;font-style:italic">// &#34;hello&#34;
+</span></span></span></code></pre></div><p>上面代码中，对象<code>obj.find()</code>方法之中，通过<code>super.foo</code>引用了原型对象<code>proto</code>的<code>foo</code>属性。</p>
+<p>注意，<code>super</code>关键字表示原型对象时，只能用在对象的方法之中，用在其他地方都会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">super</span>.foo
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo<span style="color:#000;font-weight:bold">:</span> () =&gt; <span style="color:#000;font-weight:bold">super</span>.foo
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">function</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">super</span>.foo
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面三种<code>super</code>的用法都会报错，因为对于 JavaScript 引擎来说，这里的<code>super</code>都没有用在对象的方法之中。第一种写法是<code>super</code>用在属性里面，第二种和第三种写法是<code>super</code>用在一个函数里面，然后赋值给<code>foo</code>属性。目前，只有对象方法的简写法可以让 JavaScript 引擎确认，定义的是对象的方法。</p>
+<p>JavaScript 引擎内部，<code>super.foo</code>等同于<code>Object.getPrototypeOf(this).foo</code>（属性）或<code>Object.getPrototypeOf(this).foo.call(this)</code>（方法）。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> proto <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  x<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello&#39;</span>,
+</span></span><span style="display:flex;"><span>  foo() {
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#000;font-weight:bold">this</span>.x);
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  x<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;world&#39;</span>,
+</span></span><span style="display:flex;"><span>  foo() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">super</span>.foo();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.setPrototypeOf(obj, proto);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obj.foo() <span style="color:#998;font-style:italic">// &#34;world&#34;
+</span></span></span></code></pre></div><p>上面代码中，<code>super.foo</code>指向原型对象<code>proto</code>的<code>foo</code>方法，但是绑定的<code>this</code>却还是当前对象<code>obj</code>，因此输出的就是<code>world</code>。</p>
+<h2 id="对象的扩展运算符">对象的扩展运算符</h2>
+<p>《数组的扩展》一章中，已经介绍过扩展运算符（<code>...</code>）。ES2018 将这个运算符<a href="https://github.com/sebmarkbage/ecmascript-rest-spread">引入</a>了对象。</p>
+<h3 id="解构赋值">解构赋值</h3>
+<p>对象的解构赋值用于从一个对象取值，相当于将目标对象自身的所有可遍历的（enumerable）、但尚未被读取的属性，分配到指定的对象上面。所有的键和它们的值，都会拷贝到新对象上面。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { x, y, ...z } <span style="color:#000;font-weight:bold">=</span> { x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span>, a<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>, b<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">4</span> };
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>z <span style="color:#998;font-style:italic">// { a: 3, b: 4 }
+</span></span></span></code></pre></div><p>上面代码中，变量<code>z</code>是解构赋值所在的对象。它获取等号右边的所有尚未读取的键（<code>a</code>和<code>b</code>），将它们连同值一起拷贝过来。</p>
+<p>由于解构赋值要求等号右边是一个对象，所以如果等号右边是<code>undefined</code>或<code>null</code>，就会报错，因为它们无法转为对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { ...z } <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>; <span style="color:#998;font-style:italic">// 运行时错误
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> { ...z } <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">undefined</span>; <span style="color:#998;font-style:italic">// 运行时错误
+</span></span></span></code></pre></div><p>解构赋值必须是最后一个参数，否则会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { ...x, y, z } <span style="color:#000;font-weight:bold">=</span> someObject; <span style="color:#998;font-style:italic">// 句法错误
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> { x, ...y, ...z } <span style="color:#000;font-weight:bold">=</span> someObject; <span style="color:#998;font-style:italic">// 句法错误
+</span></span></span></code></pre></div><p>上面代码中，解构赋值不是最后一个参数，所以会报错。</p>
+<p>注意，解构赋值的拷贝是浅拷贝，即如果一个键的值是复合类型的值（数组、对象、函数）、那么解构赋值拷贝的是这个值的引用，而不是这个值的副本。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> { a<span style="color:#000;font-weight:bold">:</span> { b<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span> } };
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { ...x } <span style="color:#000;font-weight:bold">=</span> obj;
+</span></span><span style="display:flex;"><span>obj.a.b <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
+</span></span><span style="display:flex;"><span>x.a.b <span style="color:#998;font-style:italic">// 2
+</span></span></span></code></pre></div><p>上面代码中，<code>x</code>是解构赋值所在的对象，拷贝了对象<code>obj</code>的<code>a</code>属性。<code>a</code>属性引用了一个对象，修改这个对象的值，会影响到解构赋值对它的引用。</p>
+<p>另外，扩展运算符的解构赋值，不能复制继承自原型对象的属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> o1 <span style="color:#000;font-weight:bold">=</span> { a<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span> };
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> o2 <span style="color:#000;font-weight:bold">=</span> { b<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> };
+</span></span><span style="display:flex;"><span>o2.__proto__ <span style="color:#000;font-weight:bold">=</span> o1;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { ...o3 } <span style="color:#000;font-weight:bold">=</span> o2;
+</span></span><span style="display:flex;"><span>o3 <span style="color:#998;font-style:italic">// { b: 2 }
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>o3.a <span style="color:#998;font-style:italic">// undefined
+</span></span></span></code></pre></div><p>上面代码中，对象<code>o3</code>复制了<code>o2</code>，但是只复制了<code>o2</code>自身的属性，没有复制它的原型对象<code>o1</code>的属性。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> o <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.create({ x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> });
+</span></span><span style="display:flex;"><span>o.z <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { x, ...newObj } <span style="color:#000;font-weight:bold">=</span> o;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { y, z } <span style="color:#000;font-weight:bold">=</span> newObj;
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>z <span style="color:#998;font-style:italic">// 3
+</span></span></span></code></pre></div><p>上面代码中，变量<code>x</code>是单纯的解构赋值，所以可以读取对象<code>o</code>继承的属性；变量<code>y</code>和<code>z</code>是扩展运算符的解构赋值，只能读取对象<code>o</code>自身的属性，所以变量<code>z</code>可以赋值成功，变量<code>y</code>取不到值。ES6 规定，变量声明语句之中，如果使用解构赋值，扩展运算符后面必须是一个变量名，而不能是一个解构赋值表达式，所以上面代码引入了中间变量<code>newObj</code>，如果写成下面这样会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { x, ...{ y, z } } <span style="color:#000;font-weight:bold">=</span> o;
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// SyntaxError: ... must be followed by an identifier in declaration contexts
+</span></span></span></code></pre></div><p>解构赋值的一个用处，是扩展某个函数的参数，引入其他操作。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> baseFunction({ a, b }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> wrapperFunction({ x, y, ...restConfig }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 使用 x 和 y 参数进行操作
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#998;font-style:italic">// 其余参数传给原始函数
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">return</span> baseFunction(restConfig);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面代码中，原始函数<code>baseFunction</code>接受<code>a</code>和<code>b</code>作为参数，函数<code>wrapperFunction</code>在<code>baseFunction</code>的基础上进行了扩展，能够接受多余的参数，并且保留原始函数的行为。</p>
+<h3 id="扩展运算符">扩展运算符</h3>
+<p>对象的扩展运算符（<code>...</code>）用于取出参数对象的所有可遍历属性，拷贝到当前对象之中。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> z <span style="color:#000;font-weight:bold">=</span> { a<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>, b<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">4</span> };
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> n <span style="color:#000;font-weight:bold">=</span> { ...z };
+</span></span><span style="display:flex;"><span>n <span style="color:#998;font-style:italic">// { a: 3, b: 4 }
+</span></span></span></code></pre></div><p>由于数组是特殊的对象，所以对象的扩展运算符也可以用于数组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> foo <span style="color:#000;font-weight:bold">=</span> { ...[<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>, <span style="color:#d14">&#39;c&#39;</span>] };
+</span></span><span style="display:flex;"><span>foo
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// {0: &#34;a&#34;, 1: &#34;b&#34;, 2: &#34;c&#34;}
+</span></span></span></code></pre></div><p>如果扩展运算符后面是一个空对象，则没有任何效果。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>{...{}, a<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// { a: 1 }
+</span></span></span></code></pre></div><p>如果扩展运算符后面不是对象，则会自动将其转为对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于 {...Object(1)}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>{...<span style="color:#099">1</span>} <span style="color:#998;font-style:italic">// {}
+</span></span></span></code></pre></div><p>上面代码中，扩展运算符后面是整数<code>1</code>，会自动转为数值的包装对象<code>Number{1}</code>。由于该对象没有自身属性，所以返回一个空对象。</p>
+<p>下面的例子都是类似的道理。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于 {...Object(true)}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>{...<span style="color:#000;font-weight:bold">true</span>} <span style="color:#998;font-style:italic">// {}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于 {...Object(undefined)}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>{...<span style="color:#000;font-weight:bold">undefined</span>} <span style="color:#998;font-style:italic">// {}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于 {...Object(null)}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>{...<span style="color:#000;font-weight:bold">null</span>} <span style="color:#998;font-style:italic">// {}
+</span></span></span></code></pre></div><p>但是，如果扩展运算符后面是字符串，它会自动转成一个类似数组的对象，因此返回的不是空对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>{...<span style="color:#d14">&#39;hello&#39;</span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// {0: &#34;h&#34;, 1: &#34;e&#34;, 2: &#34;l&#34;, 3: &#34;l&#34;, 4: &#34;o&#34;}
+</span></span></span></code></pre></div><p>对象的扩展运算符，只会返回参数对象自身的、可枚举的属性，这一点要特别小心，尤其是用于类的实例对象时。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> C {
+</span></span><span style="display:flex;"><span>  p <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">12</span>;
+</span></span><span style="display:flex;"><span>  m() {}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> c <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> C();
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> clone <span style="color:#000;font-weight:bold">=</span> { ...c };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>clone.p; <span style="color:#998;font-style:italic">// ok
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>clone.m(); <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，<code>c</code>是<code>C</code>类的实例对象，对其进行扩展运算时，只会返回<code>c</code>自身的属性<code>c.p</code>，而不会返回<code>c</code>的方法<code>c.m()</code>，因为这个方法定义在<code>C</code>的原型对象上（详见 Class 的章节）。</p>
+<p>对象的扩展运算符等同于使用<code>Object.assign()</code>方法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> aClone <span style="color:#000;font-weight:bold">=</span> { ...a };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> aClone <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.assign({}, a);
+</span></span></code></pre></div><p>上面的例子只是拷贝了对象实例的属性，如果想完整克隆一个对象，还拷贝对象原型的属性，可以采用下面的写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法一
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> clone1 <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  __proto__<span style="color:#000;font-weight:bold">:</span> <span style="color:#0086b3">Object</span>.getPrototypeOf(obj),
+</span></span><span style="display:flex;"><span>  ...obj
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法二
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> clone2 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.assign(
+</span></span><span style="display:flex;"><span>  <span style="color:#0086b3">Object</span>.create(<span style="color:#0086b3">Object</span>.getPrototypeOf(obj)),
+</span></span><span style="display:flex;"><span>  obj
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法三
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> clone3 <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.create(
+</span></span><span style="display:flex;"><span>  <span style="color:#0086b3">Object</span>.getPrototypeOf(obj),
+</span></span><span style="display:flex;"><span>  <span style="color:#0086b3">Object</span>.getOwnPropertyDescriptors(obj)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>上面代码中，写法一的<code>__proto__</code>属性在非浏览器的环境不一定部署，因此推荐使用写法二和写法三。</p>
+<p>扩展运算符可以用于合并两个对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> ab <span style="color:#000;font-weight:bold">=</span> { ...a, ...b };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> ab <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.assign({}, a, b);
+</span></span></code></pre></div><p>如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> aWithOverrides <span style="color:#000;font-weight:bold">=</span> { ...a, x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> aWithOverrides <span style="color:#000;font-weight:bold">=</span> { ...a, ...{ x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> } };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>, y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>, aWithOverrides <span style="color:#000;font-weight:bold">=</span> { ...a, x, y };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> aWithOverrides <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.assign({}, a, { x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> });
+</span></span></code></pre></div><p>上面代码中，<code>a</code>对象的<code>x</code>属性和<code>y</code>属性，拷贝到新对象后会被覆盖掉。</p>
+<p>这用来修改现有对象部分的属性就很方便了。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> newVersion <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  ...previousVersion,
+</span></span><span style="display:flex;"><span>  name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;New Name&#39;</span> <span style="color:#998;font-style:italic">// Override the name property
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>};
+</span></span></code></pre></div><p>上面代码中，<code>newVersion</code>对象自定义了<code>name</code>属性，其他属性全部复制自<code>previousVersion</code>对象。</p>
+<p>如果把自定义属性放在扩展运算符前面，就变成了设置新对象的默认属性值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> aWithDefaults <span style="color:#000;font-weight:bold">=</span> { x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span>, ...a };
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> aWithDefaults <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.assign({}, { x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> }, a);
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> aWithDefaults <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Object</span>.assign({ x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> }, a);
+</span></span></code></pre></div><p>与数组的扩展运算符一样，对象的扩展运算符后面可以跟表达式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  ...(x <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">?</span> {a<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>} <span style="color:#000;font-weight:bold">:</span> {}),
+</span></span><span style="display:flex;"><span>  b<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>扩展运算符的参数对象之中，如果有取值函数<code>get</code>，这个函数是会执行的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  get x() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">throw</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Error</span>(<span style="color:#d14">&#39;not throw yet&#39;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> aWithXGetter <span style="color:#000;font-weight:bold">=</span> { ...a }; <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面例子中，取值函数<code>get</code>在扩展<code>a</code>对象时会自动执行，导致报错。</p>
+<h2 id="aggregateerror-错误对象">AggregateError 错误对象</h2>
+<p>ES2021 标准之中，为了配合新增的<code>Promise.any()</code>方法（参见《Promise 对象》一章），还引入一个新的错误对象<code>AggregateError</code>，也放在这一章介绍。</p>
+<p>AggregateError 在一个错误对象里面，封装了多个错误。如果某个单一操作，同时引发了多个错误，需要同时抛出这些错误，那么就可以抛出一个 AggregateError 错误对象，把各种错误都放在这个对象里面。</p>
+<p>AggregateError 本身是一个构造函数，用来生成 AggregateError 实例对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>AggregateError(errors[, message])
+</span></span></code></pre></div><p><code>AggregateError()</code>构造函数可以接受两个参数。</p>
+<ul>
+<li>errors：数组，它的每个成员都是一个错误对象。该参数是必须的。</li>
+<li>message：字符串，表示 AggregateError 抛出时的提示信息。该参数是可选的。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> error <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> AggregateError([
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Error</span>(<span style="color:#d14">&#39;ERROR_11112&#39;</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">new</span> TypeError(<span style="color:#d14">&#39;First name must be a string&#39;</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">new</span> RangeError(<span style="color:#d14">&#39;Transaction value must be at least 1&#39;</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">new</span> URIError(<span style="color:#d14">&#39;User profile link must be https&#39;</span>),
+</span></span><span style="display:flex;"><span>], <span style="color:#d14">&#39;Transaction cannot be processed&#39;</span>)
+</span></span></code></pre></div><p>上面示例中，<code>AggregateError()</code>的第一个参数数组里面，一共有四个错误实例。第二个参数字符串则是这四个错误的一个整体的提示。</p>
+<p><code>AggregateError</code>的实例对象有三个属性。</p>
+<ul>
+<li>name：错误名称，默认为“AggregateError”。</li>
+<li>message：错误的提示信息。</li>
+<li>errors：数组，每个成员都是一个错误对象。</li>
+</ul>
+<p>下面是一个示例。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">try</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">throw</span> <span style="color:#000;font-weight:bold">new</span> AggregateError([
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Error</span>(<span style="color:#d14">&#34;some error&#34;</span>),
+</span></span><span style="display:flex;"><span>  ], <span style="color:#d14">&#39;Hello&#39;</span>);
+</span></span><span style="display:flex;"><span>} <span style="color:#000;font-weight:bold">catch</span> (e) {
+</span></span><span style="display:flex;"><span>  console.log(e <span style="color:#000;font-weight:bold">instanceof</span> AggregateError); <span style="color:#998;font-style:italic">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  console.log(e.message);                   <span style="color:#998;font-style:italic">// &#34;Hello&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  console.log(e.name);                      <span style="color:#998;font-style:italic">// &#34;AggregateError&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  console.log(e.errors);                    <span style="color:#998;font-style:italic">// [ Error: &#34;some error&#34; ]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><h2 id="error-对象的-cause-属性">Error 对象的 cause 属性</h2>
+<p>Error 对象用来表示代码运行时的异常情况，但是从这个对象拿到的上下文信息，有时很难解读，也不够充分。<a href="https://github.com/tc39/proposal-error-cause">ES2022</a> 为 Error 对象添加了一个<code>cause</code>属性，可以在生成错误时，添加报错原因的描述。</p>
+<p>它的用法是<code>new Error()</code>生成 Error 实例时，给出一个描述对象，该对象可以设置<code>cause</code>属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> actual <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Error</span>(<span style="color:#d14">&#39;an error!&#39;</span>, { cause<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;Error cause&#39;</span> });
+</span></span><span style="display:flex;"><span>actual.cause; <span style="color:#998;font-style:italic">// &#39;Error cause&#39;
+</span></span></span></code></pre></div><p>上面示例中，生成 Error 实例时，使用描述对象给出<code>cause</code>属性，写入报错的原因。然后，就可以从实例对象上读取这个属性。</p>
+<p><code>casue</code>属性可以放置任意内容，不必一定是字符串。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">try</span> {
+</span></span><span style="display:flex;"><span>  maybeWorks();
+</span></span><span style="display:flex;"><span>} <span style="color:#000;font-weight:bold">catch</span> (err) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">throw</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#0086b3">Error</span>(<span style="color:#d14">&#39;maybeWorks failed!&#39;</span>, { cause<span style="color:#000;font-weight:bold">:</span> err });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，<code>cause</code>属性放置的就是一个对象。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/">http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/">字符串的新增方法</a></li>
+        
+        <li><a href="/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/">字符串的扩展</a></li>
+        
+        <li><a href="/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">变量解构赋值</a></li>
+        
+        <li><a href="/post/es6/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/">函数的扩展</a></li>
+        
+        <li><a href="/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/javaScript' target="_blank">javaScript</a></li>
+                
+                <li><a href='/tags/es6' target="_blank">es6</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

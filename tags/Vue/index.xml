@@ -13,7 +13,7 @@
       <pubDate>Thu, 04 May 2023 16:34:54 +0000</pubDate>
       
       <guid>http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 &amp;lt;div&amp;gt; &amp;lt;p&amp;gt;FullName: {{fullName}}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;FirstName: &amp;lt;input type=&amp;#34;text&amp;#34; v-model=&amp;#34;firstName&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; new Vue({ el: &amp;#39;#root&amp;#39;, data: { firstName: &amp;#39;Dawei&amp;#39;, lastName: &amp;#39;Lou&amp;#39;, fullName: &amp;#39;&amp;#39; }, watch: { firstName(newName, oldName) { this.fullName = newName + &amp;#39; &amp;#39; + this.lastName; } } }) 上面的代码的效果是，当我们输入firstName后，wacth监听每次修改变化的新值，然后计算输出fullName。 handler方法和immediate属性 这里 watch 的一个</description>
+      <description>&amp;lt;div&amp;gt; &amp;lt;p&amp;gt;FullName: {{fullName}}&amp;lt;/p&amp;gt; &amp;lt;p&amp;gt;FirstName: &amp;lt;input type=&amp;#34;text&amp;#34; v-model=&amp;#34;firstName&amp;#34;&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; new Vue({ el: &amp;#39;#root&amp;#39;, data: { firstName: &amp;#39;Dawei&amp;#39;, lastName: &amp;#39;Lou&amp;#39;, fullName: &amp;#39;&amp;#39; }, watch: { firstName(newName, oldName) { this.fullName = newName + &amp;#39; &amp;#39; + this.lastName; } } }) 上面的代码的效果是，当我们输入firstName后，wacth监听每次修改变化的新值，然后计算输出fullName。 handler方法和immediate属性 这里 watch 的一个特点是，最初绑定的时候是不会执行的，</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@
       <pubDate>Fri, 24 Mar 2023 09:45:47 +0000</pubDate>
       
       <guid>http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/</guid>
-      <description>期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： 1 2 3 4 // main.js const app = createApp(App) app.config.globalProperties.$test = &amp;#39;test&amp;#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 &amp;lt;tempalte&amp;gt; &amp;lt;div&amp;gt;{{ $test }}&amp;lt;/div&amp;gt; &amp;lt;/tempalte&amp;gt; &amp;lt;script&amp;gt; import { getCurrentInstance } from &amp;#39;vue&amp;#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&amp;#39;test===&amp;#39;) console.log(test) }, }</description>
+      <description>期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： // main.js const app = createApp(App) app.config.globalProperties.$test = &amp;#39;test&amp;#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： &amp;lt;tempalte&amp;gt; &amp;lt;div&amp;gt;{{ $test }}&amp;lt;/div&amp;gt; &amp;lt;/tempalte&amp;gt; &amp;lt;script&amp;gt; import { getCurrentInstance } from &amp;#39;vue&amp;#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&amp;#39;test===&amp;#39;) console.log(test) }, } &amp;lt;/script&amp;gt; Vite通过alias别名引用 在w</description>
     </item>
     
     <item>
@@ -40,7 +40,7 @@
       <pubDate>Wed, 22 Mar 2023 10:37:34 +0000</pubDate>
       
       <guid>http://shansec.github.io/post/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/</guid>
-      <description>前言 Vue3 已经出来很长时间了，但对 Vue3 的路由却了解的非常少，甚至只知道最基本的跳转和参数获取，这些技能处理一些复杂的功能是不够的，最近把 Vue3 的路由版本差异给学习了一下，在这里把结果分享给大家！！！ 一、导航守卫 全局前置守卫 全局前置守卫通常用来做权限控制，使用 router.beforeEach 即可添加： 1 2 3 4 5 6 const router = createRouter({...})</description>
+      <description>前言 Vue3 已经出来很长时间了，但对 Vue3 的路由却了解的非常少，甚至只知道最基本的跳转和参数获取，这些技能处理一些复杂的功能是不够的，最近把 Vue3 的路由版本差异给学习了一下，在这里把结果分享给大家！！！ 一、导航守卫 全局前置守卫 全局前置守卫通常用来做权限控制，使用 router.beforeEach 即可添加： const router = createRouter({...}) router.beforeEach((to, from) =&amp;gt; { // ...</description>
     </item>
     
     <item>
@@ -76,7 +76,7 @@
       <pubDate>Mon, 20 Mar 2023 14:09:39 +0000</pubDate>
       
       <guid>http://shansec.github.io/post/blog/Vue3%E4%B8%AD%E6%93%8D%E4%BD%9Cdom%E7%9A%84%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%BB%BA%E8%AE%AE%E6%94%B6%E8%97%8F/</guid>
-      <description>前言 最近主管提出了许多优化用户体验的要求，其中很多涉及 dom 操作。本文将 Vue3 中常见的 dom 操作总结了一下。觉得文章不错、或对自己开发有所帮助，欢迎点赞收藏！ 一、通过 ref 拿到 dom 的引用 1 2 3 4 5 6 7 8 9 10 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;ref-container&amp;#34;&amp;gt; &amp;lt;div ref=&amp;#34;sectionRef&amp;#34; class=&amp;#34;ref-section&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script lang=&amp;#34;ts&amp;#34; setup&amp;gt; import { ref } from &amp;#39;vue&amp;#39; const sectionRef = ref() &amp;lt;/script&amp;gt; 通过对 div 元素添加 ref 属性，为了获取到这个元素，我们</description>
+      <description>前言 最近主管提出了许多优化用户体验的要求，其中很多涉及 dom 操作。本文将 Vue3 中常见的 dom 操作总结了一下。觉得文章不错、或对自己开发有所帮助，欢迎点赞收藏！ 一、通过 ref 拿到 dom 的引用 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;ref-container&amp;#34;&amp;gt; &amp;lt;div ref=&amp;#34;sectionRef&amp;#34; class=&amp;#34;ref-section&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script lang=&amp;#34;ts&amp;#34; setup&amp;gt; import { ref } from &amp;#39;vue&amp;#39; const sectionRef = ref() &amp;lt;/script&amp;gt; 通过对 div 元素添加 ref 属性，为了获取到这个元素，我们声明了一个与 ref 属性名</description>
     </item>
     
     <item>
@@ -85,7 +85,7 @@
       <pubDate>Mon, 20 Mar 2023 12:29:21 +0000</pubDate>
       
       <guid>http://shansec.github.io/post/blog/Vue-%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E6%90%9C%E7%B4%A2%E6%A1%86/</guid>
-      <description>前言 本篇文章分享一下我在实际开发 Vue 项目时遇到的需要 —— 全局菜单搜索。全局菜单搜索本质是 router 的使用，该功能已经实现，接下来分享一下开发心得。 一、过滤路由 首先需要过滤出符合条件的路由信息，过滤的条件包含两个： 路由可以显示出现（hidden: false） 路由元信息中包含 title 属性 代码展示： 1</description>
+      <description>前言 本篇文章分享一下我在实际开发 Vue 项目时遇到的需要 —— 全局菜单搜索。全局菜单搜索本质是 router 的使用，该功能已经实现，接下来分享一下开发心得。 一、过滤路由 首先需要过滤出符合条件的路由信息，过滤的条件包含两个： 路由可以显示出现（hidden: false） 路由元信息中包含 title 属性 代码展示： /**</description>
     </item>
     
   </channel>

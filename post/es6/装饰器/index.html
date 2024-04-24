@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>装饰器 | 未来可期的博客</title>
+    <meta property="og:title" content="装饰器 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-04-24T10:18:24&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-04-24T10:18:24&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="装饰器">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介新语法">简介（新语法）</a></li>
+    <li><a href="#装饰器-api新语法">装饰器 API（新语法）</a></li>
+    <li><a href="#类的装饰">类的装饰</a></li>
+    <li><a href="#类装饰器新语法">类装饰器（新语法）</a></li>
+    <li><a href="#方法装饰器新语法">方法装饰器（新语法）</a></li>
+    <li><a href="#方法的装饰">方法的装饰</a></li>
+    <li><a href="#为什么装饰器不能用于函数">为什么装饰器不能用于函数？</a></li>
+    <li><a href="#存取器装饰器新语法">存取器装饰器（新语法）</a></li>
+    <li><a href="#属性装饰器新语法">属性装饰器（新语法）</a></li>
+    <li><a href="#accessor-命令新语法">accessor 命令（新语法）</a></li>
+    <li><a href="#addinitializer-方法新语法">addInitializer() 方法（新语法）</a></li>
+    <li><a href="#core-decoratorsjs">core-decorators.js</a></li>
+    <li><a href="#使用装饰器实现自动发布事件">使用装饰器实现自动发布事件</a></li>
+    <li><a href="#mixin">Mixin</a></li>
+    <li><a href="#trait">Trait</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">装饰器</h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:18:24Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>[说明] Decorator 提案经历了重大的语法变化，目前处于第三阶段，定案之前不知道是否还有变化。本章现在属于草稿阶段，凡是标注“新语法”的章节，都是基于当前的语法，不过没有详细整理，只是一些原始材料；未标注“新语法”的章节基于以前的语法，是过去遗留的稿子。之所以保留以前的内容，有两个原因，一是 TypeScript 装饰器会用到这些语法，二是里面包含不少有价值的内容。等到标准完全定案，本章将彻底重写：删去过时内容，补充材料，增加解释。（2022年6月）</p>
+<h2 id="简介新语法">简介（新语法）</h2>
+<p>装饰器（Decorator）用来增强 JavaScript 类（class）的功能，许多面向对象的语言都有这种语法，目前有一个<a href="https://github.com/tc39/proposal-decorators">提案</a>将其引入了 ECMAScript。</p>
+<p>装饰器是一种函数，写成<code>@ + 函数名</code>，可以用来装饰四种类型的值。</p>
+<ul>
+<li>类</li>
+<li>类的属性</li>
+<li>类的方法</li>
+<li>属性存取器（accessor）</li>
+</ul>
+<p>下面的例子是装饰器放在类名和类方法名之前，大家可以感受一下写法。</p>
+<pre tabindex="0"><code>@frozen class Foo {
+  @configurable(false)
+  @enumerable(true)
+  method() {}
+
+  @throttle(500)
+  expensiveMethod() {}
+}
+</code></pre><p>上面代码一共使用了四个装饰器，一个用在类本身（@frozen），另外三个用在类方法（@configurable()、@enumerable()、@throttle()）。它们不仅增加了代码的可读性，清晰地表达了意图，而且提供一种方便的手段，增加或修改类的功能。</p>
+<h2 id="装饰器-api新语法">装饰器 API（新语法）</h2>
+<p>装饰器是一个函数，API 的类型描述如下（TypeScript 写法）。</p>
+<pre tabindex="0"><code>type Decorator = (value: Input, context: {
+  kind: string;
+  name: string | symbol;
+  access: {
+    get?(): unknown;
+    set?(value: unknown): void;
+  };
+  private?: boolean;
+  static?: boolean;
+  addInitializer?(initializer: () =&gt; void): void;
+}) =&gt; Output | void;
+</code></pre><p>装饰器函数有两个参数。运行时，JavaScript 引擎会提供这两个参数。</p>
+<ul>
+<li><code>value</code>：所要装饰的值，某些情况下可能是<code>undefined</code>（装饰属性时）。</li>
+<li><code>context</code>：上下文信息对象。</li>
+</ul>
+<p>装饰器函数的返回值，是一个新版本的装饰对象，但也可以不返回任何值（void）。</p>
+<p><code>context</code>对象有很多属性，其中<code>kind</code>属性表示属于哪一种装饰，其他属性的含义如下。</p>
+<ul>
+<li><code>kind</code>：字符串，表示装饰类型，可能的取值有<code>class</code>、<code>method</code>、<code>getter</code>、<code>setter</code>、<code>field</code>、<code>accessor</code>。</li>
+<li><code>name</code>：被装饰的值的名称: The name of the value, or in the case of private elements the description of it (e.g. the readable name).</li>
+<li><code>access</code>：对象，包含访问这个值的方法，即存值器和取值器。</li>
+<li><code>static</code>: 布尔值，该值是否为静态元素。</li>
+<li><code>private</code>：布尔值，该值是否为私有元素。</li>
+<li><code>addInitializer</code>：函数，允许用户增加初始化逻辑。</li>
+</ul>
+<p>装饰器的执行步骤如下。</p>
+<ol>
+<li>计算各个装饰器的值，按照从左到右，从上到下的顺序。</li>
+<li>调用方法装饰器。</li>
+<li>调用类装饰器。</li>
+</ol>
+<h2 id="类的装饰">类的装饰</h2>
+<p>装饰器可以用来装饰整个类。</p>
+<pre tabindex="0"><code>@testable
+class MyTestableClass {
+  // ...
+}
+
+function testable(target) {
+  target.isTestable = true;
+}
+
+MyTestableClass.isTestable // true
+</code></pre><p>上面代码中，<code>@testable</code>就是一个装饰器。它修改了<code>MyTestableClass</code>这个类的行为，为它加上了静态属性<code>isTestable</code>。<code>testable</code>函数的参数<code>target</code>是<code>MyTestableClass</code>类本身。</p>
+<p>基本上，装饰器的行为就是下面这样。</p>
+<pre tabindex="0"><code>@decorator
+class A {}
+
+// 等同于
+
+class A {}
+A = decorator(A) || A;
+</code></pre><p>也就是说，装饰器是一个对类进行处理的函数。装饰器函数的第一个参数，就是所要装饰的目标类。</p>
+<pre tabindex="0"><code>function testable(target) {
+  // ...
+}
+</code></pre><p>上面代码中，<code>testable</code>函数的参数<code>target</code>，就是会被装饰的类。</p>
+<p>如果觉得一个参数不够用，可以在装饰器外面再封装一层函数。</p>
+<pre tabindex="0"><code>function testable(isTestable) {
+  return function(target) {
+    target.isTestable = isTestable;
+  }
+}
+
+@testable(true)
+class MyTestableClass {}
+MyTestableClass.isTestable // true
+
+@testable(false)
+class MyClass {}
+MyClass.isTestable // false
+</code></pre><p>上面代码中，装饰器<code>testable</code>可以接受参数，这就等于可以修改装饰器的行为。</p>
+<p>注意，装饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，装饰器能在编译阶段运行代码。也就是说，装饰器本质就是编译时执行的函数。</p>
+<p>前面的例子是为类添加一个静态属性，如果想添加实例属性，可以通过目标类的<code>prototype</code>对象操作。</p>
+<pre tabindex="0"><code>function testable(target) {
+  target.prototype.isTestable = true;
+}
+
+@testable
+class MyTestableClass {}
+
+let obj = new MyTestableClass();
+obj.isTestable // true
+</code></pre><p>上面代码中，装饰器函数<code>testable</code>是在目标类的<code>prototype</code>对象上添加属性，因此就可以在实例上调用。</p>
+<p>下面是另外一个例子。</p>
+<pre tabindex="0"><code>// mixins.js
+export function mixins(...list) {
+  return function (target) {
+    Object.assign(target.prototype, ...list)
+  }
+}
+
+// main.js
+import { mixins } from &#39;./mixins.js&#39;
+
+const Foo = {
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+@mixins(Foo)
+class MyClass {}
+
+let obj = new MyClass();
+obj.foo() // &#39;foo&#39;
+</code></pre><p>上面代码通过装饰器<code>mixins</code>，把<code>Foo</code>对象的方法添加到了<code>MyClass</code>的实例上面。可以用<code>Object.assign()</code>模拟这个功能。</p>
+<pre tabindex="0"><code>const Foo = {
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+class MyClass {}
+
+Object.assign(MyClass.prototype, Foo);
+
+let obj = new MyClass();
+obj.foo() // &#39;foo&#39;
+</code></pre><p>实际开发中，React 与 Redux 库结合使用时，常常需要写成下面这样。</p>
+<pre tabindex="0"><code>class MyReactComponent extends React.Component {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyReactComponent);
+</code></pre><p>有了装饰器，就可以改写上面的代码。</p>
+<pre tabindex="0"><code>@connect(mapStateToProps, mapDispatchToProps)
+export default class MyReactComponent extends React.Component {}
+</code></pre><p>相对来说，后一种写法看上去更容易理解。</p>
+<h2 id="类装饰器新语法">类装饰器（新语法）</h2>
+<p>类装饰器的类型描述如下。</p>
+<pre tabindex="0"><code>type ClassDecorator = (value: Function, context: {
+  kind: &#34;class&#34;;
+  name: string | undefined;
+  addInitializer(initializer: () =&gt; void): void;
+}) =&gt; Function | void;
+</code></pre><p>类装饰器的第一个参数，就是被装饰的类。第二个参数是上下文对象，如果被装饰的类是一个匿名类，<code>name</code>属性就为<code>undefined</code>。</p>
+<p>类装饰器可以返回一个新的类，取代原来的类，也可以不返回任何值。如果返回的不是构造函数，就会报错。</p>
+<p>下面是一个例子。</p>
+<pre tabindex="0"><code>function logged(value, { kind, name }) {
+  if (kind === &#34;class&#34;) {
+    return class extends value {
+      constructor(...args) {
+        super(...args);
+        console.log(`constructing an instance of ${name} with arguments ${args.join(&#34;, &#34;)}`);
+      }
+    }
+  }
+
+  // ...
+}
+
+@logged
+class C {}
+
+new C(1);
+// constructing an instance of C with arguments 1
+</code></pre><p>如果不使用装饰器，类装饰器实际上执行的是下面的语法。</p>
+<pre tabindex="0"><code>class C {}
+
+C = logged(C, {
+  kind: &#34;class&#34;,
+  name: &#34;C&#34;,
+}) ?? C;
+
+new C(1);
+</code></pre><h2 id="方法装饰器新语法">方法装饰器（新语法）</h2>
+<p>方法装饰器会修改类的方法。</p>
+<pre tabindex="0"><code>class C {
+  @trace
+  toString() {
+    return &#39;C&#39;;
+  }
+}
+
+// 相当于
+C.prototype.toString = trace(C.prototype.toString);
+</code></pre><p>上面示例中，<code>@trace</code>装饰<code>toString()</code>方法，就相当于修改了该方法。</p>
+<p>方法装饰器使用 TypeScript 描述类型如下。</p>
+<pre tabindex="0"><code>type ClassMethodDecorator = (value: Function, context: {
+  kind: &#34;method&#34;;
+  name: string | symbol;
+  access: { get(): unknown };
+  static: boolean;
+  private: boolean;
+  addInitializer(initializer: () =&gt; void): void;
+}) =&gt; Function | void;
+</code></pre><p>方法装饰器的第一个参数<code>value</code>，就是所要装饰的方法。</p>
+<p>方法装饰器可以返回一个新函数，取代原来的方法，也可以不返回值，表示依然使用原来的方法。如果返回其他类型的值，就会报错。下面是一个例子。</p>
+<pre tabindex="0"><code>function replaceMethod() {
+  return function () {
+    return `How are you, ${this.name}?`;
+  }
+}
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  @replaceMethod
+  hello() {
+    return `Hi ${this.name}!`;
+  }
+}
+
+const robin = new Person(&#39;Robin&#39;);
+
+robin.hello(), &#39;How are you, Robin?&#39;
+</code></pre><p>上面示例中，<code>@replaceMethod</code>返回了一个新函数，取代了原来的<code>hello()</code>方法。</p>
+<pre tabindex="0"><code>function logged(value, { kind, name }) {
+  if (kind === &#34;method&#34;) {
+    return function (...args) {
+      console.log(`starting ${name} with arguments ${args.join(&#34;, &#34;)}`);
+      const ret = value.call(this, ...args);
+      console.log(`ending ${name}`);
+      return ret;
+    };
+  }
+}
+
+class C {
+  @logged
+  m(arg) {}
+}
+
+new C().m(1);
+// starting m with arguments 1
+// ending m
+</code></pre><p>上面示例中，装饰器<code>@logged</code>返回一个函数，代替原来的<code>m()</code>方法。</p>
+<p>这里的装饰器实际上是一个语法糖，真正的操作是像下面这样，改掉原型链上面<code>m()</code>方法。</p>
+<pre tabindex="0"><code>class C {
+  m(arg) {}
+}
+
+C.prototype.m = logged(C.prototype.m, {
+  kind: &#34;method&#34;,
+  name: &#34;m&#34;,
+  static: false,
+  private: false,
+}) ?? C.prototype.m;
+</code></pre><h2 id="方法的装饰">方法的装饰</h2>
+<p>装饰器不仅可以装饰类，还可以装饰类的属性。</p>
+<pre tabindex="0"><code>class Person {
+  @readonly
+  name() { return `${this.first} ${this.last}` }
+}
+</code></pre><p>上面代码中，装饰器<code>readonly</code>用来装饰“类”的<code>name</code>方法。</p>
+<p>装饰器函数<code>readonly</code>一共可以接受三个参数。</p>
+<pre tabindex="0"><code>function readonly(target, name, descriptor){
+  // descriptor对象原来的值如下
+  // {
+  //   value: specifiedFunction,
+  //   enumerable: false,
+  //   configurable: true,
+  //   writable: true
+  // };
+  descriptor.writable = false;
+  return descriptor;
+}
+
+readonly(Person.prototype, &#39;name&#39;, descriptor);
+// 类似于
+Object.defineProperty(Person.prototype, &#39;name&#39;, descriptor);
+</code></pre><p>装饰器第一个参数是类的原型对象，上例是<code>Person.prototype</code>，装饰器的本意是要“装饰”类的实例，但是这个时候实例还没生成，所以只能去装饰原型（这不同于类的装饰，那种情况时<code>target</code>参数指的是类本身）；第二个参数是所要装饰的属性名，第三个参数是该属性的描述对象。</p>
+<p>另外，上面代码说明，装饰器（readonly）会修改属性的描述对象（descriptor），然后被修改的描述对象再用来定义属性。</p>
+<p>下面是另一个例子，修改属性描述对象的<code>enumerable</code>属性，使得该属性不可遍历。</p>
+<pre tabindex="0"><code>class Person {
+  @nonenumerable
+  get kidCount() { return this.children.length; }
+}
+
+function nonenumerable(target, name, descriptor) {
+  descriptor.enumerable = false;
+  return descriptor;
+}
+</code></pre><p>下面的<code>@log</code>装饰器，可以起到输出日志的作用。</p>
+<pre tabindex="0"><code>class Math {
+  @log
+  add(a, b) {
+    return a + b;
+  }
+}
+
+function log(target, name, descriptor) {
+  var oldValue = descriptor.value;
+
+  descriptor.value = function() {
+    console.log(`Calling ${name} with`, arguments);
+    return oldValue.apply(this, arguments);
+  };
+
+  return descriptor;
+}
+
+const math = new Math();
+
+// passed parameters should get logged now
+math.add(2, 4);
+</code></pre><p>上面代码中，<code>@log</code>装饰器的作用就是在执行原始的操作之前，执行一次<code>console.log</code>，从而达到输出日志的目的。</p>
+<p>装饰器有注释的作用。</p>
+<pre tabindex="0"><code>@testable
+class Person {
+  @readonly
+  @nonenumerable
+  name() { return `${this.first} ${this.last}` }
+}
+</code></pre><p>从上面代码中，我们一眼就能看出，<code>Person</code>类是可测试的，而<code>name</code>方法是只读和不可枚举的。</p>
+<p>下面是使用 Decorator 写法的<a href="https://github.com/ionic-team/stencil">组件</a>，看上去一目了然。</p>
+<pre tabindex="0"><code>@Component({
+  tag: &#39;my-component&#39;,
+  styleUrl: &#39;my-component.scss&#39;
+})
+export class MyComponent {
+  @Prop() first: string;
+  @Prop() last: string;
+  @State() isVisible: boolean = true;
+
+  render() {
+    return (
+      &lt;p&gt;Hello, my name is {this.first} {this.last}&lt;/p&gt;
+    );
+  }
+}
+</code></pre><p>如果同一个方法有多个装饰器，会像剥洋葱一样，先从外到内进入，然后由内向外执行。</p>
+<pre tabindex="0"><code>function dec(id){
+  console.log(&#39;evaluated&#39;, id);
+  return (target, property, descriptor) =&gt; console.log(&#39;executed&#39;, id);
+}
+
+class Example {
+    @dec(1)
+    @dec(2)
+    method(){}
+}
+// evaluated 1
+// evaluated 2
+// executed 2
+// executed 1
+</code></pre><p>上面代码中，外层装饰器<code>@dec(1)</code>先进入，但是内层装饰器<code>@dec(2)</code>先执行。</p>
+<p>除了注释，装饰器还能用来类型检查。所以，对于类来说，这项功能相当有用。从长期来看，它将是 JavaScript 代码静态分析的重要工具。</p>
+<h2 id="为什么装饰器不能用于函数">为什么装饰器不能用于函数？</h2>
+<p>装饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。</p>
+<pre tabindex="0"><code>var counter = 0;
+
+var add = function () {
+  counter++;
+};
+
+@add
+function foo() {
+}
+</code></pre><p>上面的代码，意图是执行后<code>counter</code>等于 1，但是实际上结果是<code>counter</code>等于 0。因为函数提升，使得实际执行的代码是下面这样。</p>
+<pre tabindex="0"><code>var counter;
+var add;
+
+@add
+function foo() {
+}
+
+counter = 0;
+
+add = function () {
+  counter++;
+};
+</code></pre><p>下面是另一个例子。</p>
+<pre tabindex="0"><code>var readOnly = require(&#34;some-decorator&#34;);
+
+@readOnly
+function foo() {
+}
+</code></pre><p>上面代码也有问题，因为实际执行是下面这样。</p>
+<pre tabindex="0"><code>var readOnly;
+
+@readOnly
+function foo() {
+}
+
+readOnly = require(&#34;some-decorator&#34;);
+</code></pre><p>总之，由于存在函数提升，使得装饰器不能用于函数。类是不会提升的，所以就没有这方面的问题。</p>
+<p>另一方面，如果一定要装饰函数，可以采用高阶函数的形式直接执行。</p>
+<pre tabindex="0"><code>function doSomething(name) {
+  console.log(&#39;Hello, &#39; + name);
+}
+
+function loggingDecorator(wrapped) {
+  return function() {
+    console.log(&#39;Starting&#39;);
+    const result = wrapped.apply(this, arguments);
+    console.log(&#39;Finished&#39;);
+    return result;
+  }
+}
+
+const wrapped = loggingDecorator(doSomething);
+</code></pre><h2 id="存取器装饰器新语法">存取器装饰器（新语法）</h2>
+<p>存取器装饰器使用 TypeScript 描述的类型如下。</p>
+<pre tabindex="0"><code>type ClassGetterDecorator = (value: Function, context: {
+  kind: &#34;getter&#34;;
+  name: string | symbol;
+  access: { get(): unknown };
+  static: boolean;
+  private: boolean;
+  addInitializer(initializer: () =&gt; void): void;
+}) =&gt; Function | void;
+
+type ClassSetterDecorator = (value: Function, context: {
+  kind: &#34;setter&#34;;
+  name: string | symbol;
+  access: { set(value: unknown): void };
+  static: boolean;
+  private: boolean;
+  addInitializer(initializer: () =&gt; void): void;
+}) =&gt; Function | void;
+</code></pre><p>存取器装饰器的第一个参数就是原始的存值器（setter）和取值器（getter）。</p>
+<p>存取器装饰器的返回值如果是一个函数，就会取代原来的存取器。本质上，就像方法装饰器一样，修改发生在类的原型对象上。它也可以不返回任何值，继续使用原来的存取器。如果返回其他类型的值，就会报错。</p>
+<p>存取器装饰器对存值器（setter）和取值器（getter）是分开作用的。下面的例子里面，<code>@foo</code>只装饰<code>get x()</code>，不装饰<code>set x()</code>。</p>
+<pre tabindex="0"><code>class C {
+  @foo
+  get x() {
+    // ...
+  }
+
+  set x(val) {
+    // ...
+  }
+}
+</code></pre><p>上一节的<code>@logged</code>装饰器稍加修改，就可以用在存取装饰器。</p>
+<pre tabindex="0"><code>function logged(value, { kind, name }) {
+  if (kind === &#34;method&#34; || kind === &#34;getter&#34; || kind === &#34;setter&#34;) {
+    return function (...args) {
+      console.log(`starting ${name} with arguments ${args.join(&#34;, &#34;)}`);
+      const ret = value.call(this, ...args);
+      console.log(`ending ${name}`);
+      return ret;
+    };
+  }
+}
+
+class C {
+  @logged
+  set x(arg) {}
+}
+
+new C().x = 1
+// starting x with arguments 1
+// ending x
+</code></pre><p>如果去掉语法糖，使用传统语法来写，就是改掉了类的原型链。</p>
+<pre tabindex="0"><code>class C {
+  set x(arg) {}
+}
+
+let { set } = Object.getOwnPropertyDescriptor(C.prototype, &#34;x&#34;);
+set = logged(set, {
+  kind: &#34;setter&#34;,
+  name: &#34;x&#34;,
+  static: false,
+  private: false,
+}) ?? set;
+
+Object.defineProperty(C.prototype, &#34;x&#34;, { set });
+</code></pre><h2 id="属性装饰器新语法">属性装饰器（新语法）</h2>
+<p>属性装饰器的类型描述如下。</p>
+<pre tabindex="0"><code>type ClassFieldDecorator = (value: undefined, context: {
+  kind: &#34;field&#34;;
+  name: string | symbol;
+  access: { get(): unknown, set(value: unknown): void };
+  static: boolean;
+  private: boolean;
+}) =&gt; (initialValue: unknown) =&gt; unknown | void;
+</code></pre><p>属性装饰器的第一个参数是<code>undefined</code>，即不输入值。用户可以选择让装饰器返回一个初始化函数，当该属性被赋值时，这个初始化函数会自动运行，它会收到属性的初始值，然后返回一个新的初始值。属性装饰器也可以不返回任何值。除了这两种情况，返回其他类型的值都会报错。</p>
+<p>下面是一个例子。</p>
+<pre tabindex="0"><code>function logged(value, { kind, name }) {
+  if (kind === &#34;field&#34;) {
+    return function (initialValue) {
+      console.log(`initializing ${name} with value ${initialValue}`);
+      return initialValue;
+    };
+  }
+
+  // ...
+}
+
+class C {
+  @logged x = 1;
+}
+
+new C();
+// initializing x with value 1
+</code></pre><p>如果不使用装饰器语法，属性装饰器的实际作用如下。</p>
+<pre tabindex="0"><code>let initializeX = logged(undefined, {
+  kind: &#34;field&#34;,
+  name: &#34;x&#34;,
+  static: false,
+  private: false,
+}) ?? (initialValue) =&gt; initialValue;
+
+class C {
+  x = initializeX.call(this, 1);
+}
+</code></pre><h2 id="accessor-命令新语法">accessor 命令（新语法）</h2>
+<p>类装饰器引入了一个新命令<code>accessor</code>，用来属性的前缀。</p>
+<pre tabindex="0"><code>class C {
+  accessor x = 1;
+}
+</code></pre><p>它是一种简写形式，相当于声明属性<code>x</code>是私有属性<code>#x</code>的存取接口。上面的代码等同于下面的代码。</p>
+<pre tabindex="0"><code>class C {
+  #x = 1;
+
+  get x() {
+    return this.#x;
+  }
+
+  set x(val) {
+    this.#x = val;
+  }
+}
+</code></pre><p><code>accessor</code>命令前面，还可以加上<code>static</code>命令和<code>private</code>命令。</p>
+<pre tabindex="0"><code>class C {
+  static accessor x = 1;
+  accessor #y = 2;
+}
+</code></pre><p><code>accessor</code>命令前面还可以接受属性装饰器。</p>
+<pre tabindex="0"><code>function logged(value, { kind, name }) {
+  if (kind === &#34;accessor&#34;) {
+    let { get, set } = value;
+
+    return {
+      get() {
+        console.log(`getting ${name}`);
+
+        return get.call(this);
+      },
+
+      set(val) {
+        console.log(`setting ${name} to ${val}`);
+
+        return set.call(this, val);
+      },
+
+      init(initialValue) {
+        console.log(`initializing ${name} with value ${initialValue}`);
+        return initialValue;
+      }
+    };
+  }
+
+  // ...
+}
+
+class C {
+  @logged accessor x = 1;
+}
+
+let c = new C();
+// initializing x with value 1
+c.x;
+// getting x
+c.x = 123;
+// setting x to 123
+</code></pre><p>上面的示例等同于使用<code>@logged</code>装饰器，改写<code>accessor</code>属性的 getter 和 setter 方法。</p>
+<p>用于<code>accessor</code>的属性装饰器的类型描述如下。</p>
+<pre tabindex="0"><code>type ClassAutoAccessorDecorator = (
+  value: {
+    get: () =&gt; unknown;
+    set(value: unknown) =&gt; void;
+  },
+  context: {
+    kind: &#34;accessor&#34;;
+    name: string | symbol;
+    access: { get(): unknown, set(value: unknown): void };
+    static: boolean;
+    private: boolean;
+    addInitializer(initializer: () =&gt; void): void;
+  }
+) =&gt; {
+  get?: () =&gt; unknown;
+  set?: (value: unknown) =&gt; void;
+  initialize?: (initialValue: unknown) =&gt; unknown;
+} | void;
+</code></pre><p><code>accessor</code>命令的第一个参数接收到的是一个对象，包含了<code>accessor</code>命令定义的属性的存取器 get 和 set。属性装饰器可以返回一个新对象，其中包含了新的存取器，用来取代原来的，即相当于拦截了原来的存取器。此外，返回的对象还可以包括一个<code>initialize</code>函数，用来改变私有属性的初始值。装饰器也可以不返回值，如果返回的是其他类型的值，或者包含其他属性的对象，就会报错。</p>
+<h2 id="addinitializer-方法新语法">addInitializer() 方法（新语法）</h2>
+<p>除了属性装饰器，其他装饰器的上下文对象还包括一个<code>addInitializer()</code>方法，用来完成初始化操作。</p>
+<p>它的运行时间如下。</p>
+<ul>
+<li>类装饰器：在类被完全定义之后。</li>
+<li>方法装饰器：在类构造期间运行，在属性初始化之前。</li>
+<li>静态方法装饰器：在类定义期间运行，早于静态属性定义，但晚于类方法的定义。</li>
+</ul>
+<p>下面是一个例子。</p>
+<pre tabindex="0"><code>function customElement(name) {
+  return (value, { addInitializer }) =&gt; {
+    addInitializer(function() {
+      customElements.define(name, this);
+    });
+  }
+}
+
+@customElement(&#39;my-element&#39;)
+class MyElement extends HTMLElement {
+  static get observedAttributes() {
+    return [&#39;some&#39;, &#39;attrs&#39;];
+  }
+}
+</code></pre><p>上面的代码等同于下面不使用装饰器的代码。</p>
+<pre tabindex="0"><code>class MyElement {
+  static get observedAttributes() {
+    return [&#39;some&#39;, &#39;attrs&#39;];
+  }
+}
+
+let initializersForMyElement = [];
+
+MyElement = customElement(&#39;my-element&#39;)(MyElement, {
+  kind: &#34;class&#34;,
+  name: &#34;MyElement&#34;,
+  addInitializer(fn) {
+    initializersForMyElement.push(fn);
+  },
+}) ?? MyElement;
+
+for (let initializer of initializersForMyElement) {
+  initializer.call(MyElement);
+}
+</code></pre><p>下面是方法装饰器的例子。</p>
+<pre tabindex="0"><code>function bound(value, { name, addInitializer }) {
+  addInitializer(function () {
+    this[name] = this[name].bind(this);
+  });
+}
+
+class C {
+  message = &#34;hello!&#34;;
+
+  @bound
+  m() {
+    console.log(this.message);
+  }
+}
+
+let { m } = new C();
+
+m(); // hello!
+</code></pre><p>上面的代码等同于下面不使用装饰器的代码。</p>
+<pre tabindex="0"><code>class C {
+  constructor() {
+    for (let initializer of initializersForM) {
+      initializer.call(this);
+    }
+
+    this.message = &#34;hello!&#34;;
+  }
+
+  m() {}
+}
+
+let initializersForM = []
+
+C.prototype.m = bound(
+  C.prototype.m,
+  {
+    kind: &#34;method&#34;,
+    name: &#34;m&#34;,
+    static: false,
+    private: false,
+    addInitializer(fn) {
+      initializersForM.push(fn);
+    },
+  }
+) ?? C.prototype.m;
+</code></pre><h2 id="core-decoratorsjs">core-decorators.js</h2>
+<p><a href="https://github.com/jayphelps/core-decorators.js">core-decorators.js</a>是一个第三方模块，提供了几个常见的装饰器，通过它可以更好地理解装饰器。</p>
+<p><strong>（1）@autobind</strong></p>
+<p><code>autobind</code>装饰器使得方法中的<code>this</code>对象，绑定原始对象。</p>
+<pre tabindex="0"><code>import { autobind } from &#39;core-decorators&#39;;
+
+class Person {
+  @autobind
+  getPerson() {
+    return this;
+  }
+}
+
+let person = new Person();
+let getPerson = person.getPerson;
+
+getPerson() === person;
+// true
+</code></pre><p><strong>（2）@readonly</strong></p>
+<p><code>readonly</code>装饰器使得属性或方法不可写。</p>
+<pre tabindex="0"><code>import { readonly } from &#39;core-decorators&#39;;
+
+class Meal {
+  @readonly
+  entree = &#39;steak&#39;;
+}
+
+var dinner = new Meal();
+dinner.entree = &#39;salmon&#39;;
+// Cannot assign to read only property &#39;entree&#39; of [object Object]
+</code></pre><p><strong>（3）@override</strong></p>
+<p><code>override</code>装饰器检查子类的方法，是否正确覆盖了父类的同名方法，如果不正确会报错。</p>
+<pre tabindex="0"><code>import { override } from &#39;core-decorators&#39;;
+
+class Parent {
+  speak(first, second) {}
+}
+
+class Child extends Parent {
+  @override
+  speak() {}
+  // SyntaxError: Child#speak() does not properly override Parent#speak(first, second)
+}
+
+// or
+
+class Child extends Parent {
+  @override
+  speaks() {}
+  // SyntaxError: No descriptor matching Child#speaks() was found on the prototype chain.
+  //
+  //   Did you mean &#34;speak&#34;?
+}
+</code></pre><p><strong>（4）@deprecate (别名@deprecated)</strong></p>
+<p><code>deprecate</code>或<code>deprecated</code>装饰器在控制台显示一条警告，表示该方法将废除。</p>
+<pre tabindex="0"><code>import { deprecate } from &#39;core-decorators&#39;;
+
+class Person {
+  @deprecate
+  facepalm() {}
+
+  @deprecate(&#39;We stopped facepalming&#39;)
+  facepalmHard() {}
+
+  @deprecate(&#39;We stopped facepalming&#39;, { url: &#39;http://knowyourmeme.com/memes/facepalm&#39; })
+  facepalmHarder() {}
+}
+
+let person = new Person();
+
+person.facepalm();
+// DEPRECATION Person#facepalm: This function will be removed in future versions.
+
+person.facepalmHard();
+// DEPRECATION Person#facepalmHard: We stopped facepalming
+
+person.facepalmHarder();
+// DEPRECATION Person#facepalmHarder: We stopped facepalming
+//
+//     See http://knowyourmeme.com/memes/facepalm for more details.
+//
+</code></pre><p><strong>（5）@suppressWarnings</strong></p>
+<p><code>suppressWarnings</code>装饰器抑制<code>deprecated</code>装饰器导致的<code>console.warn()</code>调用。但是，异步代码发出的调用除外。</p>
+<pre tabindex="0"><code>import { suppressWarnings } from &#39;core-decorators&#39;;
+
+class Person {
+  @deprecated
+  facepalm() {}
+
+  @suppressWarnings
+  facepalmWithoutWarning() {
+    this.facepalm();
+  }
+}
+
+let person = new Person();
+
+person.facepalmWithoutWarning();
+// no warning is logged
+</code></pre><h2 id="使用装饰器实现自动发布事件">使用装饰器实现自动发布事件</h2>
+<p>我们可以使用装饰器，使得对象的方法被调用时，自动发出一个事件。</p>
+<pre tabindex="0"><code>const postal = require(&#34;postal/lib/postal.lodash&#34;);
+
+export default function publish(topic, channel) {
+  const channelName = channel || &#39;/&#39;;
+  const msgChannel = postal.channel(channelName);
+  msgChannel.subscribe(topic, v =&gt; {
+    console.log(&#39;频道: &#39;, channelName);
+    console.log(&#39;事件: &#39;, topic);
+    console.log(&#39;数据: &#39;, v);
+  });
+
+  return function(target, name, descriptor) {
+    const fn = descriptor.value;
+
+    descriptor.value = function() {
+      let value = fn.apply(this, arguments);
+      msgChannel.publish(topic, value);
+    };
+  };
+}
+</code></pre><p>上面代码定义了一个名为<code>publish</code>的装饰器，它通过改写<code>descriptor.value</code>，使得原方法被调用时，会自动发出一个事件。它使用的事件“发布/订阅”库是<a href="https://github.com/postaljs/postal.js">Postal.js</a>。</p>
+<p>它的用法如下。</p>
+<pre tabindex="0"><code>// index.js
+import publish from &#39;./publish&#39;;
+
+class FooComponent {
+  @publish(&#39;foo.some.message&#39;, &#39;component&#39;)
+  someMethod() {
+    return { my: &#39;data&#39; };
+  }
+  @publish(&#39;foo.some.other&#39;)
+  anotherMethod() {
+    // ...
+  }
+}
+
+let foo = new FooComponent();
+
+foo.someMethod();
+foo.anotherMethod();
+</code></pre><p>以后，只要调用<code>someMethod</code>或者<code>anotherMethod</code>，就会自动发出一个事件。</p>
+<pre tabindex="0"><code>$ bash-node index.js
+频道:  component
+事件:  foo.some.message
+数据:  { my: &#39;data&#39; }
+
+频道:  /
+事件:  foo.some.other
+数据:  undefined
+</code></pre><h2 id="mixin">Mixin</h2>
+<p>在装饰器的基础上，可以实现<code>Mixin</code>模式。所谓<code>Mixin</code>模式，就是对象继承的一种替代方案，中文译为“混入”（mix in），意为在一个对象之中混入另外一个对象的方法。</p>
+<p>请看下面的例子。</p>
+<pre tabindex="0"><code>const Foo = {
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+class MyClass {}
+
+Object.assign(MyClass.prototype, Foo);
+
+let obj = new MyClass();
+obj.foo() // &#39;foo&#39;
+</code></pre><p>上面代码之中，对象<code>Foo</code>有一个<code>foo</code>方法，通过<code>Object.assign</code>方法，可以将<code>foo</code>方法“混入”<code>MyClass</code>类，导致<code>MyClass</code>的实例<code>obj</code>对象都具有<code>foo</code>方法。这就是“混入”模式的一个简单实现。</p>
+<p>下面，我们部署一个通用脚本<code>mixins.js</code>，将 Mixin 写成一个装饰器。</p>
+<pre tabindex="0"><code>export function mixins(...list) {
+  return function (target) {
+    Object.assign(target.prototype, ...list);
+  };
+}
+</code></pre><p>然后，就可以使用上面这个装饰器，为类“混入”各种方法。</p>
+<pre tabindex="0"><code>import { mixins } from &#39;./mixins.js&#39;;
+
+const Foo = {
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+@mixins(Foo)
+class MyClass {}
+
+let obj = new MyClass();
+obj.foo() // &#34;foo&#34;
+</code></pre><p>通过<code>mixins</code>这个装饰器，实现了在<code>MyClass</code>类上面“混入”<code>Foo</code>对象的<code>foo</code>方法。</p>
+<p>不过，上面的方法会改写<code>MyClass</code>类的<code>prototype</code>对象，如果不喜欢这一点，也可以通过类的继承实现 Mixin。</p>
+<pre tabindex="0"><code>class MyClass extends MyBaseClass {
+  /* ... */
+}
+</code></pre><p>上面代码中，<code>MyClass</code>继承了<code>MyBaseClass</code>。如果我们想在<code>MyClass</code>里面“混入”一个<code>foo</code>方法，一个办法是在<code>MyClass</code>和<code>MyBaseClass</code>之间插入一个混入类，这个类具有<code>foo</code>方法，并且继承了<code>MyBaseClass</code>的所有方法，然后<code>MyClass</code>再继承这个类。</p>
+<pre tabindex="0"><code>let MyMixin = (superclass) =&gt; class extends superclass {
+  foo() {
+    console.log(&#39;foo from MyMixin&#39;);
+  }
+};
+</code></pre><p>上面代码中，<code>MyMixin</code>是一个混入类生成器，接受<code>superclass</code>作为参数，然后返回一个继承<code>superclass</code>的子类，该子类包含一个<code>foo</code>方法。</p>
+<p>接着，目标类再去继承这个混入类，就达到了“混入”<code>foo</code>方法的目的。</p>
+<pre tabindex="0"><code>class MyClass extends MyMixin(MyBaseClass) {
+  /* ... */
+}
+
+let c = new MyClass();
+c.foo(); // &#34;foo from MyMixin&#34;
+</code></pre><p>如果需要“混入”多个方法，就生成多个混入类。</p>
+<pre tabindex="0"><code>class MyClass extends Mixin1(Mixin2(MyBaseClass)) {
+  /* ... */
+}
+</code></pre><p>这种写法的一个好处，是可以调用<code>super</code>，因此可以避免在“混入”过程中覆盖父类的同名方法。</p>
+<pre tabindex="0"><code>let Mixin1 = (superclass) =&gt; class extends superclass {
+  foo() {
+    console.log(&#39;foo from Mixin1&#39;);
+    if (super.foo) super.foo();
+  }
+};
+
+let Mixin2 = (superclass) =&gt; class extends superclass {
+  foo() {
+    console.log(&#39;foo from Mixin2&#39;);
+    if (super.foo) super.foo();
+  }
+};
+
+class S {
+  foo() {
+    console.log(&#39;foo from S&#39;);
+  }
+}
+
+class C extends Mixin1(Mixin2(S)) {
+  foo() {
+    console.log(&#39;foo from C&#39;);
+    super.foo();
+  }
+}
+</code></pre><p>上面代码中，每一次<code>混入</code>发生时，都调用了父类的<code>super.foo</code>方法，导致父类的同名方法没有被覆盖，行为被保留了下来。</p>
+<pre tabindex="0"><code>new C().foo()
+// foo from C
+// foo from Mixin1
+// foo from Mixin2
+// foo from S
+</code></pre><h2 id="trait">Trait</h2>
+<p>Trait 也是一种装饰器，效果与 Mixin 类似，但是提供更多功能，比如防止同名方法的冲突、排除混入某些方法、为混入的方法起别名等等。</p>
+<p>下面采用<a href="https://github.com/CocktailJS/traits-decorator">traits-decorator</a>这个第三方模块作为例子。这个模块提供的<code>traits</code>装饰器，不仅可以接受对象，还可以接受 ES6 类作为参数。</p>
+<pre tabindex="0"><code>import { traits } from &#39;traits-decorator&#39;;
+
+class TFoo {
+  foo() { console.log(&#39;foo&#39;) }
+}
+
+const TBar = {
+  bar() { console.log(&#39;bar&#39;) }
+};
+
+@traits(TFoo, TBar)
+class MyClass { }
+
+let obj = new MyClass();
+obj.foo() // foo
+obj.bar() // bar
+</code></pre><p>上面代码中，通过<code>traits</code>装饰器，在<code>MyClass</code>类上面“混入”了<code>TFoo</code>类的<code>foo</code>方法和<code>TBar</code>对象的<code>bar</code>方法。</p>
+<p>Trait 不允许“混入”同名方法。</p>
+<pre tabindex="0"><code>import { traits } from &#39;traits-decorator&#39;;
+
+class TFoo {
+  foo() { console.log(&#39;foo&#39;) }
+}
+
+const TBar = {
+  bar() { console.log(&#39;bar&#39;) },
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+@traits(TFoo, TBar)
+class MyClass { }
+// 报错
+// throw new Error(&#39;Method named: &#39; + methodName + &#39; is defined twice.&#39;);
+//        ^
+// Error: Method named: foo is defined twice.
+</code></pre><p>上面代码中，<code>TFoo</code>和<code>TBar</code>都有<code>foo</code>方法，结果<code>traits</code>装饰器报错。</p>
+<p>一种解决方法是排除<code>TBar</code>的<code>foo</code>方法。</p>
+<pre tabindex="0"><code>import { traits, excludes } from &#39;traits-decorator&#39;;
+
+class TFoo {
+  foo() { console.log(&#39;foo&#39;) }
+}
+
+const TBar = {
+  bar() { console.log(&#39;bar&#39;) },
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+@traits(TFoo, TBar::excludes(&#39;foo&#39;))
+class MyClass { }
+
+let obj = new MyClass();
+obj.foo() // foo
+obj.bar() // bar
+</code></pre><p>上面代码使用绑定运算符（::）在<code>TBar</code>上排除<code>foo</code>方法，混入时就不会报错了。</p>
+<p>另一种方法是为<code>TBar</code>的<code>foo</code>方法起一个别名。</p>
+<pre tabindex="0"><code>import { traits, alias } from &#39;traits-decorator&#39;;
+
+class TFoo {
+  foo() { console.log(&#39;foo&#39;) }
+}
+
+const TBar = {
+  bar() { console.log(&#39;bar&#39;) },
+  foo() { console.log(&#39;foo&#39;) }
+};
+
+@traits(TFoo, TBar::alias({foo: &#39;aliasFoo&#39;}))
+class MyClass { }
+
+let obj = new MyClass();
+obj.foo() // foo
+obj.aliasFoo() // foo
+obj.bar() // bar
+</code></pre><p>上面代码为<code>TBar</code>的<code>foo</code>方法起了别名<code>aliasFoo</code>，于是<code>MyClass</code>也可以混入<code>TBar</code>的<code>foo</code>方法了。</p>
+<p><code>alias</code>和<code>excludes</code>方法，可以结合起来使用。</p>
+<pre tabindex="0"><code>@traits(TExample::excludes(&#39;foo&#39;,&#39;bar&#39;)::alias({baz:&#39;exampleBaz&#39;}))
+class MyClass {}
+</code></pre><p>上面代码排除了<code>TExample</code>的<code>foo</code>方法和<code>bar</code>方法，为<code>baz</code>方法起了别名<code>exampleBaz</code>。</p>
+<p><code>as</code>方法则为上面的代码提供了另一种写法。</p>
+<pre tabindex="0"><code>@traits(TExample::as({excludes:[&#39;foo&#39;, &#39;bar&#39;], alias: {baz: &#39;exampleBaz&#39;}}))
+class MyClass {}
+</code></pre>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/">http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/">正则的扩展</a></li>
+        
+        <li><a href="/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/">数组的扩展</a></li>
+        
+        <li><a href="/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/">数值的扩展</a></li>
+        
+        <li><a href="/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/">异步遍历器</a></li>
+        
+        <li><a href="/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/">对象的新增方法</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/javaScript' target="_blank">javaScript</a></li>
+                
+                <li><a href='/tags/es6' target="_blank">es6</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

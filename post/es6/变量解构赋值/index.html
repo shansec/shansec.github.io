@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>变量解构赋值 | 未来可期的博客</title>
+    <meta property="og:title" content="变量解构赋值 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-04-24T09:55:21&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-04-24T09:55:21&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="变量解构赋值">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数组的解构赋值">数组的解构赋值</a>
+      <ul>
+        <li><a href="#基本用法">基本用法</a></li>
+        <li><a href="#默认值">默认值</a></li>
+      </ul>
+    </li>
+    <li><a href="#对象的解构赋值">对象的解构赋值</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#默认值-1">默认值</a></li>
+        <li><a href="#注意点">注意点</a></li>
+      </ul>
+    </li>
+    <li><a href="#字符串的解构赋值">字符串的解构赋值</a></li>
+    <li><a href="#数值和布尔值的解构赋值">数值和布尔值的解构赋值</a></li>
+    <li><a href="#函数参数的解构赋值">函数参数的解构赋值</a></li>
+    <li><a href="#圆括号问题">圆括号问题</a>
+      <ul>
+        <li><a href="#不能使用圆括号的情况">不能使用圆括号的情况</a></li>
+        <li><a href="#可以使用圆括号的情况">可以使用圆括号的情况</a></li>
+      </ul>
+    </li>
+    <li><a href="#用途">用途</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">变量解构赋值</h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:55:21Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h1 id="变量的解构赋值">变量的解构赋值</h1>
+<h2 id="数组的解构赋值">数组的解构赋值</h2>
+<h3 id="基本用法">基本用法</h3>
+<p>ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<p>以前，为变量赋值，只能直接指定值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> b <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> c <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>;
+</span></span></code></pre></div><p>ES6 允许写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [a, b, c] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span></code></pre></div><p>上面代码表示，可以从数组中提取值，按照对应位置，对变量赋值。</p>
+<p>本质上，这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。下面是一些使用嵌套数组进行解构的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo, [[bar], baz]] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, [[<span style="color:#099">2</span>], <span style="color:#099">3</span>]];
+</span></span><span style="display:flex;"><span>foo <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>bar <span style="color:#998;font-style:italic">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>baz <span style="color:#998;font-style:italic">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [ , , third] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#34;foo&#34;</span>, <span style="color:#d14">&#34;bar&#34;</span>, <span style="color:#d14">&#34;baz&#34;</span>];
+</span></span><span style="display:flex;"><span>third <span style="color:#998;font-style:italic">// &#34;baz&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x, , y] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [head, ...tail] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>, <span style="color:#099">4</span>];
+</span></span><span style="display:flex;"><span>head <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>tail <span style="color:#998;font-style:italic">// [2, 3, 4]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x, y, ...z] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;a&#39;</span>];
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// &#34;a&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>z <span style="color:#998;font-style:italic">// []
+</span></span></span></code></pre></div><p>如果解构不成功，变量的值就等于<code>undefined</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [bar, foo] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>];
+</span></span></code></pre></div><p>以上两种情况都属于解构不成功，<code>foo</code>的值都会等于<code>undefined</code>。</p>
+<p>另一种情况是不完全解构，即等号左边的模式，只匹配一部分的等号右边的数组。这种情况下，解构依然可以成功。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x, y] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [a, [b], d] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, [<span style="color:#099">2</span>, <span style="color:#099">3</span>], <span style="color:#099">4</span>];
+</span></span><span style="display:flex;"><span>a <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>b <span style="color:#998;font-style:italic">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>d <span style="color:#998;font-style:italic">// 4
+</span></span></span></code></pre></div><p>上面两个例子，都属于不完全解构，但是可以成功。</p>
+<p>如果等号的右边不是数组（或者严格地说，不是可遍历的结构，参见《Iterator》一章），那么将会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">false</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">NaN</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">undefined</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo] <span style="color:#000;font-weight:bold">=</span> {};
+</span></span></code></pre></div><p>上面的语句都会报错，因为等号右边的值，要么转为对象以后不具备 Iterator 接口（前五个表达式），要么本身就不具备 Iterator 接口（最后一个表达式）。</p>
+<p>对于 Set 结构，也可以使用数组的解构赋值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x, y, z] <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Set([<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>, <span style="color:#d14">&#39;c&#39;</span>]);
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// &#34;a&#34;
+</span></span></span></code></pre></div><p>事实上，只要某种数据结构具有 Iterator 接口，都可以采用数组形式的解构赋值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span><span style="color:#000;font-weight:bold">*</span> fibs() {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">let</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">let</span> b <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">while</span> (<span style="color:#000;font-weight:bold">true</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">yield</span> a;
+</span></span><span style="display:flex;"><span>    [a, b] <span style="color:#000;font-weight:bold">=</span> [b, a <span style="color:#000;font-weight:bold">+</span> b];
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [first, second, third, fourth, fifth, sixth] <span style="color:#000;font-weight:bold">=</span> fibs();
+</span></span><span style="display:flex;"><span>sixth <span style="color:#998;font-style:italic">// 5
+</span></span></span></code></pre></div><p>上面代码中，<code>fibs</code>是一个 Generator 函数（参见《Generator 函数》一章），原生具有 Iterator 接口。解构赋值会依次从这个接口获取值。</p>
+<h3 id="默认值">默认值</h3>
+<p>解构赋值允许指定默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>] <span style="color:#000;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span>foo <span style="color:#998;font-style:italic">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x, y <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;b&#39;</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;a&#39;</span>]; <span style="color:#998;font-style:italic">// x=&#39;a&#39;, y=&#39;b&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> [x, y <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;b&#39;</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#000;font-weight:bold">undefined</span>]; <span style="color:#998;font-style:italic">// x=&#39;a&#39;, y=&#39;b&#39;
+</span></span></span></code></pre></div><p>注意，ES6 内部使用严格相等运算符（<code>===</code>），判断一个位置是否有值。所以，只有当一个数组成员严格等于<code>undefined</code>，默认值才会生效。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#000;font-weight:bold">undefined</span>];
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#000;font-weight:bold">null</span>];
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// null
+</span></span></span></code></pre></div><p>上面代码中，如果一个数组成员是<code>null</code>，默认值就不会生效，因为<code>null</code>不严格等于<code>undefined</code>。</p>
+<p>如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> f() {
+</span></span><span style="display:flex;"><span>  console.log(<span style="color:#d14">&#39;aaa&#39;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> f()] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>];
+</span></span></code></pre></div><p>上面代码中，因为<code>x</code>能取到值，所以函数<code>f</code>根本不会执行。上面的代码其实等价于下面的代码。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> x;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> ([<span style="color:#099">1</span>][<span style="color:#099">0</span>] <span style="color:#000;font-weight:bold">===</span> <span style="color:#000;font-weight:bold">undefined</span>) {
+</span></span><span style="display:flex;"><span>  x <span style="color:#000;font-weight:bold">=</span> f();
+</span></span><span style="display:flex;"><span>} <span style="color:#000;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>  x <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>][<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>默认值可以引用解构赋值的其他变量，但该变量必须已经声明。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>, y <span style="color:#000;font-weight:bold">=</span> x] <span style="color:#000;font-weight:bold">=</span> [];     <span style="color:#998;font-style:italic">// x=1; y=1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>, y <span style="color:#000;font-weight:bold">=</span> x] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">2</span>];    <span style="color:#998;font-style:italic">// x=2; y=2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>, y <span style="color:#000;font-weight:bold">=</span> x] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>]; <span style="color:#998;font-style:italic">// x=1; y=2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> [x <span style="color:#000;font-weight:bold">=</span> y, y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> [];     <span style="color:#998;font-style:italic">// ReferenceError: y is not defined
+</span></span></span></code></pre></div><p>上面最后一个表达式之所以会报错，是因为<code>x</code>用<code>y</code>做默认值时，<code>y</code>还没有声明。</p>
+<h2 id="对象的解构赋值">对象的解构赋值</h2>
+<h3 id="简介">简介</h3>
+<p>解构不仅可以用于数组，还可以用于对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { foo, bar } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;aaa&#39;</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bbb&#39;</span> };
+</span></span><span style="display:flex;"><span>foo <span style="color:#998;font-style:italic">// &#34;aaa&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>bar <span style="color:#998;font-style:italic">// &#34;bbb&#34;
+</span></span></span></code></pre></div><p>对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { bar, foo } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;aaa&#39;</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bbb&#39;</span> };
+</span></span><span style="display:flex;"><span>foo <span style="color:#998;font-style:italic">// &#34;aaa&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>bar <span style="color:#998;font-style:italic">// &#34;bbb&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { baz } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;aaa&#39;</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bbb&#39;</span> };
+</span></span><span style="display:flex;"><span>baz <span style="color:#998;font-style:italic">// undefined
+</span></span></span></code></pre></div><p>上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。第二个例子的变量没有对应的同名属性，导致取不到值，最后等于<code>undefined</code>。</p>
+<p>如果解构失败，变量的值等于<code>undefined</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {foo} <span style="color:#000;font-weight:bold">=</span> {bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;baz&#39;</span>};
+</span></span><span style="display:flex;"><span>foo <span style="color:#998;font-style:italic">// undefined
+</span></span></span></code></pre></div><p>上面代码中，等号右边的对象没有<code>foo</code>属性，所以变量<code>foo</code>取不到值，所以等于<code>undefined</code>。</p>
+<p>对象的解构赋值，可以很方便地将现有对象的方法，赋值到某个变量。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 例一
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> { log, sin, cos } <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">Math</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 例二
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> { log } <span style="color:#000;font-weight:bold">=</span> console;
+</span></span><span style="display:flex;"><span>log(<span style="color:#d14">&#39;hello&#39;</span>) <span style="color:#998;font-style:italic">// hello
+</span></span></span></code></pre></div><p>上面代码的例一将<code>Math</code>对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。例二将<code>console.log</code>赋值到<code>log</code>变量。</p>
+<p>如果变量名与属性名不一致，必须写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { foo<span style="color:#000;font-weight:bold">:</span> baz } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;aaa&#39;</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bbb&#39;</span> };
+</span></span><span style="display:flex;"><span>baz <span style="color:#998;font-style:italic">// &#34;aaa&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> { first<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;hello&#39;</span>, last<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;world&#39;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { first<span style="color:#000;font-weight:bold">:</span> f, last<span style="color:#000;font-weight:bold">:</span> l } <span style="color:#000;font-weight:bold">=</span> obj;
+</span></span><span style="display:flex;"><span>f <span style="color:#998;font-style:italic">// &#39;hello&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>l <span style="color:#998;font-style:italic">// &#39;world&#39;
+</span></span></span></code></pre></div><p>这实际上说明，对象的解构赋值是下面形式的简写（参见《对象的扩展》一章）。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { foo<span style="color:#000;font-weight:bold">:</span> foo, bar<span style="color:#000;font-weight:bold">:</span> bar } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;aaa&#39;</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bbb&#39;</span> };
+</span></span></code></pre></div><p>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { foo<span style="color:#000;font-weight:bold">:</span> baz } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;aaa&#39;</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bbb&#39;</span> };
+</span></span><span style="display:flex;"><span>baz <span style="color:#998;font-style:italic">// &#34;aaa&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>foo <span style="color:#998;font-style:italic">// error: foo is not defined
+</span></span></span></code></pre></div><p>上面代码中，<code>foo</code>是匹配的模式，<code>baz</code>才是变量。真正被赋值的是变量<code>baz</code>，而不是模式<code>foo</code>。</p>
+<p>与数组一样，解构也可以用于嵌套结构的对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  p<span style="color:#000;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#39;Hello&#39;</span>,
+</span></span><span style="display:flex;"><span>    { y<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;World&#39;</span> }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { p<span style="color:#000;font-weight:bold">:</span> [x, { y }] } <span style="color:#000;font-weight:bold">=</span> obj;
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// &#34;Hello&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// &#34;World&#34;
+</span></span></span></code></pre></div><p>注意，这时<code>p</code>是模式，不是变量，因此不会被赋值。如果<code>p</code>也要作为变量赋值，可以写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  p<span style="color:#000;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#39;Hello&#39;</span>,
+</span></span><span style="display:flex;"><span>    { y<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;World&#39;</span> }
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { p, p<span style="color:#000;font-weight:bold">:</span> [x, { y }] } <span style="color:#000;font-weight:bold">=</span> obj;
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// &#34;Hello&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// &#34;World&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>p <span style="color:#998;font-style:italic">// [&#34;Hello&#34;, {y: &#34;World&#34;}]
+</span></span></span></code></pre></div><p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> node <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  loc<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    start<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      line<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>,
+</span></span><span style="display:flex;"><span>      column<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">5</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { loc, loc<span style="color:#000;font-weight:bold">:</span> { start }, loc<span style="color:#000;font-weight:bold">:</span> { start<span style="color:#000;font-weight:bold">:</span> { line }} } <span style="color:#000;font-weight:bold">=</span> node;
+</span></span><span style="display:flex;"><span>line <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>loc  <span style="color:#998;font-style:italic">// Object {start: Object}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>start <span style="color:#998;font-style:italic">// Object {line: 1, column: 5}
+</span></span></span></code></pre></div><p>上面代码有三次解构赋值，分别是对<code>loc</code>、<code>start</code>、<code>line</code>三个属性的解构赋值。注意，最后一次对<code>line</code>属性的解构赋值之中，只有<code>line</code>是变量，<code>loc</code>和<code>start</code>都是模式，不是变量。</p>
+<p>下面是嵌套赋值的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> obj <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> arr <span style="color:#000;font-weight:bold">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>({ foo<span style="color:#000;font-weight:bold">:</span> obj.prop, bar<span style="color:#000;font-weight:bold">:</span> arr[<span style="color:#099">0</span>] } <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">123</span>, bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obj <span style="color:#998;font-style:italic">// {prop:123}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>arr <span style="color:#998;font-style:italic">// [true]
+</span></span></span></code></pre></div><p>如果解构模式是嵌套的对象，而且子对象所在的父属性不存在，那么将会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> {foo<span style="color:#000;font-weight:bold">:</span> {bar}} <span style="color:#000;font-weight:bold">=</span> {baz<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;baz&#39;</span>};
+</span></span></code></pre></div><p>上面代码中，等号左边对象的<code>foo</code>属性，对应一个子对象。该子对象的<code>bar</code>属性，解构时会报错。原因很简单，因为<code>foo</code>这时等于<code>undefined</code>，再取子属性就会报错。</p>
+<p>注意，对象的解构赋值可以取到继承的属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj1 <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> obj2 <span style="color:#000;font-weight:bold">=</span> { foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;bar&#39;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">Object</span>.setPrototypeOf(obj1, obj2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> { foo } <span style="color:#000;font-weight:bold">=</span> obj1;
+</span></span><span style="display:flex;"><span>foo <span style="color:#998;font-style:italic">// &#34;bar&#34;
+</span></span></span></code></pre></div><p>上面代码中，对象<code>obj1</code>的原型对象是<code>obj2</code>。<code>foo</code>属性不是<code>obj1</code>自身的属性，而是继承自<code>obj2</code>的属性，解构赋值可以取到这个属性。</p>
+<h3 id="默认值-1">默认值</h3>
+<p>对象的解构也可以指定默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> {x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>} <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> {x, y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">5</span>} <span style="color:#000;font-weight:bold">=</span> {x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>};
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>y <span style="color:#998;font-style:italic">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> {x<span style="color:#000;font-weight:bold">:</span> y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>} <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>y <span style="color:#998;font-style:italic">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> {x<span style="color:#000;font-weight:bold">:</span> y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>} <span style="color:#000;font-weight:bold">=</span> {x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">5</span>};
+</span></span><span style="display:flex;"><span>y <span style="color:#998;font-style:italic">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> { message<span style="color:#000;font-weight:bold">:</span> msg <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;Something went wrong&#39;</span> } <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>msg <span style="color:#998;font-style:italic">// &#34;Something went wrong&#34;
+</span></span></span></code></pre></div><p>默认值生效的条件是，对象的属性值严格等于<code>undefined</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> {x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>} <span style="color:#000;font-weight:bold">=</span> {x<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">undefined</span>};
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> {x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>} <span style="color:#000;font-weight:bold">=</span> {x<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">null</span>};
+</span></span><span style="display:flex;"><span>x <span style="color:#998;font-style:italic">// null
+</span></span></span></code></pre></div><p>上面代码中，属性<code>x</code>等于<code>null</code>，因为<code>null</code>与<code>undefined</code>不严格相等，所以是个有效的赋值，导致默认值<code>3</code>不会生效。</p>
+<h3 id="注意点">注意点</h3>
+<p>（1）如果要将一个已经声明的变量用于解构赋值，必须非常小心。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 错误的写法
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> x;
+</span></span><span style="display:flex;"><span>{x} <span style="color:#000;font-weight:bold">=</span> {x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>};
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// SyntaxError: syntax error
+</span></span></span></code></pre></div><p>上面代码的写法会报错，因为 JavaScript 引擎会将<code>{x}</code>理解成一个代码块，从而发生语法错误。只有不将大括号写在行首，避免 JavaScript 将其解释为代码块，才能解决这个问题。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 正确的写法
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> x;
+</span></span><span style="display:flex;"><span>({x} <span style="color:#000;font-weight:bold">=</span> {x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>});
+</span></span></code></pre></div><p>上面代码将整个解构赋值语句，放在一个圆括号里面，就可以正确执行。关于圆括号与解构赋值的关系，参见下文。</p>
+<p>（2）解构赋值允许等号左边的模式之中，不放置任何变量名。因此，可以写出非常古怪的赋值表达式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>({} <span style="color:#000;font-weight:bold">=</span> [<span style="color:#000;font-weight:bold">true</span>, <span style="color:#000;font-weight:bold">false</span>]);
+</span></span><span style="display:flex;"><span>({} <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;abc&#39;</span>);
+</span></span><span style="display:flex;"><span>({} <span style="color:#000;font-weight:bold">=</span> []);
+</span></span></code></pre></div><p>上面的表达式虽然毫无意义，但是语法是合法的，可以执行。</p>
+<p>（3）由于数组本质是特殊的对象，因此可以对数组进行对象属性的解构。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> arr <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {<span style="color:#099">0</span> <span style="color:#000;font-weight:bold">:</span> first, [arr.length <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">:</span> last} <span style="color:#000;font-weight:bold">=</span> arr;
+</span></span><span style="display:flex;"><span>first <span style="color:#998;font-style:italic">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>last <span style="color:#998;font-style:italic">// 3
+</span></span></span></code></pre></div><p>上面代码对数组进行对象解构。数组<code>arr</code>的<code>0</code>键对应的值是<code>1</code>，<code>[arr.length - 1]</code>就是<code>2</code>键，对应的值是<code>3</code>。方括号这种写法，属于“属性名表达式”（参见《对象的扩展》一章）。</p>
+<h2 id="字符串的解构赋值">字符串的解构赋值</h2>
+<p>字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> [a, b, c, d, e] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;hello&#39;</span>;
+</span></span><span style="display:flex;"><span>a <span style="color:#998;font-style:italic">// &#34;h&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>b <span style="color:#998;font-style:italic">// &#34;e&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>c <span style="color:#998;font-style:italic">// &#34;l&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>d <span style="color:#998;font-style:italic">// &#34;l&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>e <span style="color:#998;font-style:italic">// &#34;o&#34;
+</span></span></span></code></pre></div><p>类似数组的对象都有一个<code>length</code>属性，因此还可以对这个属性解构赋值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {length <span style="color:#000;font-weight:bold">:</span> len} <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;hello&#39;</span>;
+</span></span><span style="display:flex;"><span>len <span style="color:#998;font-style:italic">// 5
+</span></span></span></code></pre></div><h2 id="数值和布尔值的解构赋值">数值和布尔值的解构赋值</h2>
+<p>解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {toString<span style="color:#000;font-weight:bold">:</span> s} <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">123</span>;
+</span></span><span style="display:flex;"><span>s <span style="color:#000;font-weight:bold">===</span> <span style="color:#0086b3">Number</span>.prototype.toString <span style="color:#998;font-style:italic">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {toString<span style="color:#000;font-weight:bold">:</span> s} <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>s <span style="color:#000;font-weight:bold">===</span> <span style="color:#0086b3">Boolean</span>.prototype.toString <span style="color:#998;font-style:italic">// true
+</span></span></span></code></pre></div><p>上面代码中，数值和布尔值的包装对象都有<code>toString</code>属性，因此变量<code>s</code>都能取到值。</p>
+<p>解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于<code>undefined</code>和<code>null</code>无法转为对象，所以对它们进行解构赋值，都会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { prop<span style="color:#000;font-weight:bold">:</span> x } <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">undefined</span>; <span style="color:#998;font-style:italic">// TypeError
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> { prop<span style="color:#000;font-weight:bold">:</span> y } <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">null</span>; <span style="color:#998;font-style:italic">// TypeError
+</span></span></span></code></pre></div><h2 id="函数参数的解构赋值">函数参数的解构赋值</h2>
+<p>函数的参数也可以使用解构赋值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> add([x, y]){
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> x <span style="color:#000;font-weight:bold">+</span> y;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>add([<span style="color:#099">1</span>, <span style="color:#099">2</span>]); <span style="color:#998;font-style:italic">// 3
+</span></span></span></code></pre></div><p>上面代码中，函数<code>add</code>的参数表面上是一个数组，但在传入参数的那一刻，数组参数就被解构成变量<code>x</code>和<code>y</code>。对于函数内部的代码来说，它们能感受到的参数就是<code>x</code>和<code>y</code>。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>[[<span style="color:#099">1</span>, <span style="color:#099">2</span>], [<span style="color:#099">3</span>, <span style="color:#099">4</span>]].map(([a, b]) =&gt; a <span style="color:#000;font-weight:bold">+</span> b);
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// [ 3, 7 ]
+</span></span></span></code></pre></div><p>函数参数的解构也可以使用默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> move({x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>, y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>} <span style="color:#000;font-weight:bold">=</span> {}) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> [x, y];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>move({x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">8</span>}); <span style="color:#998;font-style:italic">// [3, 8]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>move({x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>}); <span style="color:#998;font-style:italic">// [3, 0]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>move({}); <span style="color:#998;font-style:italic">// [0, 0]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>move(); <span style="color:#998;font-style:italic">// [0, 0]
+</span></span></span></code></pre></div><p>上面代码中，函数<code>move</code>的参数是一个对象，通过对这个对象进行解构，得到变量<code>x</code>和<code>y</code>的值。如果解构失败，<code>x</code>和<code>y</code>等于默认值。</p>
+<p>注意，下面的写法会得到不一样的结果。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> move({x, y} <span style="color:#000;font-weight:bold">=</span> { x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">0</span> }) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> [x, y];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>move({x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">8</span>}); <span style="color:#998;font-style:italic">// [3, 8]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>move({x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>}); <span style="color:#998;font-style:italic">// [3, undefined]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>move({}); <span style="color:#998;font-style:italic">// [undefined, undefined]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>move(); <span style="color:#998;font-style:italic">// [0, 0]
+</span></span></span></code></pre></div><p>上面代码是为函数<code>move</code>的参数指定默认值，而不是为变量<code>x</code>和<code>y</code>指定默认值，所以会得到与前一种写法不同的结果。</p>
+<p><code>undefined</code>就会触发函数参数的默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>[<span style="color:#099">1</span>, <span style="color:#000;font-weight:bold">undefined</span>, <span style="color:#099">3</span>].map((x <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;yes&#39;</span>) =&gt; x);
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// [ 1, &#39;yes&#39;, 3 ]
+</span></span></span></code></pre></div><h2 id="圆括号问题">圆括号问题</h2>
+<p>解构赋值虽然很方便，但是解析起来并不容易。对于编译器来说，一个式子到底是模式，还是表达式，没有办法从一开始就知道，必须解析到（或解析不到）等号才能知道。</p>
+<p>由此带来的问题是，如果模式中出现圆括号怎么处理。ES6 的规则是，只要有可能导致解构的歧义，就不得使用圆括号。</p>
+<p>但是，这条规则实际上不那么容易辨别，处理起来相当麻烦。因此，建议只要有可能，就不要在模式中放置圆括号。</p>
+<h3 id="不能使用圆括号的情况">不能使用圆括号的情况</h3>
+<p>以下三种解构赋值不得使用圆括号。</p>
+<p>（1）变量声明语句</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 全部报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> [(a)] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {x<span style="color:#000;font-weight:bold">:</span> (c)} <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> ({x<span style="color:#000;font-weight:bold">:</span> c}) <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {(x<span style="color:#000;font-weight:bold">:</span> c)} <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> {(x)<span style="color:#000;font-weight:bold">:</span> c} <span style="color:#000;font-weight:bold">=</span> {};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { o<span style="color:#000;font-weight:bold">:</span> ({ p<span style="color:#000;font-weight:bold">:</span> p }) } <span style="color:#000;font-weight:bold">=</span> { o<span style="color:#000;font-weight:bold">:</span> { p<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span> } };
+</span></span></code></pre></div><p>上面 6 个语句都会报错，因为它们都是变量声明语句，模式不能使用圆括号。</p>
+<p>（2）函数参数</p>
+<p>函数参数也属于变量声明，因此不能带有圆括号。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">function</span> f([(z)]) { <span style="color:#000;font-weight:bold">return</span> z; }
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">function</span> f([z,(x)]) { <span style="color:#000;font-weight:bold">return</span> x; }
+</span></span></code></pre></div><p>（3）赋值语句的模式</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 全部报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>({ p<span style="color:#000;font-weight:bold">:</span> a }) <span style="color:#000;font-weight:bold">=</span> { p<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">42</span> };
+</span></span><span style="display:flex;"><span>([a]) <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">5</span>];
+</span></span></code></pre></div><p>上面代码将整个模式放在圆括号之中，导致报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>[({ p<span style="color:#000;font-weight:bold">:</span> a }), { x<span style="color:#000;font-weight:bold">:</span> c }] <span style="color:#000;font-weight:bold">=</span> [{}, {}];
+</span></span></code></pre></div><p>上面代码将一部分模式放在圆括号之中，导致报错。</p>
+<h3 id="可以使用圆括号的情况">可以使用圆括号的情况</h3>
+<p>可以使用圆括号的情况只有一种：赋值语句的非模式部分，可以使用圆括号。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>[(b)] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">3</span>]; <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>({ p<span style="color:#000;font-weight:bold">:</span> (d) } <span style="color:#000;font-weight:bold">=</span> {}); <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>[(<span style="color:#0086b3">parseInt</span>.prop)] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">3</span>]; <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面三行语句都可以正确执行，因为首先它们都是赋值语句，而不是声明语句；其次它们的圆括号都不属于模式的一部分。第一行语句中，模式是取数组的第一个成员，跟圆括号无关；第二行语句中，模式是<code>p</code>，而不是<code>d</code>；第三行语句与第一行语句的性质一致。</p>
+<h2 id="用途">用途</h2>
+<p>变量的解构赋值用途很多。</p>
+<p><strong>（1）交换变量的值</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[x, y] <span style="color:#000;font-weight:bold">=</span> [y, x];
+</span></span></code></pre></div><p>上面代码交换变量<code>x</code>和<code>y</code>的值，这样的写法不仅简洁，而且易读，语义非常清晰。</p>
+<p><strong>（2）从函数返回多个值</strong></p>
+<p>函数只能返回一个值，如果要返回多个值，只能将它们放在数组或对象里返回。有了解构赋值，取出这些值就非常方便。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 返回一个数组
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> example() {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> [a, b, c] <span style="color:#000;font-weight:bold">=</span> example();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 返回一个对象
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> example() {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> {
+</span></span><span style="display:flex;"><span>    foo<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>,
+</span></span><span style="display:flex;"><span>    bar<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span>
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { foo, bar } <span style="color:#000;font-weight:bold">=</span> example();
+</span></span></code></pre></div><p><strong>（3）函数参数的定义</strong></p>
+<p>解构赋值可以方便地将一组参数与变量名对应起来。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 参数是一组有次序的值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">function</span> f([x, y, z]) { ... }
+</span></span><span style="display:flex;"><span>f([<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 参数是一组无次序的值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">function</span> f({x, y, z}) { ... }
+</span></span><span style="display:flex;"><span>f({z<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">3</span>, y<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">2</span>, x<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">1</span>});
+</span></span></code></pre></div><p><strong>（4）提取 JSON 数据</strong></p>
+<p>解构赋值对提取 JSON 对象中的数据，尤其有用。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> jsonData <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  id<span style="color:#000;font-weight:bold">:</span> <span style="color:#099">42</span>,
+</span></span><span style="display:flex;"><span>  status<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;OK&#34;</span>,
+</span></span><span style="display:flex;"><span>  data<span style="color:#000;font-weight:bold">:</span> [<span style="color:#099">867</span>, <span style="color:#099">5309</span>]
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> { id, status, data<span style="color:#000;font-weight:bold">:</span> number } <span style="color:#000;font-weight:bold">=</span> jsonData;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>console.log(id, status, number);
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 42, &#34;OK&#34;, [867, 5309]
+</span></span></span></code></pre></div><p>上面代码可以快速提取 JSON 数据的值。</p>
+<p><strong>（5）函数参数的默认值</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>jQuery.ajax <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span> (url, {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>  beforeSend <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span> () {},
+</span></span><span style="display:flex;"><span>  cache <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>  complete <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span> () {},
+</span></span><span style="display:flex;"><span>  crossDomain <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">false</span>,
+</span></span><span style="display:flex;"><span>  global <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ... more config
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>} <span style="color:#000;font-weight:bold">=</span> {}) {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ... do stuff
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>};
+</span></span></code></pre></div><p>指定参数的默认值，就避免了在函数体内部再写<code>var foo = config.foo || 'default foo';</code>这样的语句。</p>
+<p><strong>（6）遍历 Map 结构</strong></p>
+<p>任何部署了 Iterator 接口的对象，都可以用<code>for...of</code>循环遍历。Map 结构原生支持 Iterator 接口，配合变量的解构赋值，获取键名和键值就非常方便。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> map <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Map();
+</span></span><span style="display:flex;"><span>map.set(<span style="color:#d14">&#39;first&#39;</span>, <span style="color:#d14">&#39;hello&#39;</span>);
+</span></span><span style="display:flex;"><span>map.set(<span style="color:#d14">&#39;second&#39;</span>, <span style="color:#d14">&#39;world&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">let</span> [key, value] <span style="color:#000;font-weight:bold">of</span> map) {
+</span></span><span style="display:flex;"><span>  console.log(key <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34; is &#34;</span> <span style="color:#000;font-weight:bold">+</span> value);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// first is hello
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// second is world
+</span></span></span></code></pre></div><p>如果只想获取键名，或者只想获取键值，可以写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 获取键名
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">let</span> [key] <span style="color:#000;font-weight:bold">of</span> map) {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 获取键值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span> (<span style="color:#000;font-weight:bold">let</span> [,value] <span style="color:#000;font-weight:bold">of</span> map) {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><p><strong>（7）输入模块的指定方法</strong></p>
+<p>加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> { SourceMapConsumer, SourceNode } <span style="color:#000;font-weight:bold">=</span> require(<span style="color:#d14">&#34;source-map&#34;</span>);
+</span></span></code></pre></div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/es6/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/">函数的扩展</a></li>
+        
+        <li><a href="/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a></li>
+        
+        <li><a href="/post/es6/Symbol/">Symbol</a></li>
+        
+        <li><a href="/post/es6/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Set和Map数据结构</a></li>
+        
+        <li><a href="/post/es6/Reflect/">Reflect</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/javaScript' target="_blank">javaScript</a></li>
+                
+                <li><a href='/tags/es6' target="_blank">es6</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

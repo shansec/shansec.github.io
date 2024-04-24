@@ -204,27 +204,7 @@
 <h1 id="一position-sticky">一、position: sticky</h1>
 <p>不知道大家平时业务开发中有没有碰到这样的需求：标题在滚动的时候，会一直贴着最顶上。这种场景实际上很多：比如表格的标题栏、网站的导航栏、手机通讯录的人名首字母标题等等。如果让大家自己动手做的话，是不是会用 js 结合 css 来实现呢？以前确实是这样的，直到后来 <code>position</code> 属性新增了一个属性值 <code>sticky</code> ，前端程序员才迎来了小春天。</p>
 <p><strong>css 部分：</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">container</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">container</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#000;font-weight:bold">oldlace</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">height</span>: <span style="color:#099">200</span><span style="color:#458;font-weight:bold">px</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">width</span>: <span style="color:#099">140</span><span style="color:#458;font-weight:bold">px</span>;
@@ -240,46 +220,20 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">top</span>: <span style="color:#099">0</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#0086b3">rgb</span>(<span style="color:#099">187</span>, <span style="color:#099">153</span>, <span style="color:#099">153</span>);
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>html 部分：</strong></p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;container&#34;</span>&gt;
+</span></span></code></pre></div><p><strong>html 部分：</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;container&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span> <span style="color:#008080">class</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;header&#34;</span>&gt;Header&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;1&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;2&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">div</span>&gt;3&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>就这么简单？对，就这么简单，但是使用的时候要注意兼容性。</p>
+</span></span></code></pre></div><p>就这么简单？对，就这么简单，但是使用的时候要注意兼容性。</p>
 <h1 id="二empty-选择器">二、:empty 选择器</h1>
 <p>
         <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/Snipaste_2023-04-13_16-33-29.png#pic_center" />   
     
 平时开发的时候数据都是通过请求接口获取的，也会存在接口没有数据的情况。这个时候正常的做法是给用户一个提示，让用户知道当前不是出 <code>bug</code> 了，而是确实没有数据。一般的做法是我们人为的判断当前数据返回列表的长度是否为 0，如果为 0 则显示一个 “暂无数据” 给用户，反之则隐藏该提示。写过 <code>Vue</code> 的小伙伴是不是经常这么做：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;<span style="color:#000080">template</span> <span style="color:#008080">v-if</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;datas.length&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">div</span> <span style="color:#008080">v-for</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;data in datas&#34;</span>&gt;&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">template</span>&gt;
@@ -287,25 +241,8 @@
 </span></span><span style="display:flex;"><span>        &lt;<span style="color:#000080">div</span>&gt;暂无数据&lt;/<span style="color:#000080">div</span>&gt;
 </span></span><span style="display:flex;"><span>    &lt;/<span style="color:#000080">template</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">div</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>但是有了 <code>:empty</code> 这个选择器后，你大可以把这个活交给 <code>CSS</code> 来干:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">container</span> {
+</span></span></code></pre></div><p>但是有了 <code>:empty</code> 这个选择器后，你大可以把这个活交给 <code>CSS</code> 来干:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">container</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">height</span>: <span style="color:#099">400</span><span style="color:#458;font-weight:bold">px</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">width</span>: <span style="color:#099">600</span><span style="color:#458;font-weight:bold">px</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#000;font-weight:bold">antiquewhite</span>;
@@ -316,24 +253,14 @@
 </span></span><span style="display:flex;"><span>.<span style="color:#458;font-weight:bold">container</span>:<span style="color:#3c5d5d;font-weight:bold">empty</span>::<span style="color:#3c5d5d;font-weight:bold">after</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">content</span>: <span style="color:#d14">&#34;暂无数据&#34;</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>通过 <code>:empty</code> 选中内容为空的容器，然后通过伪元素为空容器添加提示。是不是非常方便？</p>
+</span></span></code></pre></div><p>通过 <code>:empty</code> 选中内容为空的容器，然后通过伪元素为空容器添加提示。是不是非常方便？</p>
 <h1 id="三gap">三、gap</h1>
 <p>小伙伴们日常开发中，都有用过 <code>padding</code> 和 <code>margin</code> 吧，<code>margin</code> 一般用做边距，让两个元素隔开一点距离，但是对于一些场景下，我们很难通过计算得到一个除的尽的值，比如 100px 我要让 3 个元素等分，且每个元素隔开 10px，这就很尴尬了。
 没关系！我们可以用 <code>gap</code> 属性，<code>gap</code> 属性它适用于 <code>Grid</code> 布局、<code>Flex</code> 布局以及多列布局，并不一定只是 Grid 布局中可以使用。
 比如我们要让每个元素之间隔开 20px， 那么使用 <code>gap</code> 我们可以这样：</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#000080">display</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000080">flex</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#000080">grid</span><span style="color:#a61717;background-color:#e3d2d2">；</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#000080">display</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000080">flex</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#000080">grid</span><span style="color:#a61717;background-color:#e3d2d2">；</span>
 </span></span><span style="display:flex;"><span><span style="color:#000080">gap</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000080">20px</span><span style="color:#000;font-weight:bold">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="四background-clip-text">四、background-clip: text</h1>
+</span></span></code></pre></div><h1 id="四background-clip-text">四、background-clip: text</h1>
 <p>这个属性可能用的不多，有什么用呢？简单来说就是可以做一个带背景的文字效果：
 
         <img class="mx-auto" alt="在这里插入图片描述" src="https://img.myaof.cn/myaof/Snipaste_2023-04-13_16-34-20.png#pic_center" />   
@@ -347,19 +274,7 @@
 大家平时 <code>background-clip</code> 是不是都用来做一些裁切效果？你知道它还有个属性值是 text 吗？<code>background-clip: text</code> 用来做带背景的文字效果，相信大家平时浏览一些网站的时候都会看到类似的实现，实际上通过 <code>CSS</code> 我们也能做到这种效果。</p>
 <h1 id="五invalid-伪类">五、:invalid 伪类</h1>
 <p><code>:invalid</code>  表示任意内容未通过验证的 <code>input</code> 或其他 <code>form</code> 元素。什么意思呢？举个例子。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">form</span>&gt;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#000080">form</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">label</span> <span style="color:#008080">for</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;url_input&#34;</span>&gt;Enter a URL:&lt;/<span style="color:#000080">label</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;url&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;url_input&#34;</span> /&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">br</span> /&gt;
@@ -367,38 +282,8 @@
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">label</span> <span style="color:#008080">for</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;email_input&#34;</span>&gt;Enter an email address:&lt;/<span style="color:#000080">label</span>&gt;
 </span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">input</span> <span style="color:#008080">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;email&#34;</span> <span style="color:#008080">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;email_input&#34;</span> <span style="color:#008080">required</span>/&gt;
 </span></span><span style="display:flex;"><span>&lt;/<span style="color:#000080">form</span>&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>我们的需求是让 <code>input</code> 当值有效时，元素颜色为绿色，无效时为红色。</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#000080">input</span>:<span style="color:#3c5d5d;font-weight:bold">invalid</span> {
+</span></span></code></pre></div><p>我们的需求是让 <code>input</code> 当值有效时，元素颜色为绿色，无效时为红色。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#000080">input</span>:<span style="color:#3c5d5d;font-weight:bold">invalid</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">background-color</span>: <span style="color:#099">#ffdddd</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
@@ -422,9 +307,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#000080">input</span>:<span style="color:#3c5d5d;font-weight:bold">required</span>:<span style="color:#3c5d5d;font-weight:bold">invalid</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">border-color</span>: <span style="color:#099">#C00000</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="结论">结论</h1>
+</span></span></code></pre></div><h1 id="结论">结论</h1>
 <p>本文就到此结束了，希望大家共同努力，早日拿下 CSS 。如果文中有不对的地方，或是大家有不同的见解，欢迎指出 。</p>
 
         </div>
@@ -625,43 +508,43 @@ div.highlight:hover .copy-code,pre:hover .copy-code {
 <ul class="widget-list">
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Proxy/" title="Proxy" target="_blank">Proxy</a>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" title="Promise对象" target="_blank">Promise对象</a>
+        <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Module的语法" target="_blank">Module的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" title="Module的加载实现" target="_blank">Module的加载实现</a>
+        <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Mixin/" title="Mixin" target="_blank">Mixin</a>
+        <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" title="Let和const命令" target="_blank">Let和const命令</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Iterator%E5%92%8Cfor...of%E5%BE%AA%E7%8E%AF/" title="Iterator和for...of循环" target="_blank">Iterator和for...of循环</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E8%AF%AD%E6%B3%95/" title="Generator函数的语法" target="_blank">Generator函数的语法</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
     </li>
     
     <li>
-        <a href="http://shansec.github.io/post/es6/Generator%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" title="Generator函数的异步应用" target="_blank">Generator函数的异步应用</a>
+        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
     </li>
     
 </ul>
@@ -675,7 +558,7 @@ div.highlight:hover .copy-code,pre:hover .copy-code {
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (37)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
     
 </ul>
     </section>
