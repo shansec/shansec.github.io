@@ -81,6 +81,110 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">对象的新增方法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:07:59Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            本章介绍 Object 对象的新增方法。 Object.is() ES5 比较两个值是否相等，只有两个运算符：相等运算符（==）和严格相等运算符（===）。它们都有缺点，前者会自动转换数据类型，后者的NaN不等于自身，以及+0等于-0。JavaScript 缺乏一种运算，在所有环境中，只要两个值是一样的，它们就应该相等。 ES6 提……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">对象的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:05:20Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            对象（object）是 JavaScript 最重要的数据结构。ES6 对它进行了重大升级，本章介绍数据结构本身的改变，下一章介绍Object对象的新增方法。 属性的简洁表示法 ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。 const foo = &#39;bar&#39;; const baz = {foo}; baz // {foo: &#34;bar&#34;} // 等同于 const baz = {foo: foo}; 上面代……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">字符串的新增方法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:01:37Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            本章介绍字符串对象的新增方法。 String.fromCodePoint() ES5 提供String.fromCharCode()方法，用于从 Unicode 码点返回对应字符，但是这个方法不能识别码点大于0xFFFF的字符。 String.fromCharCode(0x20BB7) // &#34;ஷ&#34; 上面代码中，String.fromCharCode()不能识别大于0xFFFF的码点，所以0x……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">字符串的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T01:58:44Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            本章介绍 ES6 对字符串的改造和增强，下一章介绍字符串对象的新增方法。 字符的 Unicode 表示法 ES6 加强了对 Unicode 的支持，允许采用\uxxxx形式表示一个字符，其中xxxx表示字符的 Unicode 码点。 &#34;\u0061&#34; // &#34;a&#34; 但是，这种表示法只限于码点在\u0000~\uFFFF之间的字符。超出这个范围的字符，必须用两个双字节的形式……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" target="_blank">变量解构赋值</a>
             </h1>
         </header>
@@ -234,110 +338,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Proxy/" target="_blank">Proxy</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-23T02:28:38Z" class="post-meta meta-date dt-published">
-    2024-04-23
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            概述 Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。 Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/Proxy/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" target="_blank">Promise对象</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-23T02:25:57Z" class="post-meta meta-date dt-published">
-    2024-04-23
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            Promise 的含义 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/Promise%E5%AF%B9%E8%B1%A1/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" target="_blank">Module的语法</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-23T02:22:07Z" class="post-meta meta-date dt-published">
-    2024-04-23
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            概述 历史上，JavaScript 一直没有模块（module）体系，无法将一个大程序拆分成互相依赖的小文件，再用简单的方法拼装起来。其他语言都有这项功能，比如 Ruby 的require、Python 的import，甚至就连 CSS 都有@import，但是 JavaScript 任何这方面的支持都没有，这对开发大型的、……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E8%AF%AD%E6%B3%95/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" target="_blank">Module的加载实现</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-23T02:17:05Z" class="post-meta meta-date dt-published">
-    2024-04-23
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            上一章介绍了模块的语法，本章介绍如何在浏览器和 Node.js 之中加载 ES6 模块，以及实际开发中经常遇到的一些问题（比如循环加载）。 浏览器加载 传统方法 HTML 网页中，浏览器通过&lt;script&gt;标签加载 JavaScript 脚本。 &lt;!-- 页面内嵌的脚本 --&gt; &lt;script type=&#34;application/javascript&#34;&gt; // module code &lt;/script&gt; &lt;!-- 外部脚本 --&gt; &lt;script type=&#34;application/javascript&#34; src=&#34;path/to/myModule.js&#34;&gt;&lt;/script&gt; 上面代码中，由于浏览器脚本的默认语言……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/Module%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -436,6 +436,22 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
@@ -459,22 +475,6 @@
         <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -486,7 +486,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (56)</a></li>
     
 </ul>
     </section>

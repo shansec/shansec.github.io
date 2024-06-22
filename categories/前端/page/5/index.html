@@ -81,6 +81,110 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Vue3开发踩坑</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-03-24T09:45:47Z" class="post-meta meta-date dt-published">
+    2023-03-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： // main.js const app = createApp(App) app.config.globalProperties.$test = &#39;test&#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： &lt;tempalte&gt; &lt;div&gt;{{ $test }}&lt;/div&gt; &lt;/tempalte&gt; &lt;script&gt; import { getCurrentInstance } from &#39;vue&#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&#39;test===&#39;) console.log(test) }, } &lt;/script&gt; Vite通过alias别名引用 在w……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/" target="_blank">史上最全面、最详细的Cookie总结</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-03-24T09:42:22Z" class="post-meta meta-date dt-published">
+    2023-03-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            1. Cookie 产生的背景 我们都知道，HTTP 协议是无状态的，服务器无法知道两个请求是否来自同一个浏览器，也不知道用户上一次做了什么，每次请求都是完全相互独立，这严重阻碍了交互式 Web 应用程序的实现。例如： 购物车：在典型的网上购物场景中，用户浏览了几个页面，买了一盒饼干和两瓶饮料。最后结帐时，由……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" target="_blank">浏览器输入URL后都发生了什么？？</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-03-24T09:35:08Z" class="post-meta meta-date dt-published">
+    2023-03-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            DNS 域名解析 在网络世界，你肯定记得住网站的名称，但是很难记住网站的 IP 地址，因而也需要一个地址簿，就是 DNS 服务器。DNS 服务器是高可用、高并发和分布式的，它是树状结构，如图： 根 DNS 服务器 ：返回顶级域 DNS 服务器的 IP 地址 顶级域 DNS 服务器：返回权威 DNS 服务器的 IP 地址 权威 DNS 服务器 ：返回相应主机的 IP 地址……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/" target="_blank">微信小程序自定义顶部状态栏</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-03-22T10:47:12Z" class="post-meta meta-date dt-published">
+    2023-03-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            因为工作需要，要在微信小程序中自定义顶部导航栏，通过这篇文章来记录一下自己所得~ 第一步: 需要在json文件中配置&quot;navigation&quot; : &quot;custom&quot;，完成自定义导航栏，只保留胶囊按钮，效果如下图： 做完以上步骤，基本上就可以自定义导航栏……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fpicker%E7%BB%84%E4%BB%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" target="_blank">微信小程序picker组件遇到的问题以及解决办法</a>
             </h1>
         </header>
@@ -234,110 +338,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/" target="_blank">Pinia食用指南</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-20T14:24:21Z" class="post-meta meta-date dt-published">
-    2023-03-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 Pinia ，发音为 /piːnjʌ/，来源于西班牙语 piña 。意思为菠萝，表示与菠萝一样，由很多小块组成。在 Pinia 中，每个 Store 都是单独存在，一同进行状态管理。与 Vuex 相比，Pinia 提供了更简单的 API，更少的规范，以及 Composition-API 风格的 API 。更重要的是，与 TypeScript 一起使用具有可靠的类型推断支持。 Pinia与Vu……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/Pinia%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/" target="_blank">package.json配置解读</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-20T14:21:54Z" class="post-meta meta-date dt-published">
-    2023-03-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 package.json是每个前端项目都会有的json文件，位于项目的根目录中。很多脚手架在创建项目的时候会帮我们自动初始化好 package.json。package.json有许多配置与项目息息相关，了解他们有助于对项目的开发，接下来让我们开始了解package.json的……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/package-json%E9%85%8D%E7%BD%AE%E8%A7%A3%E8%AF%BB/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" target="_blank">何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-20T14:15:59Z" class="post-meta meta-date dt-published">
-    2023-03-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 要说今年最热门的前端技术，Vue3 和 TS 绝对榜上有名了。今天就给大家分享一下如何在 Vue3 组件中结合 Composition-Api 使用 TS 类型。如果有不会或者不熟的小伙伴，一起学起来吧！ 一、为 props 标注类型 使用 &lt; script setup &gt; 当使用 &lt; script setup &gt; 时，defineProps() 宏函数支持从它的参数中推导类型： 这被称为 运行时声明 ，因为……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_blank">助你从Vue2过渡到Vue3的常见使用场景</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-20T14:11:12Z" class="post-meta meta-date dt-published">
-    2023-03-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 相信有很多人已经学习了 Vue3 的 API 和 新特性，但是令人头疼的是工作中依然使用的是 Vue2，也不知道自己的水平能否上手 Vue3 项目，今天把实践过程中常见使用场景分享给大家，希望对你们有所帮助。 场景一：父子组件数据传递 父组件数据传递到子组件 Vue3 中父组件同样是通过属性传递数据，但子组件接受数据的方……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%8A%A9%E4%BD%A0%E4%BB%8EVue2%E8%BF%87%E6%B8%A1%E5%88%B0Vue3%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -436,6 +436,22 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
@@ -459,22 +475,6 @@
         <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -486,7 +486,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (56)</a></li>
     
 </ul>
     </section>

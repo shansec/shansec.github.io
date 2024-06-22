@@ -6,7 +6,43 @@
     <description>Recent content in typescript on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 20 Mar 2023 14:15:59 +0000</lastBuildDate><atom:link href="http://shansec.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Jun 2024 11:31:20 +0800</lastBuildDate><atom:link href="http://shansec.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typescript 数组类型</title>
+      <link>http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 22 Jun 2024 11:31:20 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/</guid>
+      <description>JavaScript 数组在 TypeScript 里面分成两种类型，分别是数组（array）和元组（tuple）。 简介 TypeScript 数组有一个根本特征：所有成员的类型必须相同，但是成员数量是不确定的，可以是无限数量的成员，也可以是零成员。 数组的类型有两种写法。第一种写法是在数组成员的类型后面，加上一对方括号。 let arr:number[] = [1, 2, 3]; 上面示例中</description>
+    </item>
+    
+    <item>
+      <title>Typescript 类型系统</title>
+      <link>http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sat, 22 Jun 2024 11:16:19 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/</guid>
+      <description>TypeScript 继承了 JavaScript 的类型，在这个基础上，定义了一套自己的类型系统。 基本类型 概述 JavaScript 语言（注意，不是 TypeScript）将值分成8种类型。 boolean string number bigint symbol object undefined null TypeScript 继承了 JavaScript 的类型设计，以上8种类型可以看作 TypeScript 的基本类型。 注意，上面所有类型的名称都是小写字母，首字母大写的Number、String、B</description>
+    </item>
+    
+    <item>
+      <title>Typescript Any类型和unknown类型和never类型</title>
+      <link>http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 22 Jun 2024 10:39:28 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/</guid>
+      <description>any 类型，unknown 类型，never 类型 本章介绍 TypeScript 的三种特殊类型，它们可以作为学习 TypeScript 类型系统的起点。 any 类型 基本含义 any 类型表示没有任何限制，该类型的变量可以赋予任意类型的值。 let x:any; x = 1; // 正确 x = &amp;#39;foo&amp;#39;; // 正确 x = true; // 正确 上面示例中，变量x的类型是any，就可以被赋值为任意类型的值。 变量</description>
+    </item>
+    
+    <item>
+      <title>Typescript 基本用法</title>
+      <link>http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Sat, 22 Jun 2024 10:25:32 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</guid>
+      <description>类型声明 TypeScript 代码最明显的特征，就是为 JavaScript 变量加上了类型声明。 let foo:string; 上面示例中，变量foo的后面使用冒号，声明了它的类型为string。 类型声明的写法，一律为在标识符后面添加“冒号 + 类型”。函数参数和返回值，也是这样来声明类型。 function toString(num:number):string { return String(num); } 上面示例中，函数toString()的参数num</description>
+    </item>
+    
     <item>
       <title>何为 Vue3 组件标注 TS 类型，看这篇文章就够了！</title>
       <link>http://shansec.github.io/post/blog/%E5%A6%82%E4%BD%95%E4%B8%BA-Vue3-%E7%BB%84%E4%BB%B6%E6%A0%87%E6%B3%A8-TS-%E7%B1%BB%E5%9E%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/</link>

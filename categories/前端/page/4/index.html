@@ -81,6 +81,110 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" target="_blank">Class的基本语法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T01:32:20Z" class="post-meta meta-date dt-published">
+    2024-04-23
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            类的由来 JavaScript 语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。 function Point(x, y) { this.x = x; this.y = y; } Point.prototype.toString = function () { return &#39;(&#39; + this.x + &#39;, &#39; + this.y + &#39;)&#39;; }; var p = new Point(1, 2); 上面这种写法跟传统的面向对象语言（比如 C++ 和 Java）差异很大，很容易让新学习这门语言的程序员感到困惑。 ES6 提供了更接近传统语言的写法，引入了 C……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/" target="_blank">Async函数</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T01:29:35Z" class="post-meta meta-date dt-published">
+    2024-04-23
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            含义 ES2017 标准引入了 async 函数，使得异步操作变得更加方便。 async 函数是什么？一句话，它就是 Generator 函数的语法糖。 前文有一个 Generator 函数，依次读取两个文件。 const fs = require(&#39;fs&#39;); const readFile = function (fileName) { return new Promise(function (resolve, reject) { fs.readFile(fileName, function(error, data) { if (error) return reject(error); resolve(data); }); }); }; const gen = function* () { const f1 = yield readFile(&#39;/etc/fstab&#39;); const f2 = yield readFile(&#39;/etc/shells&#39;); console.log(f1.toString()); console.log(f2.toString()); }; 上面代码的函数gen可以写成async函数，就是下面这样……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/ArrayBuffer/" target="_blank">ArrayBuffer</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T01:27:20Z" class="post-meta meta-date dt-published">
+    2024-04-23
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            `ArrayBuffer` 对象、TypedArray视图和DataView视图是 JavaScript 操作二进制数据的一个接口。这些对象早就存在，属于独立的规格（2011 年 2 月发布），ES6 将它们纳入了 ECMAScript 规格，并且增加了新的方法。它们都是以数组的语法处理二进制数据，所以统称为二进制数组。 这个接口的原始设计目的，与 WebGL 项目有关……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/ArrayBuffer/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/" target="_blank">浏览器是如何渲染页面的？</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-05-10T17:33:43Z" class="post-meta meta-date dt-published">
+    2023-05-10
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。 整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" target="_blank">CSS属性计算过程</a>
             </h1>
         </header>
@@ -234,110 +338,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Vue3开发踩坑</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-24T09:45:47Z" class="post-meta meta-date dt-published">
-    2023-03-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： // main.js const app = createApp(App) app.config.globalProperties.$test = &#39;test&#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： &lt;tempalte&gt; &lt;div&gt;{{ $test }}&lt;/div&gt; &lt;/tempalte&gt; &lt;script&gt; import { getCurrentInstance } from &#39;vue&#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&#39;test===&#39;) console.log(test) }, } &lt;/script&gt; Vite通过alias别名引用 在w……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/" target="_blank">史上最全面、最详细的Cookie总结</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-24T09:42:22Z" class="post-meta meta-date dt-published">
-    2023-03-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            1. Cookie 产生的背景 我们都知道，HTTP 协议是无状态的，服务器无法知道两个请求是否来自同一个浏览器，也不知道用户上一次做了什么，每次请求都是完全相互独立，这严重阻碍了交互式 Web 应用程序的实现。例如： 购物车：在典型的网上购物场景中，用户浏览了几个页面，买了一盒饼干和两瓶饮料。最后结帐时，由……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" target="_blank">浏览器输入URL后都发生了什么？？</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-24T09:35:08Z" class="post-meta meta-date dt-published">
-    2023-03-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            DNS 域名解析 在网络世界，你肯定记得住网站的名称，但是很难记住网站的 IP 地址，因而也需要一个地址簿，就是 DNS 服务器。DNS 服务器是高可用、高并发和分布式的，它是树状结构，如图： 根 DNS 服务器 ：返回顶级域 DNS 服务器的 IP 地址 顶级域 DNS 服务器：返回权威 DNS 服务器的 IP 地址 权威 DNS 服务器 ：返回相应主机的 IP 地址……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5URL%E5%90%8E%E9%83%BD%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/" target="_blank">微信小程序自定义顶部状态栏</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-22T10:47:12Z" class="post-meta meta-date dt-published">
-    2023-03-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            因为工作需要，要在微信小程序中自定义顶部导航栏，通过这篇文章来记录一下自己所得~ 第一步: 需要在json文件中配置&quot;navigation&quot; : &quot;custom&quot;，完成自定义导航栏，只保留胶囊按钮，效果如下图： 做完以上步骤，基本上就可以自定义导航栏……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B6%E9%83%A8%E7%8A%B6%E6%80%81%E6%A0%8F/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -436,6 +436,22 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
@@ -459,22 +475,6 @@
         <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" title="对象的扩展" target="_blank">对象的扩展</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="字符串的新增方法" target="_blank">字符串的新增方法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" title="字符串的扩展" target="_blank">字符串的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -486,7 +486,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (52)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (56)</a></li>
     
 </ul>
     </section>
