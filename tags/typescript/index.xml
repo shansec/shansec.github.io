@@ -6,7 +6,16 @@
     <description>Recent content in typescript on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 22 Jun 2024 11:31:20 +0800</lastBuildDate><atom:link href="http://shansec.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jun 2024 11:23:55 +0800</lastBuildDate><atom:link href="http://shansec.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typescript Interface</title>
+      <link>http://shansec.github.io/post/ts/Typescript-interface/</link>
+      <pubDate>Mon, 24 Jun 2024 11:23:55 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-interface/</guid>
+      <description>简介 interface 是对象的模板，可以看作是一种类型约定，中文译为“接口”。使用了某个模板的对象，就拥有了指定的类型结构。 interface Person { firstName: string; lastName: string; age: number; } 上面示例中，定义了一个接口Person，它指定一个对象模板，拥有三个属性firstName、lastName和age。任何实现这个接口的对象，都必须部署</description>
+    </item>
+    
     <item>
       <title>Typescript 函数类型</title>
       <link>http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/</link>
