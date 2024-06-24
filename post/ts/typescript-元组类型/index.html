@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Typescript 数组类型 | 未来可期的博客</title>
+    <meta property="og:title" content="Typescript 数组类型 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-06-22T11:31:20&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-06-22T11:31:20&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Typescript 数组类型">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#只读元组">只读元组</a></li>
+    <li><a href="#成员数量的推断">成员数量的推断</a></li>
+    <li><a href="#扩展运算符与成员数量">扩展运算符与成员数量</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Typescript 数组类型</h1>
+        </header>
+        
+  <time datetime="2024-06-22T03:31:20Z" class="post-meta meta-date dt-published">
+    2024-06-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="简介">简介</h2>
+<p><strong>元组（tuple）是 TypeScript 特有的数据类型，JavaScript 没有单独区分这种类型。它表示成员类型可以自由设置的数组，即数组的各个成员的类型可以不同。</strong></p>
+<p>由于成员的类型可以不一样，所以元组必须明确声明每个成员的类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> s<span style="color:#000;font-weight:bold">:</span>[<span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">string</span>, <span style="color:#000;font-weight:bold">boolean</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>, <span style="color:#000;font-weight:bold">true</span>];
+</span></span></code></pre></div><p>上面示例中，元组<code>s</code>的前两个成员的类型是<code>string</code>，最后一个成员的类型是<code>boolean</code>。</p>
+<p>元组类型的写法，与上一章的数组有一个重大差异。数组的成员类型写在方括号外面（<code>number[]</code>），元组的成员类型是写在方括号里面（<code>[number]</code>）。TypeScript 的区分方法就是，成员类型写在方括号里面的就是元组，写在外面的就是数组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 数组
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> a:<span style="color:#458;font-weight:bold">number</span>[] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 元组
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> t<span style="color:#000;font-weight:bold">:</span>[<span style="color:#458;font-weight:bold">number</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>];
+</span></span></code></pre></div><p>上面示例中，变量<code>a</code>和<code>t</code>的值都是<code>[1]</code>，但是它们的类型是不一样的。<code>a</code>是一个数组，成员类型<code>number</code>写在方括号外面；<code>t</code>是一个元组，成员类型<code>number</code>写在方括号里面。</p>
+<p>使用元组时，必须明确给出类型声明（上例的<code>[number]</code>），不能省略，否则 TypeScript 会把一个值自动推断为数组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// a 的类型被推断为 (number | boolean)[]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> a <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#000;font-weight:bold">true</span>];
+</span></span></code></pre></div><p>上面示例中，变量<code>a</code>的值其实是一个元组，但是 TypeScript 会将其推断为一个联合类型的数组，即<code>a</code>的类型为<code>(number | boolean)[]</code>。所以，元组必须显式给出类型声明。</p>
+<p>元组成员的类型可以添加问号后缀（<code>?</code>），表示该成员是可选的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a<span style="color:#000;font-weight:bold">:</span>[<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span><span style="color:#000;font-weight:bold">?</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>];
+</span></span></code></pre></div><p>上面示例中，元组<code>a</code>的第二个成员是可选的，可以省略。</p>
+<p>注意，问号只能用于元组的尾部成员，也就是说，所有可选成员必须在必选成员之后。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> myTuple <span style="color:#000;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>  <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#458;font-weight:bold">number</span><span style="color:#000;font-weight:bold">?</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#458;font-weight:bold">string</span><span style="color:#000;font-weight:bold">?</span>
+</span></span><span style="display:flex;"><span>];
+</span></span></code></pre></div><p>上面示例中，元组<code>myTuple</code>的最后两个成员是可选的。也就是说，它的成员数量可能有两个、三个和四个。</p>
+<p>由于需要声明每个成员的类型，所以大多数情况下，元组的成员数量是有限的，从类型声明就可以明确知道，元组包含多少个成员，越界的成员会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> x<span style="color:#000;font-weight:bold">:</span>[<span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">string</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x[<span style="color:#099">2</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;c&#39;</span>; <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，变量<code>x</code>是一个只有两个成员的元组，如果对第三个成员赋值就报错了。</p>
+<p>但是，使用扩展运算符（<code>...</code>），可以表示不限成员数量的元组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> NamedNums <span style="color:#000;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>  <span style="color:#458;font-weight:bold">string</span>,
+</span></span><span style="display:flex;"><span>  ...<span style="color:#458;font-weight:bold">number</span>[]
+</span></span><span style="display:flex;"><span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> a:<span style="color:#458;font-weight:bold">NamedNums</span> <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;A&#39;</span>, <span style="color:#099">1</span>, <span style="color:#099">2</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> b:<span style="color:#458;font-weight:bold">NamedNums</span> <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;B&#39;</span>, <span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span></code></pre></div><p>上面示例中，元组类型<code>NamedNums</code>的第一个成员是字符串，后面的成员使用扩展运算符来展开一个数组，从而实现了不定数量的成员。</p>
+<p>扩展运算符（<code>...</code>）用在元组的任意位置都可以，它的后面只能是一个数组或元组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> t1 <span style="color:#000;font-weight:bold">=</span> [<span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">number</span>, ...<span style="color:#000;font-weight:bold">boolean</span>[]];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> t2 <span style="color:#000;font-weight:bold">=</span> [<span style="color:#458;font-weight:bold">string</span>, ...<span style="color:#000;font-weight:bold">boolean</span>[], <span style="color:#458;font-weight:bold">number</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> t3 <span style="color:#000;font-weight:bold">=</span> [...<span style="color:#000;font-weight:bold">boolean</span>[], <span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">number</span>];
+</span></span></code></pre></div><p>上面示例中，扩展运算符分别在元组的尾部、中部和头部，<code>...</code>的后面是一个数组<code>boolean[]</code>。</p>
+<p>如果不确定元组成员的类型和数量，可以写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Tuple <span style="color:#000;font-weight:bold">=</span> [...<span style="color:#458;font-weight:bold">any</span>[]];
+</span></span></code></pre></div><p>上面示例中，元组<code>Tuple</code>可以放置任意数量和类型的成员。但是这样写，也就失去了使用元组和 TypeScript 的意义。</p>
+<p>元组的成员可以添加成员名，这个成员名是说明性的，可以任意取名，没有实际作用。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Color <span style="color:#000;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>  red: <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>  green: <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>  blue: <span style="color:#458;font-weight:bold">number</span>
+</span></span><span style="display:flex;"><span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> c:<span style="color:#458;font-weight:bold">Color</span> <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">255</span>, <span style="color:#099">255</span>, <span style="color:#099">255</span>];
+</span></span></code></pre></div><p>上面示例中，类型<code>Color</code>是一个元组，它有三个成员。每个成员都有一个名字，写在具体类型的前面，使用冒号分隔。这几个名字可以随便取，没有实际作用，只是用来说明每个成员的含义。</p>
+<p>元组可以通过方括号，读取成员类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Tuple <span style="color:#000;font-weight:bold">=</span> [<span style="color:#458;font-weight:bold">string</span>, <span style="color:#458;font-weight:bold">number</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Age <span style="color:#000;font-weight:bold">=</span> Tuple[<span style="color:#099">1</span>]; <span style="color:#998;font-style:italic">// number
+</span></span></span></code></pre></div><p>上面示例中，<code>Tuple[1]</code>返回1号位置的成员类型。</p>
+<p>由于元组的成员都是数值索引，即索引类型都是<code>number</code>，所以可以像下面这样读取。</p>
+<pre tabindex="0"><code>type Tuple = [string, number, Date];
+type TupleEl = Tuple[number];  // string|number|Date
+</code></pre><p>上面示例中，<code>Tuple[number]</code>表示元组<code>Tuple</code>的所有数值索引的成员类型，所以返回<code>string|number|Date</code>，即这个类型是三种值的联合类型。</p>
+<h2 id="只读元组">只读元组</h2>
+<p>元组也可以是只读的，不允许修改，有两种写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法一
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> t <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">readonly</span> [<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">string</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法二
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> t <span style="color:#000;font-weight:bold">=</span> Readonly<span style="color:#000;font-weight:bold">&lt;</span>[<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">string</span>]<span style="color:#000;font-weight:bold">&gt;</span>
+</span></span></code></pre></div><p>上面示例中，两种写法都可以得到只读元组，其中写法二是一个泛型，用到了工具类型<code>Readonly&lt;T&gt;</code>。</p>
+<p>跟数组一样，只读元组是元组的父类型。所以，元组可以替代只读元组，而只读元组不能替代元组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> t1 <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">readonly</span> [<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> t2 <span style="color:#000;font-weight:bold">=</span> [<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> x:<span style="color:#458;font-weight:bold">t2</span> <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>];
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> y:<span style="color:#458;font-weight:bold">t1</span> <span style="color:#000;font-weight:bold">=</span> x; <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>x <span style="color:#000;font-weight:bold">=</span> y; <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，类型<code>t1</code>是只读元组，类型<code>t2</code>是普通元组。<code>t2</code>类型可以赋值给<code>t1</code>类型，反过来就会报错。</p>
+<p>由于只读元组不能替代元组，所以会产生一些令人困惑的报错。</p>
+<pre tabindex="0"><code>function distanceFromOrigin([x, y]:[number, number]) {
+  return Math.sqrt(x**2 + y**2);
+}
+
+let point = [3, 4] as const;
+
+distanceFromOrigin(point); // 报错
+</code></pre><p>上面示例中，函数<code>distanceFromOrigin()</code>的参数是一个元组，传入只读元组就会报错，因为只读元组不能替代元组。</p>
+<p>读者可能注意到了，上例中<code>[3, 4] as const</code>的写法，在上一章讲到，生成的是只读数组，其实生成的同时也是只读元组。因为它生成的实际上是一个只读的“值类型”<code>readonly [3, 4]</code>，把它解读成只读数组或只读元组都可以。</p>
+<p>上面示例报错的解决方法，就是使用类型断言，在最后一行将传入的参数断言为普通元组，详见《类型断言》一章。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>distanceFromOrigin(
+</span></span><span style="display:flex;"><span>  point <span style="color:#000;font-weight:bold">as</span> [<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span>]
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="成员数量的推断">成员数量的推断</h2>
+<p>如果没有可选成员和扩展运算符，TypeScript 会推断出元组的成员数量（即元组长度）。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> f(point<span style="color:#000;font-weight:bold">:</span> [<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span>]) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">if</span> (point.length <span style="color:#000;font-weight:bold">===</span> <span style="color:#099">3</span>) {  <span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例会报错，原因是 TypeScript 发现元组<code>point</code>的长度是<code>2</code>，不可能等于<code>3</code>，这个判断无意义。</p>
+<p>如果包含了可选成员，TypeScript 会推断出可能的成员数量。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> f(
+</span></span><span style="display:flex;"><span>  point<span style="color:#000;font-weight:bold">:</span>[<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span><span style="color:#000;font-weight:bold">?</span>, <span style="color:#458;font-weight:bold">number</span><span style="color:#000;font-weight:bold">?</span>]
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">if</span> (point.length <span style="color:#000;font-weight:bold">===</span> <span style="color:#099">4</span>) {  <span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例会报错，原因是 TypeScript 发现<code>point.length</code>的类型是<code>1|2|3</code>，不可能等于<code>4</code>。</p>
+<p>如果使用了扩展运算符，TypeScript 就无法推断出成员数量。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> myTuple<span style="color:#000;font-weight:bold">:</span>[...<span style="color:#458;font-weight:bold">string</span>[]]
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>, <span style="color:#d14">&#39;c&#39;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> (myTuple.length <span style="color:#000;font-weight:bold">===</span> <span style="color:#099">4</span>) { <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><p>上面示例中，<code>myTuple</code>只有三个成员，但是 TypeScript 推断不出它的成员数量，因为它的类型用到了扩展运算符，TypeScript 把<code>myTuple</code>当成数组看待，而数组的成员数量是不确定的。</p>
+<p>一旦扩展运算符使得元组的成员数量无法推断，TypeScript 内部就会把该元组当成数组处理。</p>
+<h2 id="扩展运算符与成员数量">扩展运算符与成员数量</h2>
+<p>扩展运算符（<code>...</code>）将数组（注意，不是元组）转换成一个逗号分隔的序列，这时 TypeScript 会认为这个序列的成员数量是不确定的，因为数组的成员数量是不确定的。</p>
+<p>这导致如果函数调用时，使用扩展运算符传入函数参数，可能发生参数数量与数组长度不匹配的报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> arr <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> add(x:<span style="color:#458;font-weight:bold">number</span>, y:<span style="color:#458;font-weight:bold">number</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>add(...arr) <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例会报错，原因是函数<code>add()</code>只能接受两个参数，但是传入的是<code>...arr</code>，TypeScript 认为转换后的参数个数是不确定的。</p>
+<p>有些函数可以接受任意数量的参数，这时使用扩展运算符就不会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> arr <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>];
+</span></span><span style="display:flex;"><span>console.log(...arr) <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面示例中，<code>console.log()</code>可以接受任意数量的参数，所以传入<code>...arr</code>就不会报错。</p>
+<p>解决这个问题的一个方法，就是把成员数量不确定的数组，写成成员数量确定的元组，再使用扩展运算符。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> arr<span style="color:#000;font-weight:bold">:</span>[<span style="color:#458;font-weight:bold">number</span>, <span style="color:#458;font-weight:bold">number</span>] <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> add(x:<span style="color:#458;font-weight:bold">number</span>, y:<span style="color:#458;font-weight:bold">number</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>add(...arr) <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面示例中，<code>arr</code>是一个拥有两个成员的元组，所以 TypeScript 能够确定<code>...arr</code>可以匹配函数<code>add()</code>的参数数量，就不会报错了。</p>
+<p>另一种写法是使用<code>as const</code>断言。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> arr <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>, <span style="color:#099">2</span>] <span style="color:#000;font-weight:bold">as</span> <span style="color:#000;font-weight:bold">const</span>;
+</span></span></code></pre></div><p>上面这种写法也可以，因为 TypeScript 会认为<code>arr</code>的类型是<code>readonly [1, 2]</code>，这是一个只读的值类型，可以当作数组，也可以当作元组。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/">http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/">Typescript 函数类型</a></li>
+        
+        <li><a href="/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/">Typescript 对象类型</a></li>
+        
+        <li><a href="/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/">Typescript 数组类型</a></li>
+        
+        <li><a href="/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/">Typescript 类型系统</a></li>
+        
+        <li><a href="/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/">Typescript Any类型和unknown类型和never类型</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (59)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

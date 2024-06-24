@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://shansec.github.io/categories/</loc>
-    <lastmod>2024-06-22T11:31:20+08:00</lastmod>
-  </url><url>
     <loc>http://shansec.github.io/post/</loc>
+    <lastmod>2024-06-24T11:23:55+08:00</lastmod>
+  </url><url>
+    <loc>http://shansec.github.io/post/ts/Typescript-interface/</loc>
+    <lastmod>2024-06-24T11:23:55+08:00</lastmod>
+  </url><url>
+    <loc>http://shansec.github.io/</loc>
+    <lastmod>2024-06-24T11:23:55+08:00</lastmod>
+  </url><url>
+    <loc>http://shansec.github.io/categories/</loc>
     <lastmod>2024-06-22T11:31:20+08:00</lastmod>
   </url><url>
     <loc>http://shansec.github.io/tags/</loc>
@@ -14,13 +20,19 @@
     <loc>http://shansec.github.io/tags/typescript/</loc>
     <lastmod>2024-06-22T11:31:20+08:00</lastmod>
   </url><url>
+    <loc>http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2024-06-22T11:31:20+08:00</lastmod>
+  </url><url>
+    <loc>http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2024-06-22T11:31:20+08:00</lastmod>
+  </url><url>
+    <loc>http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2024-06-22T11:31:20+08:00</lastmod>
+  </url><url>
     <loc>http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/</loc>
     <lastmod>2024-06-22T11:31:20+08:00</lastmod>
   </url><url>
     <loc>http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2024-06-22T11:31:20+08:00</lastmod>
-  </url><url>
-    <loc>http://shansec.github.io/</loc>
     <lastmod>2024-06-22T11:31:20+08:00</lastmod>
   </url><url>
     <loc>http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/</loc>

@@ -6,7 +6,43 @@
     <description>Recent content on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 22 Jun 2024 11:31:20 +0800</lastBuildDate><atom:link href="http://shansec.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jun 2024 11:23:55 +0800</lastBuildDate><atom:link href="http://shansec.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typescript Interface</title>
+      <link>http://shansec.github.io/post/ts/Typescript-interface/</link>
+      <pubDate>Mon, 24 Jun 2024 11:23:55 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-interface/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Typescript 函数类型</title>
+      <link>http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 22 Jun 2024 11:31:20 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/</guid>
+      <description>简介 函数的类型声明，需要在声明函数时，给出参数的类型和返回值的类型。 function hello( txt:string ):void { console.log(&amp;#39;hello &amp;#39; + txt); } 上面示例中，函数hello()在声明时，需要给出参数txt的类型（string），以及返回值的类型（void），后者写在参数列表的圆括号后面。void类型表示没有返回值，详见后文。 如果不指定参</description>
+    </item>
+    
+    <item>
+      <title>Typescript 对象类型</title>
+      <link>http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 22 Jun 2024 11:31:20 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/</guid>
+      <description>简介 除了原始类型，对象是 JavaScript 最基本的数据结构。TypeScript 对于对象类型有很多规则。 对象类型的最简单声明方法，就是使用大括号表示对象，在大括号内部声明每个属性和方法的类型。 const obj:{ x:number; y:number; } = { x: 1, y: 1 }; 上面示例中，对象obj的类型就写在变量名后面，使用大括号描述，内部声明每个属性的</description>
+    </item>
+    
+    <item>
+      <title>Typescript 数组类型</title>
+      <link>http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Sat, 22 Jun 2024 11:31:20 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/</guid>
+      <description>简介 元组（tuple）是 TypeScript 特有的数据类型，JavaScript 没有单独区分这种类型。它表示成员类型可以自由设置的数组，即数组的各个成员的类型可以不同。 由于成员的类型可以不一样，所以元组必须明确声明每个成员的类型。 const s:[string, string, boolean] = [&amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, true]; 上面示例中，元组s的前两个成员的类型是string，</description>
+    </item>
+    
     <item>
       <title>Typescript 数组类型</title>
       <link>http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/</link>
