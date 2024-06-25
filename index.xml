@@ -6,7 +6,16 @@
     <description>Recent content on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 24 Jun 2024 11:23:55 +0800</lastBuildDate><atom:link href="http://shansec.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Jun 2024 12:15:48 +0800</lastBuildDate><atom:link href="http://shansec.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typescript Class类型</title>
+      <link>http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Tue, 25 Jun 2024 12:15:48 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/</guid>
+      <description>简介 类（class）是面向对象编程的基本构件，封装了属性和方法，TypeScript 给予了全面支持。 属性的类型 类的属性可以在顶层声明，也可以在构造方法内部声明。 对于顶层声明的属性，可以在声明时同时给出类型。 class Point { x:number; y:number; } 上面声明中，属性x和y的类型都是number。 如果不给出类型，</description>
+    </item>
+    
     <item>
       <title>Typescript Interface</title>
       <link>http://shansec.github.io/post/ts/Typescript-interface/</link>

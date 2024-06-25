@@ -73,6 +73,34 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/gin%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E6%8B%86%E5%88%86%E4%B8%8E%E6%B3%A8%E5%86%8C/" title="gin框架路由拆分与注册" target="_blank">gin框架路由拆分与注册</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            gin框架路由拆分与注册 基本的路由注册 下面最基础的gin路由注册方式，适用于路由条目比较少的简单项目或者项目demo。 package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.H{ &#34;message&#34;: &#34;Hello q1mi!&#34;, }) } func main() { r := gin.Default() r.GET(&#34;/hello&#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&#34;startup service failed, err:%v\n&#34;, err) } } 路由拆分成单独文件或包 当项目的规模增大后就不太适合继续在项目的main.go文件……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/gin%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E6%8B%86%E5%88%86%E4%B8%8E%E6%B3%A8%E5%86%8C/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%8D%E5%B0%84/" title="Go 语言基础之反射" target="_blank">Go 语言基础之反射</a>
             </h1>
         </header>
@@ -322,34 +350,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" title="Go语言基础之变量与常亮" target="_blank">Go语言基础之变量与常亮</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            标识符和关键字 标识符 在编程语言中标识符就是程序员定义的具有特殊意义的词，比如变量名、常量名、函数名等等。 Go语言中标识符由字母数字和_(下划线）组成，并且只能以字母和开头。 关键字 关键字是指编程语言中预先定义好的具有特殊含义的标识符。 关键字和保留字都不建议用作变量名。 Go语言中有2……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -494,6 +494,10 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
     </li>
     
@@ -529,10 +533,6 @@
         <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -544,7 +544,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (60)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (61)</a></li>
     
 </ul>
     </section>
