@@ -74,6 +74,146 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/" title="Go语言基础之指针" target="_blank">Go语言基础之指针</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            指针 任何程序数据载入内存后，在内存都有他们的地址，这就是指针。而为了保存一个数据在内存中的地址，我们就需要指针变量。 Go语言中的指针不能进行偏移和运算，因此Go语言中的指针操作非常简单，我们只需要记住两个符号：&amp;（取地址）和*（根据地址取值）。 指针地址和指针类型 每个变量在……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E6%8C%87%E9%92%88/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E9%94%99%E8%AF%AF/" title="Go语言基础之处理并发错误" target="_blank">Go语言基础之处理并发错误</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            recover goroutine中的panic 我们知道可以在代码中使用 recover 来会恢复程序中意想不到的 panic，而 panic 只会触发当前 goroutine 中的 defer 操作。 例如在下面的示例代码中，无法在 main 函数中 recover 另一个goroutine中引发的 panic。 func f1() { defer func() { if e := recover(); e != nil { fmt.Printf(&#34;recover panic:%v\n&#34;, e) } }() // 开启一个goroutine执行……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E9%94%99%E8%AF%AF/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="Go语言基础之基本数据类型" target="_blank">Go语言基础之基本数据类型</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            基本数据类型 整型 整型分为以下两个大类： 按长度分为：int8、int16、int32、int64 对应的无符号整型：uint8、uint16、uint32、uint64 其中，uint8就是我们熟知的byte型，int16对应C语言中的short型，int64对应C语言中的long型。……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" title="Go语言基础之变量与常亮" target="_blank">Go语言基础之变量与常亮</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            标识符和关键字 标识符 在编程语言中标识符就是程序员定义的具有特殊意义的词，比如变量名、常量名、函数名等等。 Go语言中标识符由字母数字和_(下划线）组成，并且只能以字母和开头。 关键字 关键字是指编程语言中预先定义好的具有特殊含义的标识符。 关键字和保留字都不建议用作变量名。 Go语言中有2……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" title="Go语言基础之单元测试" target="_blank">Go语言基础之单元测试</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            go test工具 Go语言中的测试依赖go test命令。编写测试代码和编写普通的Go代码过程是类似的，并不需要学习新的语法、规则或工具。 go test命令是一个按照一定约定和组织的测试代码的驱动程序。在包目录内，所有以_test.go为后缀名的源代码文件都是go test测试的一部分，不会……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8C%85/" title="Go语言基础之包" target="_blank">Go语言基础之包</a>
             </h1>
         </header>
@@ -207,146 +347,6 @@
             Error接口和错误处理 Error 接口 Go 语言中把错误当成一种特殊的值来处理，不支持其他语言中使用try/catch捕获异常的方式。 Error 接口 Go 语言中使用一个名为 error 接口来表示错误类型。 type error interface { Error() string } error 接口只包含一个方法——Error，这个函数需要返回一个描述错误信息的字符串。 当一个函数或方法需……
         </div>
         <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8Berror%E6%8E%A5%E5%8F%A3/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/Go%E6%93%8D%E4%BD%9CMySQLsql%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="Go操作MySQL—— sql 使用指南" target="_blank">Go操作MySQL—— sql 使用指南</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            Go操作MySQL 连接 Go语言中的 database/sql 包提供了保证SQL或类SQL数据库的泛用接口，并不提供具体的数据库驱动。使用 database/sql 包时必须注入（至少）一个数据库驱动。 我们常用的数据库基本上都有完整的第三方实现。例如：MySQL驱动 下载依赖 go get -u github.com/go-sql-driver/mysql 使用MySQL驱动 func Open(driverName, dataSourceName string) (*DB, error) Open打开一个 dirverName 指……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/Go%E6%93%8D%E4%BD%9CMySQLsql%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B6%E5%8F%91/" title="Go 语言基础之并发" target="_blank">Go 语言基础之并发</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            基本概念 首先我们先来了解几个与并发编程相关的基本概念。 串行、并发与并行 串行：我们都是先读小学，小学毕业后再读初中，读完初中再读高中。 并发：同一时间段内执行多个任务（你在用微信和两个女朋友聊天）。 并行：同一时刻执行多个任务（你和你朋友都在用微信和女朋友聊天）。 进程、线程和协程 进程（……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%B9%B6%E5%8F%91/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%8D%E5%B0%84/" title="Go 语言基础之反射" target="_blank">Go 语言基础之反射</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            变量的内在机制 Go语言中的变量是分为两部分的: 类型信息：预先定义好的元信息。 值信息：程序运行过程中可动态变化的。 反射介绍 反射是指在程序运行期间对程序本身进行访问和修改的能力。程序在编译时，变量被转换为内存地址，变量名不会被编译器写入到可执行部分。在运行程序时，程序无法获取自身的信……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E5%9F%BA%E7%A1%80/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E4%B9%8B%E5%8F%8D%E5%B0%84/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/gin%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E6%8B%86%E5%88%86%E4%B8%8E%E6%B3%A8%E5%86%8C/" title="gin框架路由拆分与注册" target="_blank">gin框架路由拆分与注册</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            gin框架路由拆分与注册 基本的路由注册 下面最基础的gin路由注册方式，适用于路由条目比较少的简单项目或者项目demo。 package main import ( &#34;net/http&#34; &#34;github.com/gin-gonic/gin&#34; ) func helloHandler(c *gin.Context) { c.JSON(http.StatusOK, gin.H{ &#34;message&#34;: &#34;Hello q1mi!&#34;, }) } func main() { r := gin.Default() r.GET(&#34;/hello&#34;, helloHandler) if err := r.Run(); err != nil { fmt.Println(&#34;startup service failed, err:%v\n&#34;, err) } } 路由拆分成单独文件或包 当项目的规模增大后就不太适合继续在项目的main.go文件……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/gin%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E6%8B%86%E5%88%86%E4%B8%8E%E6%B3%A8%E5%86%8C/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/Gin%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" title="Gin框架介绍及使用" target="_blank">Gin框架介绍及使用</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            Gin是一个用Go语言编写的web框架。它是一个类似于martini但拥有更好性能的API框架, 由于使用了httprouter，速度提高了近40倍。 如果你是性能和高效的追求者, 你会爱上Gin。 Gin框架介绍 Go世界里最流行的Web框架，Github上有32K+star。 基于htt……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/Gin%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -495,6 +495,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
     </li>
     
@@ -514,26 +534,6 @@
         <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -545,7 +545,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (61)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
     
 </ul>
     </section>

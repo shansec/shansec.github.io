@@ -73,6 +73,146 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8zap%E6%8E%A5%E6%94%B6gin%E6%A1%86%E6%9E%B6%E9%BB%98%E8%AE%A4%E7%9A%84%E6%97%A5%E5%BF%97%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%BD%92%E6%A1%A3/" title="使用zap接收gin框架默认的日志并配置日志归档" target="_blank">使用zap接收gin框架默认的日志并配置日志归档</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            gin默认的中间件 首先我们来看一个最简单的gin项目： func main() { r := gin.Default() r.GET(&#34;/hello&#34;, func(c *gin.Context) { c.String(&#34;hello liwenzhou.com!&#34;) }) r.Run( } 接下来我们看一下gin.Default()的源码： func Default() *Engine { debugPrintWARNINGDefault() engine := New() engine.Use(Logger(), Recovery()) return engine } 也就是我们在使用gin.Default()的同时是用到了gin框架内的两个默认中间件Logger()和Recovery(……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8zap%E6%8E%A5%E6%94%B6gin%E6%A1%86%E6%9E%B6%E9%BB%98%E8%AE%A4%E7%9A%84%E6%97%A5%E5%BF%97%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%BD%92%E6%A1%A3/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E5%9C%A8gin%E6%A1%86%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8JWT/" title="在gin框架中使用JWT" target="_blank">在gin框架中使用JWT</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            JWT全称JSON Web Token是一种跨域认证解决方案，属于一个开放的标准，它规定了一种Token实现方式，目前多用于前后端分离项目和OAuth2.0业务场景下。 什么是JWT？ JWT全称JSON Web Token是一种跨域认证解决方案，属于一个开放的标准，它规定了一种Token 实现方式，……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%9C%A8gin%E6%A1%86%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8JWT/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/" title="如何使用Docker部署Go Web应用" target="_blank">如何使用Docker部署Go Web应用</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            为什么需要Docker？ 使用docker的主要目标是容器化。也就是为你的应用程序提供一致的环境，而不依赖于它运行的主机。 想象一下你是否也会遇到下面这个场景，你在本地开发了你的应用程序，它很可能有很多的依赖环境或包，甚至对依赖的具体版本都有严格的要求，当开发过程完成后，你希望将应用……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Docker%E9%83%A8%E7%BD%B2Go-Web%E5%BA%94%E7%94%A8/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/" title="常用的HTTP服务压测工具介绍" target="_blank">常用的HTTP服务压测工具介绍</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            HTTP服务压力测试工具 在项目正式上线之前，我们通常需要通过压测来评估当前系统能够支撑的请求量、排查可能存在的隐藏bug，同时了解了程序的实际处理能力能够帮我们更好的匹配项目的实际需求，节约资源成本。 压测相关术语 响应时间(RT) ：指系统对请求作出响应的时间. 吞吐量(Through……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E6%BC%8F%E6%A1%B6%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E4%BB%8B%E7%BB%8D/" title="常用限流策略——漏桶与令牌桶介绍" target="_blank">常用限流策略——漏桶与令牌桶介绍</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            限流又称为流量控制（流控），通常是指限制到达系统的并发请求数，本文列举了常见的限流策略，并以gin框架为例演示了如何为项目添加限流组件。 限流 限流又称为流量控制（流控），通常是指限制到达系统的并发请求数。 我们生活中也会经常遇到限流的场景，比如：某景区限制每日进入景区的游客数量为8万……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E6%BC%8F%E6%A1%B6%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E4%BB%8B%E7%BB%8D/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" title="部署Go语言项目" target="_blank">部署Go语言项目</a>
             </h1>
         </header>
@@ -210,146 +350,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/" title="Vue3 Composition API: 对比ref和reactive" target="_blank">Vue3 Composition API: 对比ref和reactive</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-05-04T11:13:30Z" class="post-meta meta-date dt-published">
-    2023-05-04
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            Vue2 回顾 首先回顾一下在Vue2中我们是如何创建一个响应式数据 (reactive data)的： Vue3新特性 ref的使用 而在Vue3中，我们可以用Composition API: ref 来改写上述代码： ref 的作用就是将一个原始数据类型（primitive data type）转换成一个带有响应式类型 的数据类型，原始数据类型共……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/" title="微信小程序全局变量监听" target="_blank">微信小程序全局变量监听</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-04-26T10:23:34Z" class="post-meta meta-date dt-published">
-    2023-04-26
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            需求：在任意一个页面上实时监听全局变量发生的改变。 第一步 新建 utils 文件夹，并在文件夹中新建 onEvent.js 文件。 var events = {}; function on(name, self, callback) { var tuple = [self, callback]; var callbacks = events[name]; if (Array.isArray(callbacks)) { callbacks.push(tuple); } else { events[name] = [tuple]; } } function remove(name, self) { var callbacks = events[name]; if (Array.isArray(callbacks)) { events[name] = callbacks.filter((tuple) =&gt; { return tuple[0] != self; }) } } function emit(name, data) { var callbacks = events[name]; if (Array.isArray(callbacks)) { callbacks.map((tuple) =&gt; { var self = tuple[0]; var callback = tuple[1]; callback.call(self, data); }) } } exports.on = on; exports.remove = remove; exports.emit = emit; 第二步 在……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/" title="JavaScript 中如何判断变量是否为数字" target="_blank">JavaScript 中如何判断变量是否为数字</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-04-14T10:33:36Z" class="post-meta meta-date dt-published">
-    2023-04-14
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            简介 JavaScript 是一种动态类型语言，这意味着解释器在运行时确定变量的类型。实际上，这也允许我们在相同的代码中使用相同的变量来存储不同类型的数据。如果没有文档和一致性，我们在使用代码时并不总是知道变量的类型。 当我们期望一个变量是数字时，对字符串或数组进行操作可能会在代码中导致奇怪的结果。在本……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" title="Vue3开发踩坑" target="_blank">Vue3开发踩坑</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-24T09:45:47Z" class="post-meta meta-date dt-published">
-    2023-03-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            期待了很久的vue3，一发布就上手体验了一把，这里记录几个自己碰到的网上不常见的小坑~ 自定义全局参数 定义： // main.js const app = createApp(App) app.config.globalProperties.$test = &#39;test&#39; 除了setup()需要先获得实例，其他地方可以直接通过$test使用： &lt;tempalte&gt; &lt;div&gt;{{ $test }}&lt;/div&gt; &lt;/tempalte&gt; &lt;script&gt; import { getCurrentInstance } from &#39;vue&#39; export default { setup() { const test = getCurrentInstance()?.appContext.config.globalProperties.$test console.log(&#39;test===&#39;) console.log(test) }, } &lt;/script&gt; Vite通过alias别名引用 在w……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/" title="史上最全面、最详细的Cookie总结" target="_blank">史上最全面、最详细的Cookie总结</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-24T09:42:22Z" class="post-meta meta-date dt-published">
-    2023-03-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            1. Cookie 产生的背景 我们都知道，HTTP 协议是无状态的，服务器无法知道两个请求是否来自同一个浏览器，也不知道用户上一次做了什么，每次请求都是完全相互独立，这严重阻碍了交互式 Web 应用程序的实现。例如： 购物车：在典型的网上购物场景中，用户浏览了几个页面，买了一盒饼干和两瓶饮料。最后结帐时，由……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E9%9D%A2%E6%9C%80%E8%AF%A6%E7%BB%86%E7%9A%84Cookie%E6%80%BB%E7%BB%93/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -481,6 +481,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
     </li>
     
@@ -500,26 +520,6 @@
         <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -531,7 +531,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (61)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
     
 </ul>
     </section>

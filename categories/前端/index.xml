@@ -6,7 +6,52 @@
     <description>Recent content in 前端 on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 25 Jun 2024 12:15:48 +0800</lastBuildDate><atom:link href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Jun 2024 11:29:09 +0800</lastBuildDate><atom:link href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typescript Declare关键字</title>
+      <link>http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/</link>
+      <pubDate>Wed, 26 Jun 2024 11:29:09 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/</guid>
+      <description>简介 declare 关键字用来告诉编译器，某个类型是存在的，可以在当前文件中使用。 它的主要作用，就是让当前文件可以使用其他文件声明的类型。举例来说，自己的脚本使用外部库定义的函数，编译器会因为不知道外部函数的类型定义而报错，这时就可以在自己的脚本里面使用declare关键字，告诉编译器外部函数</description>
+    </item>
+    
+    <item>
+      <title>Typescript 模块</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Wed, 26 Jun 2024 11:16:23 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/</guid>
+      <description>简介 任何包含 import 或 export 语句的文件，就是一个模块（module）。相应地，如果文件不包含 export 语句，就是一个全局的脚本文件。 模块本身就是一个作用域，不属于全局作用域。模块内部的变量、函数、类只在内部可见，对于模块外部是不可见的。暴露给外部的接口，必须用 export 命令声明；如果其他文件要使用模块的接</description>
+    </item>
+    
+    <item>
+      <title>Typescript 类型断言</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/</link>
+      <pubDate>Wed, 26 Jun 2024 10:59:25 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/</guid>
+      <description>简介 对于没有类型声明的值，TypeScript 会进行类型推断，很多时候得到的结果，未必是开发者想要的。 type T = &amp;#39;a&amp;#39;|&amp;#39;b&amp;#39;|&amp;#39;c&amp;#39;; let foo = &amp;#39;a&amp;#39;; let bar:T = foo; // 报错 上面示例中，最后一行报错，原因是 TypeScript 推断变量foo的类型是string，而变量bar的类型是&#39;a&#39;|&#39;b&#39;|&#39;c&#39;，前者是后者的父类型。父类型不能赋值</description>
+    </item>
+    
+    <item>
+      <title>Typescript Enum类型</title>
+      <link>http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/</link>
+      <pubDate>Wed, 26 Jun 2024 09:45:05 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/</guid>
+      <description>简介 实际开发中，经常需要定义一组相关的常量。 const RED = 1; const GREEN = 2; const BLUE = 3; let color = userInput(); if (color === RED) {/* */} if (color === GREEN) {/* */} if (color === BLUE) {/* */} throw new Error(&amp;#39;wrong color&amp;#39;); 上面示例中，常量RED、GREEN、BLUE是相关的，意为变量color的三个可能的取值。它们具体等于什么值其实并不重要，只要不相等就可以了。 TypeScript 就设计了 Enum 结构，</description>
+    </item>
+    
+    <item>
+      <title>Typescript 泛型</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/</link>
+      <pubDate>Wed, 26 Jun 2024 09:37:16 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/</guid>
+      <description>简介 有些时候，函数返回值的类型与参数类型是相关的。 function getFirst(arr) { return arr[0]; } 上面示例中，函数getFirst()总是返回参数数组的第一个成员。参数数组是什么类型，返回值就是什么类型。 这个函数的类型声明只能写成下面这样。 function f(arr:any[]):any { return arr[0]; } 上面的类型声明，就反映不出参数与返回值之间的类型关系。 为了解决这</description>
+    </item>
+    
     <item>
       <title>Typescript Class类型</title>
       <link>http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/</link>

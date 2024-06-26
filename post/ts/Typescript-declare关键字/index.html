@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Typescript Declare关键字 | 未来可期的博客</title>
+    <meta property="og:title" content="Typescript Declare关键字 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-06-26T11:29:09&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-06-26T11:29:09&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Typescript Declare关键字">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#declare-variable">declare variable</a></li>
+    <li><a href="#declare-function">declare function</a></li>
+    <li><a href="#declare-class">declare class</a></li>
+    <li><a href="#declare-moduledeclare-namespace">declare module，declare namespace</a></li>
+    <li><a href="#declare-global">declare global</a></li>
+    <li><a href="#declare-enum">declare enum</a></li>
+    <li><a href="#declare-module-用于类型声明文件">declare module 用于类型声明文件</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Typescript Declare关键字</h1>
+        </header>
+        
+  <time datetime="2024-06-26T03:29:09Z" class="post-meta meta-date dt-published">
+    2024-06-26
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="简介">简介</h2>
+<p>declare 关键字用来告诉编译器，某个类型是存在的，可以在当前文件中使用。</p>
+<p>它的主要作用，就是让当前文件可以使用其他文件声明的类型。举例来说，自己的脚本使用外部库定义的函数，编译器会因为不知道外部函数的类型定义而报错，这时就可以在自己的脚本里面使用<code>declare</code>关键字，告诉编译器外部函数的类型。这样的话，编译单个脚本就不会因为使用了外部类型而报错。</p>
+<p>declare 关键字可以描述以下类型。</p>
+<ul>
+<li>变量（const、let、var 命令声明）</li>
+<li>type 或者 interface 命令声明的类型</li>
+<li>class</li>
+<li>enum</li>
+<li>函数（function）</li>
+<li>模块（module）</li>
+<li>命名空间（namespace）</li>
+</ul>
+<p>declare 关键字的重要特点是，它只是通知编译器某个类型是存在的，不用给出具体实现。比如，只描述函数的类型，不给出函数的实现，如果不使用<code>declare</code>，这是做不到的。</p>
+<p>declare 只能用来描述已经存在的变量和数据结构，不能用来声明新的变量和数据结构。另外，所有 declare 语句都不会出现在编译后的文件里面。</p>
+<h2 id="declare-variable">declare variable</h2>
+<p>declare 关键字可以给出外部变量的类型描述。</p>
+<p>举例来说，当前脚本使用了其他脚本定义的全局变量<code>x</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">123</span>; <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，变量<code>x</code>是其他脚本定义的，当前脚本不知道它的类型，编译器就会报错。</p>
+<p>这时使用 declare 命令给出它的类型，就不会报错了。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">let</span> x:<span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span></code></pre></div><p>如果 declare 关键字没有给出变量的具体类型，那么变量类型就是<code>any</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">let</span> x;
+</span></span><span style="display:flex;"><span>x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span></code></pre></div><p>上面示例中，变量<code>x</code>的类型为<code>any</code>。</p>
+<p>下面的例子是脚本使用浏览器全局对象<code>document</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">var</span> <span style="color:#0086b3">document</span>;
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">document</span>.title <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;Hello&#39;</span>;
+</span></span></code></pre></div><p>上面示例中，declare 告诉编译器，变量<code>document</code>的类型是外部定义的（具体定义在 TypeScript 内置文件<code>lib.d.ts</code>）。</p>
+<p>如果 TypeScript 没有找到<code>document</code>的外部定义，这里就会假定它的类型是<code>any</code>。</p>
+<p>注意，declare 关键字只用来给出类型描述，是纯的类型代码，不允许设置变量的初始值，即不能涉及值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">let</span> x:<span style="color:#458;font-weight:bold">number</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+</span></span></code></pre></div><p>上面示例中，declare 设置了变量的初始值，结果就报错了。</p>
+<h2 id="declare-function">declare function</h2>
+<p>declare 关键字可以给出外部函数的类型描述。</p>
+<p>下面是一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">function</span> sayHello(
+</span></span><span style="display:flex;"><span>  name:<span style="color:#458;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sayHello(<span style="color:#d14">&#39;张三&#39;</span>);
+</span></span></code></pre></div><p>上面示例中，declare 命令给出了<code>sayHello()</code>的类型描述，因此可以直接使用它。</p>
+<p>注意，这种单独的函数类型声明语句，只能用于<code>declare</code>命令后面。一方面，TypeScript 不支持单独的函数类型声明语句；另一方面，declare 关键字后面也不能带有函数的具体实现。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">function</span> sayHello(
+</span></span><span style="display:flex;"><span>  name:<span style="color:#458;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> sayHello(name) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#39;你好，&#39;</span> <span style="color:#000;font-weight:bold">+</span> name;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，单独写函数的类型声明就会报错。</p>
+<h2 id="declare-class">declare class</h2>
+<p>declare 给出 class 类型描述的写法如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">class</span> Animal {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">constructor</span>(name:<span style="color:#458;font-weight:bold">string</span>);
+</span></span><span style="display:flex;"><span>  eat()<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>  sleep()<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>下面是一个复杂一点的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">class</span> C {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 静态成员
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">public</span> <span style="color:#000;font-weight:bold">static</span> s0()<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">static</span> s1:<span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">public</span> a:<span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">private</span> b:<span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 构造函数
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">constructor</span>(arg:<span style="color:#458;font-weight:bold">number</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 方法
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  m(x:<span style="color:#458;font-weight:bold">number</span>, y:<span style="color:#458;font-weight:bold">number</span>)<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 存取器
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">get</span> c()<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">set</span> c(value:<span style="color:#458;font-weight:bold">number</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 索引签名
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  [index:<span style="color:#458;font-weight:bold">string</span>]<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">any</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>同样的，declare 后面不能给出 Class 的具体实现或初始值。</p>
+<h2 id="declare-moduledeclare-namespace">declare module，declare namespace</h2>
+<p>如果想把变量、函数、类组织在一起，可以将 declare 与 module 或 namespace 一起使用。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">namespace</span> AnimalLib {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">class</span> Animal {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">constructor</span>(name:<span style="color:#458;font-weight:bold">string</span>);
+</span></span><span style="display:flex;"><span>    eat()<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>    sleep()<span style="color:#000;font-weight:bold">:</span><span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">type</span> Animals <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;Fish&#39;</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#d14">&#39;Dog&#39;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 或者
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">module</span> AnimalLib {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">class</span> Animal {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">constructor</span>(name:<span style="color:#458;font-weight:bold">string</span>);
+</span></span><span style="display:flex;"><span>    eat()<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>    sleep()<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">type</span> Animals <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;Fish&#39;</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#d14">&#39;Dog&#39;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，declare 关键字给出了 module 或 namespace 的类型描述。</p>
+<p>declare module 和 declare namespace 里面，加不加 export 关键字都可以。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">namespace</span> Foo {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">var</span> a: <span style="color:#458;font-weight:bold">boolean</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;io&#39;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">function</span> readFile(filename:<span style="color:#458;font-weight:bold">string</span>)<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，namespace 和 module 里面使用了 export 关键字。</p>
+<p>下面的例子是当前脚本使用了<code>myLib</code>这个外部库，它有方法<code>makeGreeting()</code>和属性<code>numberOfGreetings</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> result <span style="color:#000;font-weight:bold">=</span> myLib.makeGreeting(<span style="color:#d14">&#39;你好&#39;</span>);
+</span></span><span style="display:flex;"><span>console.log(<span style="color:#d14">&#39;欢迎词：&#39;</span> <span style="color:#000;font-weight:bold">+</span> result);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> count <span style="color:#000;font-weight:bold">=</span> myLib.numberOfGreetings;
+</span></span></code></pre></div><p><code>myLib</code>的类型描述就可以这样写。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">namespace</span> myLib {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">function</span> makeGreeting(s:<span style="color:#458;font-weight:bold">string</span>)<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">let</span> numberOfGreetings: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>declare 关键字的另一个用途，是为外部模块添加属性和方法时，给出新增部分的类型描述。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> { Foo <span style="color:#000;font-weight:bold">as</span> Bar } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;moduleA&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;moduleA&#39;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">interface</span> Bar <span style="color:#000;font-weight:bold">extends</span> Foo {
+</span></span><span style="display:flex;"><span>    custom<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      prop1: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，从模块<code>moduleA</code>导入了<code>Foo</code>接口，将其重命名为<code>Bar</code>，并用 declare 关键字为<code>Bar</code>增加一个属性<code>custom</code>。</p>
+<p>下面是另一个例子。一个项目有多个模块，可以在一个模块中，对另一个模块的接口进行类型扩展。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// a.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> A {
+</span></span><span style="display:flex;"><span>  x: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// b.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">import</span> { A } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#39;./a&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;./a&#39;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">interface</span> A {
+</span></span><span style="display:flex;"><span>    y: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> a:<span style="color:#458;font-weight:bold">A</span> <span style="color:#000;font-weight:bold">=</span> { x: <span style="color:#458;font-weight:bold">0</span>, y: <span style="color:#458;font-weight:bold">0</span> };
+</span></span></code></pre></div><p>上面示例中，脚本<code>a.ts</code>定义了一个接口<code>A</code>，脚本<code>b.ts</code>为这个接口添加了属性<code>y</code>。<code>declare module './a' {}</code>表示对<code>a.ts</code>里面的模块，进行类型声明，而同名 interface 会自动合并，所以等同于扩展类型。</p>
+<p>使用这种语法进行模块的类型扩展时，有两点需要注意：</p>
+<p>（1）<code>declare module NAME</code>语法里面的模块名<code>NAME</code>，跟 import 和 export 的模块名规则是一样的，且必须跟当前文件加载该模块的语句写法（上例<code>import { A } from './a'</code>）保持一致。</p>
+<p>（2）不能创建新的顶层类型。也就是说，只能对<code>a.ts</code>模块中已经存在的类型进行扩展，不允许增加新的顶层类型，比如新定义一个接口<code>B</code>。</p>
+<p>（3）不能对默认的<code>default</code>接口进行扩展，只能对 export 命令输出的命名接口进行扩充。这是因为在进行类型扩展时，需要依赖输出的接口名。</p>
+<p>某些第三方模块，原始作者没有提供接口类型，这时可以在自己的脚本顶部加上下面一行命令。</p>
+<pre tabindex="0"><code>declare module &#34;模块名&#34;;
+
+// 例子
+declare module &#34;hot-new-module&#34;;
+</code></pre><p>加上上面的命令以后，外部模块即使没有类型声明，也可以通过编译。但是，从该模块输入的所有接口都将为<code>any</code>类型。</p>
+<p>declare module 描述的模块名可以使用通配符。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;my-plugin-*&#39;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">interface</span> PluginOptions {
+</span></span><span style="display:flex;"><span>    enabled: <span style="color:#458;font-weight:bold">boolean</span>;
+</span></span><span style="display:flex;"><span>    priority: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">function</span> initialize(options: <span style="color:#458;font-weight:bold">PluginOptions</span>)<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">=</span> initialize;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，模块名<code>my-plugin-*</code>表示适配所有以<code>my-plugin-</code>开头的模块名（比如<code>my-plugin-logger</code>）。</p>
+<h2 id="declare-global">declare global</h2>
+<p>如果要为 JavaScript 引擎的原生对象添加属性和方法，可以使用<code>declare global {}</code>语法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> {};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">global</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">interface</span> <span style="color:#0086b3">String</span> {
+</span></span><span style="display:flex;"><span>    toSmallString()<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0086b3">String</span>.prototype.toSmallString <span style="color:#000;font-weight:bold">=</span> ()<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">string</span> <span style="color:#000;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// 具体实现
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">return</span> <span style="color:#d14">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，为 JavaScript 原生的<code>String</code>对象添加了<code>toSmallString()</code>方法。declare global 给出这个新增方法的类型描述。</p>
+<p>这个示例第一行的空导出语句<code>export {}</code>，作用是强制编译器将这个脚本当作模块处理。这是因为<code>declare global</code>必须用在模块里面。</p>
+<p>下面的示例是为 window 对象添加一个属性<code>myAppConfig</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> {};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">global</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">interface</span> <span style="color:#0086b3">window</span> {
+</span></span><span style="display:flex;"><span>    myAppConfig:<span style="color:#458;font-weight:bold">object</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> config <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">window</span>.myAppConfig;
+</span></span></code></pre></div><p>declare global 只能扩充现有对象的类型描述，不能增加新的顶层类型。</p>
+<h2 id="declare-enum">declare enum</h2>
+<p>declare 关键字给出 enum 类型描述的例子如下，下面的写法都是允许的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">enum</span> E1 {
+</span></span><span style="display:flex;"><span>  A,
+</span></span><span style="display:flex;"><span>  B,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">enum</span> E2 {
+</span></span><span style="display:flex;"><span>  A <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>  B <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">const</span> <span style="color:#000;font-weight:bold">enum</span> E3 {
+</span></span><span style="display:flex;"><span>  A,
+</span></span><span style="display:flex;"><span>  B,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">const</span> <span style="color:#000;font-weight:bold">enum</span> E4 {
+</span></span><span style="display:flex;"><span>  A <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>,
+</span></span><span style="display:flex;"><span>  B <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="declare-module-用于类型声明文件">declare module 用于类型声明文件</h2>
+<p>我们可以为每个模块脚本，定义一个<code>.d.ts</code>文件，把该脚本用到的类型定义都放在这个文件里面。但是，更方便的做法是为整个项目，定义一个大的<code>.d.ts</code>文件，在这个文件里面使用<code>declare module</code>定义每个模块脚本的类型。</p>
+<p>下面的示例是<code>node.d.ts</code>文件的一部分。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#34;url&#34;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Url {
+</span></span><span style="display:flex;"><span>    protocol?: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>    hostname?: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>    pathname?: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">function</span> parse(
+</span></span><span style="display:flex;"><span>    urlStr: <span style="color:#458;font-weight:bold">string</span>,
+</span></span><span style="display:flex;"><span>    parseQueryString<span style="color:#000;font-weight:bold">?</span>,
+</span></span><span style="display:flex;"><span>    slashesDenoteHost<span style="color:#000;font-weight:bold">?</span>
+</span></span><span style="display:flex;"><span>  )<span style="color:#000;font-weight:bold">:</span> Url;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#34;path&#34;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">function</span> normalize(p: <span style="color:#458;font-weight:bold">string</span>)<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">function</span> join(...paths: <span style="color:#458;font-weight:bold">any</span>[])<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">var</span> sep: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，<code>url</code>和<code>path</code>都是单独的模块脚本，但是它们的类型都定义在<code>node.d.ts</code>这个文件里面。</p>
+<p>使用时，自己的脚本使用三斜杠命令，加载这个类型声明文件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference path=&#34;node.d.ts&#34;/&gt;
+</span></span></span></code></pre></div><p>如果没有上面这一行命令，自己的脚本使用外部模块时，就需要在脚本里面使用 declare 命令单独给出外部模块的类型。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/">http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/ts/Typescript-%E6%A8%A1%E5%9D%97/">Typescript 模块</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/">Typescript 类型断言</a></li>
+        
+        <li><a href="/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/">Typescript Enum类型</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/">Typescript 泛型</a></li>
+        
+        <li><a href="/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/">Typescript Class类型</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

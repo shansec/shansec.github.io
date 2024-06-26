@@ -81,6 +81,136 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" target="_blank">Typescript 数组类型</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-22T03:31:20Z" class="post-meta meta-date dt-published">
+    2024-06-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            JavaScript 数组在 TypeScript 里面分成两种类型，分别是数组（array）和元组（tuple）。 简介 TypeScript 数组有一个根本特征：所有成员的类型必须相同，但是成员数量是不确定的，可以是无限数量的成员，也可以是零成员。 数组的类型有两种写法。第一种写法是在数组成员的类型后面，加上一对方括号。 let arr:number[] = [1, 2, 3]; 上面示例中……
+            <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" target="_blank">Typescript 类型系统</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-22T03:16:19Z" class="post-meta meta-date dt-published">
+    2024-06-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            TypeScript 继承了 JavaScript 的类型，在这个基础上，定义了一套自己的类型系统。 基本类型 概述 JavaScript 语言（注意，不是 TypeScript）将值分成8种类型。 boolean string number bigint symbol object undefined null TypeScript 继承了 JavaScript 的类型设计，以上8种类型可以看作 TypeScript 的基本类型。 注意，上面所有类型的名称都是小写字母，首字母大写的Number、String、B……
+            <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" target="_blank">Typescript Any类型和unknown类型和never类型</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-22T02:39:28Z" class="post-meta meta-date dt-published">
+    2024-06-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            any 类型，unknown 类型，never 类型 本章介绍 TypeScript 的三种特殊类型，它们可以作为学习 TypeScript 类型系统的起点。 any 类型 基本含义 any 类型表示没有任何限制，该类型的变量可以赋予任意类型的值。 let x:any; x = 1; // 正确 x = &#39;foo&#39;; // 正确 x = true; // 正确 上面示例中，变量x的类型是any，就可以被赋值为任意类型的值。 变量……
+            <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" target="_blank">Typescript 基本用法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-22T02:25:32Z" class="post-meta meta-date dt-published">
+    2024-06-22
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            类型声明 TypeScript 代码最明显的特征，就是为 JavaScript 变量加上了类型声明。 let foo:string; 上面示例中，变量foo的后面使用冒号，声明了它的类型为string。 类型声明的写法，一律为在标识符后面添加“冒号 + 类型”。函数参数和返回值，也是这样来声明类型。 function toString(num:number):string { return String(num); } 上面示例中，函数toString()的参数num……
+            <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">运算符的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:18:40Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            本章介绍 ES6 后续标准添加的一些运算符。 指数运算符 ES2016 新增了一个指数运算符（**）。 2 ** 2 // 4 2 ** 3 // 8 这个运算符的一个特点是右结合，而不是常见的左结合。多个指数运算符连用时，是从最右边开始计算的。 // 相当于 2 ** (3 ** 2) 2 ** 3 ** 2 // 512 上面代码中，首先计算的是第二个指数运算符，而不是第一个。……
+            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_blank">装饰器</a>
             </h1>
         </header>
@@ -208,136 +338,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">对象的新增方法</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T02:07:59Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            本章介绍 Object 对象的新增方法。 Object.is() ES5 比较两个值是否相等，只有两个运算符：相等运算符（==）和严格相等运算符（===）。它们都有缺点，前者会自动转换数据类型，后者的NaN不等于自身，以及+0等于-0。JavaScript 缺乏一种运算，在所有环境中，只要两个值是一样的，它们就应该相等。 ES6 提……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">对象的扩展</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T02:05:20Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            对象（object）是 JavaScript 最重要的数据结构。ES6 对它进行了重大升级，本章介绍数据结构本身的改变，下一章介绍Object对象的新增方法。 属性的简洁表示法 ES6 允许在大括号里面，直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。 const foo = &#39;bar&#39;; const baz = {foo}; baz // {foo: &#34;bar&#34;} // 等同于 const baz = {foo: foo}; 上面代……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">字符串的新增方法</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T02:01:37Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            本章介绍字符串对象的新增方法。 String.fromCodePoint() ES5 提供String.fromCharCode()方法，用于从 Unicode 码点返回对应字符，但是这个方法不能识别码点大于0xFFFF的字符。 String.fromCharCode(0x20BB7) // &#34;ஷ&#34; 上面代码中，String.fromCharCode()不能识别大于0xFFFF的码点，所以0x……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">字符串的扩展</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T01:58:44Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            本章介绍 ES6 对字符串的改造和增强，下一章介绍字符串对象的新增方法。 字符的 Unicode 表示法 ES6 加强了对 Unicode 的支持，允许采用\uxxxx形式表示一个字符，其中xxxx表示字符的 Unicode 码点。 &#34;\u0061&#34; // &#34;a&#34; 但是，这种表示法只限于码点在\u0000~\uFFFF之间的字符。超出这个范围的字符，必须用两个双字节的形式……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" target="_blank">变量解构赋值</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T01:55:21Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            变量的解构赋值 数组的解构赋值 基本用法 ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。 以前，为变量赋值，只能直接指定值。 let a = 1; let b = 2; let c = 3; ES6 允许写成下面这样。 let [a, b, c] = [1, 2, 3]; 上面代码表示，可以从数组中提取值，按照对应位置，……
-            <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%8F%98%E9%87%8F%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -440,6 +440,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
     </li>
     
@@ -459,26 +479,6 @@
         <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -490,7 +490,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (61)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
     
 </ul>
     </section>

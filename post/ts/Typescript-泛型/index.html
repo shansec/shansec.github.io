@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Typescript 泛型 | 未来可期的博客</title>
+    <meta property="og:title" content="Typescript 泛型 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-06-26T09:37:16&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-06-26T09:37:16&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Typescript 泛型">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#泛型的写法">泛型的写法</a>
+      <ul>
+        <li><a href="#函数的泛型写法">函数的泛型写法</a></li>
+        <li><a href="#接口的泛型写法">接口的泛型写法</a></li>
+        <li><a href="#类的泛型写法">类的泛型写法</a></li>
+        <li><a href="#类型别名的泛型写法">类型别名的泛型写法</a></li>
+      </ul>
+    </li>
+    <li><a href="#泛型类型参数的默认值">泛型类型参数的默认值</a></li>
+    <li><a href="#数组的泛型表示">数组的泛型表示</a></li>
+    <li><a href="#类型参数的约束条件">类型参数的约束条件</a></li>
+    <li><a href="#使用注意点">使用注意点</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Typescript 泛型</h1>
+        </header>
+        
+  <time datetime="2024-06-26T01:37:16Z" class="post-meta meta-date dt-published">
+    2024-06-26
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="简介">简介</h2>
+<p>有些时候，函数返回值的类型与参数类型是相关的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> getFirst(arr) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，函数<code>getFirst()</code>总是返回参数数组的第一个成员。参数数组是什么类型，返回值就是什么类型。</p>
+<p>这个函数的类型声明只能写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> f(arr:<span style="color:#458;font-weight:bold">any</span>[])<span style="color:#000;font-weight:bold">:</span><span style="color:#458;font-weight:bold">any</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面的类型声明，就反映不出参数与返回值之间的类型关系。</p>
+<p>为了解决这个问题，TypeScript 就引入了“泛型”（generics）。泛型的特点就是带有“类型参数”（type parameter）。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> getFirst&lt;<span style="color:#000080">T</span>&gt;(arr:<span style="color:#458;font-weight:bold">T</span>[])<span style="color:#000;font-weight:bold">:</span>T {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，函数<code>getFirst()</code>的函数名后面尖括号的部分<code>&lt;T&gt;</code>，就是类型参数，参数要放在一对尖括号（<code>&lt;&gt;</code>）里面。本例只有一个类型参数<code>T</code>，可以将其理解为类型声明需要的变量，需要在调用时传入具体的参数类型。</p>
+<p>上例的函数<code>getFirst()</code>的参数类型是<code>T[]</code>，返回值类型是<code>T</code>，就清楚地表示了两者之间的关系。比如，输入的参数类型是<code>number[]</code>，那么 T 的值就是<code>number</code>，因此返回值类型也是<code>number</code>。</p>
+<p>函数调用时，需要提供类型参数。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>getFirst&lt;<span style="color:#000080">number</span>&gt;([<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>])
+</span></span></code></pre></div><p>上面示例中，调用函数<code>getFirst()</code>时，需要在函数名后面使用尖括号，给出类型参数<code>T</code>的值，本例是<code>&lt;number&gt;</code>。</p>
+<p>不过为了方便，函数调用时，往往省略不写类型参数的值，让 TypeScript 自己推断。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>getFirst([<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>])
+</span></span></code></pre></div><p>上面示例中，TypeScript 会从实际参数<code>[1, 2, 3]</code>，推断出类型参数 T 的值为<code>number</code>。</p>
+<p>有些复杂的使用场景，TypeScript 可能推断不出类型参数的值，这时就必须显式给出了。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> comb&lt;<span style="color:#000080">T</span>&gt;(arr1:<span style="color:#458;font-weight:bold">T</span>[], arr2:<span style="color:#458;font-weight:bold">T</span>[])<span style="color:#000;font-weight:bold">:</span>T[] {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr1.concat(arr2);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，两个参数<code>arr1</code>、<code>arr2</code>和返回值都是同一个类型。如果不给出类型参数的值，下面的调用会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>comb([<span style="color:#099">1</span>, <span style="color:#099">2</span>], [<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>]) <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例会报错，TypeScript 认为两个参数不是同一个类型。但是，如果类型参数是一个联合类型，就不会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>comb&lt;<span style="color:#000080">number</span><span style="color:#a61717;background-color:#e3d2d2">|</span><span style="color:#008080">string</span>&gt;([<span style="color:#099">1</span>, <span style="color:#099">2</span>], [<span style="color:#d14">&#39;a&#39;</span>, <span style="color:#d14">&#39;b&#39;</span>]) <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面示例中，类型参数是一个联合类型，使得两个参数都符合类型参数，就不报错了。这种情况下，类型参数是不能省略不写的。</p>
+<p>类型参数的名字，可以随便取，但是必须为合法的标识符。习惯上，类型参数的第一个字符往往采用大写字母。一般会使用<code>T</code>（type 的第一个字母）作为类型参数的名字。如果有多个类型参数，则使用 T 后面的 U、V 等字母命名，各个参数之间使用逗号（“,”）分隔。</p>
+<p>下面是多个类型参数的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> map&lt;<span style="color:#000080">T</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">U</span>&gt;(
+</span></span><span style="display:flex;"><span>  arr:<span style="color:#458;font-weight:bold">T</span>[],
+</span></span><span style="display:flex;"><span>  f<span style="color:#000;font-weight:bold">:</span>(arg:<span style="color:#458;font-weight:bold">T</span>) <span style="color:#000;font-weight:bold">=&gt;</span> U
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span>U[] {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr.map(f);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 用法实例
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>map&lt;<span style="color:#000080">string</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">number</span>&gt;(
+</span></span><span style="display:flex;"><span>  [<span style="color:#d14">&#39;1&#39;</span>, <span style="color:#d14">&#39;2&#39;</span>, <span style="color:#d14">&#39;3&#39;</span>],
+</span></span><span style="display:flex;"><span>  (n) <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#0086b3">parseInt</span>(n)
+</span></span><span style="display:flex;"><span>); <span style="color:#998;font-style:italic">// 返回 [1, 2, 3]
+</span></span></span></code></pre></div><p>上面示例将数组的实例方法<code>map()</code>改写成全局函数，它有两个类型参数<code>T</code>和<code>U</code>。含义是，原始数组的类型为<code>T[]</code>，对该数组的每个成员执行一个处理函数<code>f</code>，将类型<code>T</code>转成类型<code>U</code>，那么就会得到一个类型为<code>U[]</code>的数组。</p>
+<p>总之，泛型可以理解成一段类型逻辑，需要类型参数来表达。有了类型参数以后，可以在输入类型与输出类型之间，建立一一对应关系。</p>
+<h2 id="泛型的写法">泛型的写法</h2>
+<p><strong>泛型主要用在四个场合：函数、接口、类和别名。</strong></p>
+<h3 id="函数的泛型写法">函数的泛型写法</h3>
+<p>上一节提到，<code>function</code>关键字定义的泛型函数，类型参数放在尖括号中，写在函数名后面。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> id&lt;<span style="color:#000080">T</span>&gt;(arg:<span style="color:#458;font-weight:bold">T</span>)<span style="color:#000;font-weight:bold">:</span>T {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arg;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>那么对于变量形式定义的函数，泛型有下面两种写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法一
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> myId<span style="color:#000;font-weight:bold">:</span>&lt;<span style="color:#000080">T</span>&gt;(arg:<span style="color:#458;font-weight:bold">T</span>) <span style="color:#000;font-weight:bold">=&gt;</span> T <span style="color:#000;font-weight:bold">=</span> id;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法二
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> myId<span style="color:#000;font-weight:bold">:</span>{ &lt;<span style="color:#000080">T</span>&gt;(arg:<span style="color:#458;font-weight:bold">T</span>)<span style="color:#000;font-weight:bold">:</span> T } <span style="color:#000;font-weight:bold">=</span> id;
+</span></span></code></pre></div><h3 id="接口的泛型写法">接口的泛型写法</h3>
+<p>interface 也可以采用泛型的写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">interface</span> Box&lt;<span style="color:#000080">Type</span>&gt; {
+</span></span><span style="display:flex;"><span>  contents: <span style="color:#458;font-weight:bold">Type</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> box:<span style="color:#458;font-weight:bold">Box</span>&lt;<span style="color:#000080">string</span>&gt;;
+</span></span></code></pre></div><p>上面示例中，使用泛型接口时，需要给出类型参数的值（本例是<code>string</code>）。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">interface</span> Comparator&lt;<span style="color:#000080">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  compareTo(value:<span style="color:#458;font-weight:bold">T</span>)<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> Rectangle <span style="color:#000;font-weight:bold">implements</span> Comparator&lt;<span style="color:#000080">Rectangle</span>&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  compareTo(value:<span style="color:#458;font-weight:bold">Rectangle</span>)<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">number</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，先定义了一个泛型接口，然后将这个接口用于一个类。</p>
+<p>泛型接口还有第二种写法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">interface</span> Fn {
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#000080">Type</span>&gt;(arg:<span style="color:#458;font-weight:bold">Type</span>)<span style="color:#000;font-weight:bold">:</span> Type;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> id&lt;<span style="color:#000080">Type</span>&gt;(arg:<span style="color:#458;font-weight:bold">Type</span>)<span style="color:#000;font-weight:bold">:</span> Type {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arg;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> myId:<span style="color:#458;font-weight:bold">Fn</span> <span style="color:#000;font-weight:bold">=</span> id;
+</span></span></code></pre></div><p>上面示例中，<code>Fn</code>的类型参数<code>Type</code>的具体类型，需要函数<code>id</code>在使用时提供。所以，最后一行的赋值语句不需要给出<code>Type</code>的具体类型。</p>
+<p>此外，第二种写法还有一个差异之处。那就是它的类型参数定义在某个方法之中，其他属性和方法不能使用该类型参数。前面的第一种写法，类型参数定义在整个接口，接口内部的所有属性和方法都可以使用该类型参数。</p>
+<h3 id="类的泛型写法">类的泛型写法</h3>
+<p>泛型类的类型参数写在类名后面。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> Pair&lt;<span style="color:#000080">K</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">V</span>&gt; {
+</span></span><span style="display:flex;"><span>  key: <span style="color:#458;font-weight:bold">K</span>;
+</span></span><span style="display:flex;"><span>  value: <span style="color:#458;font-weight:bold">V</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>下面是继承泛型类的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> A&lt;<span style="color:#000080">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  value: <span style="color:#458;font-weight:bold">T</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> B <span style="color:#000;font-weight:bold">extends</span> A&lt;<span style="color:#000080">any</span>&gt; {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，类<code>A</code>有一个类型参数<code>T</code>，使用时必须给出<code>T</code>的类型，所以类<code>B</code>继承时要写成<code>A&lt;any&gt;</code>。</p>
+<p>泛型也可以用在类表达式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> Container <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">class</span>&lt;<span style="color:#000080">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">constructor</span>(<span style="color:#000;font-weight:bold">private</span> <span style="color:#000;font-weight:bold">readonly</span> data:<span style="color:#458;font-weight:bold">T</span>) {}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Container&lt;<span style="color:#000080">boolean</span>&gt;(<span style="color:#000;font-weight:bold">true</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> b <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Container&lt;<span style="color:#000080">number</span>&gt;(<span style="color:#099">0</span>);
+</span></span></code></pre></div><p>上面示例中，新建实例时，需要同时给出类型参数<code>T</code>和类参数<code>data</code>的值。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> C&lt;<span style="color:#000080">NumType</span>&gt; {
+</span></span><span style="display:flex;"><span>  value<span style="color:#000;font-weight:bold">!:</span> NumType;
+</span></span><span style="display:flex;"><span>  add<span style="color:#000;font-weight:bold">!:</span> (x: <span style="color:#458;font-weight:bold">NumType</span>, y: <span style="color:#458;font-weight:bold">NumType</span>) <span style="color:#000;font-weight:bold">=&gt;</span> NumType;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> foo <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> C&lt;<span style="color:#000080">number</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>foo.value <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>foo.add <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">function</span> (x, y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> x <span style="color:#000;font-weight:bold">+</span> y;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，先新建类<code>C</code>的实例<code>foo</code>，然后再定义实例的<code>value</code>属性和<code>add()</code>方法。类的定义中，属性和方法后面的感叹号是非空断言，告诉 TypeScript 它们都是非空的，后面会赋值。</p>
+<p>JavaScript 的类本质上是一个构造函数，因此也可以把泛型类写成构造函数。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> MyClass&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> (...args: <span style="color:#458;font-weight:bold">any</span>[]) <span style="color:#000;font-weight:bold">=&gt;</span> T;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 或者
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">interface</span> MyClass&lt;<span style="color:#000080">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">new</span>(...args: <span style="color:#458;font-weight:bold">any</span>[])<span style="color:#000;font-weight:bold">:</span> T;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 用法实例
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">function</span> createInstance&lt;<span style="color:#000080">T</span>&gt;(
+</span></span><span style="display:flex;"><span>  AnyClass: <span style="color:#458;font-weight:bold">MyClass</span>&lt;<span style="color:#000080">T</span>&gt;,
+</span></span><span style="display:flex;"><span>  ...args: <span style="color:#458;font-weight:bold">any</span>[]
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span>T {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">new</span> AnyClass(...args);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，函数<code>createInstance()</code>的第一个参数<code>AnyClass</code>是构造函数（也可以是一个类），它的类型是<code>MyClass&lt;T&gt;</code>，这里的<code>T</code>是<code>createInstance()</code>的类型参数，在该函数调用时再指定具体类型。</p>
+<p><strong>注意，泛型类描述的是类的实例，不包括静态属性和静态方法，因为这两者定义在类的本身。因此，它们不能引用类型参数。</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> C&lt;<span style="color:#000080">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">static</span> data: <span style="color:#458;font-weight:bold">T</span>;  <span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>  <span style="color:#000;font-weight:bold">constructor</span>(<span style="color:#000;font-weight:bold">public</span> value:<span style="color:#458;font-weight:bold">T</span>) {}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，静态属性<code>data</code>引用了类型参数<code>T</code>，这是不可以的，因为类型参数只能用于实例属性和实例方法，所以报错了。</p>
+<h3 id="类型别名的泛型写法">类型别名的泛型写法</h3>
+<p>type 命令定义的类型别名，也可以使用泛型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Nullable&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> T <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">undefined</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span></code></pre></div><p>上面示例中，<code>Nullable&lt;T&gt;</code>是一个泛型，只要传入一个类型，就可以得到这个类型与<code>undefined</code>和<code>null</code>的一个联合类型。</p>
+<p>下面是另一个例子。</p>
+<pre tabindex="0"><code>type Container&lt;T&gt; = { value: T };
+
+const a: Container&lt;number&gt; = { value: 0 };
+const b: Container&lt;string&gt; = { value: &#39;b&#39; };
+</code></pre><p>下面是定义树形结构的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Tree&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  value: <span style="color:#458;font-weight:bold">T</span>;
+</span></span><span style="display:flex;"><span>  left: <span style="color:#458;font-weight:bold">Tree</span>&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>  right: <span style="color:#458;font-weight:bold">Tree</span>&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">|</span> <span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，类型别名<code>Tree</code>内部递归引用了<code>Tree</code>自身。</p>
+<h2 id="泛型类型参数的默认值">泛型类型参数的默认值</h2>
+<p>类型参数可以设置默认值。使用时，如果没有给出类型参数的值，就会使用默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> getFirst&lt;<span style="color:#000080">T</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#008080">string</span>&gt;(
+</span></span><span style="display:flex;"><span>  arr:<span style="color:#458;font-weight:bold">T</span>[]
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span>T {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr[<span style="color:#099">0</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，<code>T = string</code>表示类型参数的默认值是<code>string</code>。调用<code>getFirst()</code>时，如果不给出<code>T</code>的值，TypeScript 就认为<code>T</code>等于<code>string</code>。</p>
+<p>但是，因为 TypeScript 会从实际参数推断出<code>T</code>的值，从而覆盖掉默认值，所以下面的代码不会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>getFirst([<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>]) <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面示例中，实际参数是<code>[1, 2, 3]</code>，TypeScript 推断 T 等于<code>number</code>，从而覆盖掉默认值<code>string</code>。</p>
+<p>类型参数的默认值，往往用在类中。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> Generic&lt;<span style="color:#000080">T</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#008080">string</span>&gt; {
+</span></span><span style="display:flex;"><span>  list:<span style="color:#458;font-weight:bold">T</span>[] <span style="color:#000;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  add(t:<span style="color:#458;font-weight:bold">T</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">this</span>.list.push(t)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，类<code>Generic</code>有一个类型参数<code>T</code>，默认值为<code>string</code>。这意味着，属性<code>list</code>默认是一个字符串数组，方法<code>add()</code>的默认参数是一个字符串。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> g <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Generic();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>g.add(<span style="color:#099">4</span>) <span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>g.add(<span style="color:#d14">&#39;hello&#39;</span>) <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面示例中，新建<code>Generic</code>的实例<code>g</code>时，没有给出类型参数<code>T</code>的值，所以<code>T</code>就等于<code>string</code>。因此，向<code>add()</code>方法传入一个数值会报错，传入字符串就不会。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> g <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> Generic&lt;<span style="color:#000080">number</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>g.add(<span style="color:#099">4</span>) <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>g.add(<span style="color:#d14">&#39;hello&#39;</span>) <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，新建实例<code>g</code>时，给出了类型参数<code>T</code>的值是<code>number</code>，因此<code>add()</code>方法传入数值不会报错，传入字符串会报错。</p>
+<p>一旦类型参数有默认值，就表示它是可选参数。如果有多个类型参数，可选参数必须在必选参数之后。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>&lt;<span style="color:#000080">T</span> <span style="color:#a61717;background-color:#e3d2d2">=</span> <span style="color:#008080">boolean</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">U</span>&gt; <span style="color:#998;font-style:italic">// 错误
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#000080">T</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">U </span><span style="color:#000;font-weight:bold">=</span> <span style="color:#008080">boolean</span>&gt; <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>上面示例中，依次有两个类型参数<code>T</code>和<code>U</code>。如果<code>T</code>是可选参数，<code>U</code>不是，就会报错。</p>
+<h2 id="数组的泛型表示">数组的泛型表示</h2>
+<p>《数组》一章提到过，数组类型有一种表示方法是<code>Array&lt;T&gt;</code>。这就是泛型的写法，<code>Array</code>是 TypeScript 原生的一个类型接口，<code>T</code>是它的类型参数。声明数组时，需要提供<code>T</code>的值。</p>
+<pre tabindex="0"><code>let arr:Array&lt;number&gt; = [1, 2, 3];
+</code></pre><p>上面的示例中，<code>Array&lt;number&gt;</code>就是一个泛型，类型参数的值是<code>number</code>，表示该数组的全部成员都是数值。</p>
+<p>同样的，如果数组成员都是字符串，那么类型就写成<code>Array&lt;string&gt;</code>。事实上，在 TypeScript 内部，数组类型的另一种写法<code>number[]</code>、<code>string[]</code>，只是<code>Array&lt;number&gt;</code>、<code>Array&lt;string&gt;</code>的简写形式。</p>
+<p>在 TypeScript 内部，<code>Array</code>是一个泛型接口，类型定义基本是下面的样子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">interface</span> <span style="color:#0086b3">Array</span>&lt;<span style="color:#000080">Type</span>&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  length: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  pop()<span style="color:#000;font-weight:bold">:</span> Type<span style="color:#000;font-weight:bold">|</span><span style="color:#000;font-weight:bold">undefined</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  push(...items:<span style="color:#458;font-weight:bold">Type</span>[])<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><p>上面代码中，<code>push()</code>方法的参数<code>item</code>的类型是<code>Type[]</code>，跟<code>Array()</code>的参数类型<code>Type</code>保持一致，表示只能添加同类型的成员。调用<code>push()</code>的时候，TypeScript 就会检查两者是否一致。</p>
+<p>其他的 TypeScript 内部数据结构，比如<code>Map</code>、<code>Set</code>和<code>Promise</code>，其实也是泛型接口，完整的写法是<code>Map&lt;K, V&gt;</code>、<code>Set&lt;T&gt;</code>和<code>Promise&lt;T&gt;</code>。</p>
+<p>TypeScript 默认还提供一个<code>ReadonlyArray&lt;T&gt;</code>接口，表示只读数组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> doStuff(
+</span></span><span style="display:flex;"><span>  values:<span style="color:#458;font-weight:bold">ReadonlyArray</span>&lt;<span style="color:#000080">string</span>&gt;
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  values.push(<span style="color:#d14">&#39;hello!&#39;</span>);  <span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><p>上面示例中，参数<code>values</code>的类型是<code>ReadonlyArray&lt;string&gt;</code>，表示不能修改这个数组，所以函数体内部新增数组成员就会报错。因此，如果不希望函数内部改动参数数组，就可以将该参数数组声明为<code>ReadonlyArray&lt;T&gt;</code>类型。</p>
+<h2 id="类型参数的约束条件">类型参数的约束条件</h2>
+<p>很多类型参数并不是无限制的，对于传入的类型存在约束条件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> comp&lt;<span style="color:#000080">Type</span>&gt;(a:<span style="color:#458;font-weight:bold">Type</span>, b:<span style="color:#458;font-weight:bold">Type</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">if</span> (a.length <span style="color:#000;font-weight:bold">&gt;=</span> b.length) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> a;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> b;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，类型参数 Type 有一个隐藏的约束条件：它必须存在<code>length</code>属性。如果不满足这个条件，就会报错。</p>
+<p>TypeScript 提供了一种语法，允许在类型参数上面写明约束条件，如果不满足条件，编译时就会报错。这样也可以有良好的语义，对类型参数进行说明。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> comp&lt;<span style="color:#000080">T</span> <span style="color:#008080">extends</span> { <span style="color:#008080">length</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#008080">number</span> }&gt;(
+</span></span><span style="display:flex;"><span>  a: <span style="color:#458;font-weight:bold">T</span>,
+</span></span><span style="display:flex;"><span>  b: <span style="color:#458;font-weight:bold">T</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">if</span> (a.length <span style="color:#000;font-weight:bold">&gt;=</span> b.length) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">return</span> a;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> b;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，<code>T extends { length: number }</code>就是约束条件，表示类型参数 T 必须满足<code>{ length: number }</code>，否则就会报错。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>comp([<span style="color:#099">1</span>, <span style="color:#099">2</span>], [<span style="color:#099">1</span>, <span style="color:#099">2</span>, <span style="color:#099">3</span>]) <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>comp(<span style="color:#d14">&#39;ab&#39;</span>, <span style="color:#d14">&#39;abc&#39;</span>) <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>comp(<span style="color:#099">1</span>, <span style="color:#099">2</span>) <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，只要传入的参数类型不满足约束条件，就会报错。</p>
+<p>类型参数的约束条件采用下面的形式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>&lt;<span style="color:#000080">TypeParameter</span> <span style="color:#008080">extends</span> <span style="color:#008080">ConstraintType</span>&gt;
+</span></span></code></pre></div><p>上面语法中，<code>TypeParameter</code>表示类型参数，<code>extends</code>是关键字，这是必须的，<code>ConstraintType</code>表示类型参数要满足的条件，即类型参数应该是<code>ConstraintType</code>的子类型。</p>
+<p>类型参数可以同时设置约束条件和默认值，前提是默认值必须满足约束条件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Fn&lt;<span style="color:#000080">A</span> <span style="color:#008080">extends</span> <span style="color:#008080">string</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">B</span> <span style="color:#008080">extends</span> <span style="color:#008080">string </span><span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;world&#39;</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">=</span>  [A, B];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Result <span style="color:#000;font-weight:bold">=</span> Fn<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#d14">&#39;hello&#39;</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#998;font-style:italic">// [&#34;hello&#34;, &#34;world&#34;]
+</span></span></span></code></pre></div><p>上面示例中，类型参数<code>A</code>和<code>B</code>都有约束条件，并且<code>B</code>还有默认值。所以，调用<code>Fn</code>的时候，可以只给出<code>A</code>的值，不给出<code>B</code>的值。</p>
+<p>另外，上例也可以看出，泛型本质上是一个类型函数，通过输入参数，获得结果，两者是一一对应关系。</p>
+<p>如果有多个类型参数，一个类型参数的约束条件，可以引用其他参数。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>&lt;<span style="color:#000080">T</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">U</span> <span style="color:#008080">extends</span> <span style="color:#008080">T</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 或者
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;<span style="color:#000080">T</span> <span style="color:#008080">extends</span> <span style="color:#008080">U</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">U</span>&gt;
+</span></span></code></pre></div><p>上面示例中，<code>U</code>的约束条件引用<code>T</code>，或者<code>T</code>的约束条件引用<code>U</code>，都是正确的。</p>
+<p>但是，约束条件不能引用类型参数自身。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>&lt;<span style="color:#000080">T</span> <span style="color:#008080">extends</span> <span style="color:#008080">T</span>&gt;               <span style="color:#998;font-style:italic">// 报错
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>&lt;<span style="color:#000080">T</span> <span style="color:#008080">extends</span> <span style="color:#008080">U</span><span style="color:#a61717;background-color:#e3d2d2">,</span> <span style="color:#008080">U</span> <span style="color:#008080">extends</span> <span style="color:#008080">T</span>&gt;  <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例中，<code>T</code>的约束条件不能是<code>T</code>自身。同理，多个类型参数也不能互相约束（即<code>T</code>的约束条件是<code>U</code>、<code>U</code>的约束条件是<code>T</code>），因为互相约束就意味着约束条件就是类型参数自身。</p>
+<h2 id="使用注意点">使用注意点</h2>
+<p>泛型有一些使用注意点。</p>
+<p><strong>（1）尽量少用泛型。</strong></p>
+<p>泛型虽然灵活，但是会加大代码的复杂性，使其变得难读难写。一般来说，只要使用了泛型，类型声明通常都不太易读，容易写得很复杂。因此，可以不用泛型就不要用。</p>
+<p><strong>（2）类型参数越少越好。</strong></p>
+<p>多一个类型参数，多一道替换步骤，加大复杂性。因此，类型参数越少越好。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> filter<span style="color:#000;font-weight:bold">&lt;</span>
+</span></span><span style="display:flex;"><span>  T,
+</span></span><span style="display:flex;"><span>  Fn <span style="color:#000;font-weight:bold">extends</span> (arg:<span style="color:#458;font-weight:bold">T</span>) <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">boolean</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">&gt;</span>(
+</span></span><span style="display:flex;"><span>  arr:<span style="color:#458;font-weight:bold">T</span>[],
+</span></span><span style="display:flex;"><span>  func:<span style="color:#458;font-weight:bold">Fn</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span> T[] {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr.filter(func);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例有两个类型参数，但是第二个类型参数<code>Fn</code>是不必要的，完全可以直接写在函数参数的类型声明里面。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> filter&lt;<span style="color:#000080">T</span>&gt;(
+</span></span><span style="display:flex;"><span>  arr:<span style="color:#458;font-weight:bold">T</span>[],
+</span></span><span style="display:flex;"><span>  func<span style="color:#000;font-weight:bold">:</span>(arg:<span style="color:#458;font-weight:bold">T</span>) <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">boolean</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#000;font-weight:bold">:</span> T[] {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr.filter(func);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，类型参数简化成了一个，效果与前一个示例是一样的。</p>
+<p><strong>（3）类型参数需要出现两次。</strong></p>
+<p>如果类型参数在定义后只出现一次，那么很可能是不必要的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> greet&lt;<span style="color:#000080">Str</span> <span style="color:#008080">extends</span> <span style="color:#008080">string</span>&gt;(
+</span></span><span style="display:flex;"><span>  s:<span style="color:#458;font-weight:bold">Str</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>  console.log(<span style="color:#d14">&#39;Hello, &#39;</span> <span style="color:#000;font-weight:bold">+</span> s);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，类型参数<code>Str</code>只在函数声明中出现一次（除了它的定义部分），这往往表明这个类型参数是不必要。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> greet(s:<span style="color:#458;font-weight:bold">string</span>) {
+</span></span><span style="display:flex;"><span>  console.log(<span style="color:#d14">&#39;Hello, &#39;</span> <span style="color:#000;font-weight:bold">+</span> s);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例把前面的类型参数省略了，效果与前一个示例是一样的。</p>
+<p>也就是说，只有当类型参数用到两次或两次以上，才是泛型的适用场合。</p>
+<p><strong>（4）泛型可以嵌套。</strong></p>
+<p>类型参数可以是另一个泛型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> OrNull&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> Type<span style="color:#000;font-weight:bold">|</span><span style="color:#000;font-weight:bold">null</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> OneOrMany&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> Type<span style="color:#000;font-weight:bold">|</span>Type[];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> OneOrManyOrNull&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> OrNull&lt;<span style="color:#000080">OneOrMany</span><span style="color:#a61717;background-color:#e3d2d2">&lt;</span><span style="color:#008080">Type</span>&gt;<span style="color:#000;font-weight:bold">&gt;</span>;
+</span></span></code></pre></div><p>上面示例中，最后一行的泛型<code>OrNull</code>的类型参数，就是另一个泛型<code>OneOrMany</code>。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/">http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/">Typescript Class类型</a></li>
+        
+        <li><a href="/post/ts/Typescript-interface/">Typescript Interface</a></li>
+        
+        <li><a href="/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/">Typescript 函数类型</a></li>
+        
+        <li><a href="/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/">Typescript 对象类型</a></li>
+        
+        <li><a href="/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/">Typescript 数组类型</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

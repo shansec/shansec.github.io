@@ -74,6 +74,146 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" title="Class的基本语法" target="_blank">Class的基本语法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T01:32:20Z" class="post-meta meta-date dt-published">
+    2024-04-23
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            类的由来 JavaScript 语言中，生成实例对象的传统方法是通过构造函数。下面是一个例子。 function Point(x, y) { this.x = x; this.y = y; } Point.prototype.toString = function () { return &#39;(&#39; + this.x + &#39;, &#39; + this.y + &#39;)&#39;; }; var p = new Point(1, 2); 上面这种写法跟传统的面向对象语言（比如 C++ 和 Java）差异很大，很容易让新学习这门语言的程序员感到困惑。 ES6 提供了更接近传统语言的写法，引入了 C……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/" title="Async函数" target="_blank">Async函数</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T01:29:35Z" class="post-meta meta-date dt-published">
+    2024-04-23
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            含义 ES2017 标准引入了 async 函数，使得异步操作变得更加方便。 async 函数是什么？一句话，它就是 Generator 函数的语法糖。 前文有一个 Generator 函数，依次读取两个文件。 const fs = require(&#39;fs&#39;); const readFile = function (fileName) { return new Promise(function (resolve, reject) { fs.readFile(fileName, function(error, data) { if (error) return reject(error); resolve(data); }); }); }; const gen = function* () { const f1 = yield readFile(&#39;/etc/fstab&#39;); const f2 = yield readFile(&#39;/etc/shells&#39;); console.log(f1.toString()); console.log(f2.toString()); }; 上面代码的函数gen可以写成async函数，就是下面这样……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/async%E5%87%BD%E6%95%B0/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/ArrayBuffer/" title="ArrayBuffer" target="_blank">ArrayBuffer</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-23T01:27:20Z" class="post-meta meta-date dt-published">
+    2024-04-23
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            `ArrayBuffer` 对象、TypedArray视图和DataView视图是 JavaScript 操作二进制数据的一个接口。这些对象早就存在，属于独立的规格（2011 年 2 月发布），ES6 将它们纳入了 ECMAScript 规格，并且增加了新的方法。它们都是以数组的语法处理二进制数据，所以统称为二进制数组。 这个接口的原始设计目的，与 WebGL 项目有关……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/ArrayBuffer/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" title="部署Go语言项目" target="_blank">部署Go语言项目</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            部署Go语言项目 本文以部署 Go Web 程序为例，介绍了在 CentOS7 服务器上部署 Go 语言程序的若干方法。 独立部署 Go 语言支持跨平台交叉编译，也就是说我们可以在 Windows 或 Mac 平台下编写代码，并且将代码编译成能够在 Linux amd64 服务器上运行的程序。 对于简单的项目，通常我们只需要将编译后的二进制文件拷贝到服务器上，然后设置为……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E6%BC%8F%E6%A1%B6%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E4%BB%8B%E7%BB%8D/" title="常用限流策略——漏桶与令牌桶介绍" target="_blank">常用限流策略——漏桶与令牌桶介绍</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            限流又称为流量控制（流控），通常是指限制到达系统的并发请求数，本文列举了常见的限流策略，并以gin框架为例演示了如何为项目添加限流组件。 限流 限流又称为流量控制（流控），通常是指限制到达系统的并发请求数。 我们生活中也会经常遇到限流的场景，比如：某景区限制每日进入景区的游客数量为8万……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E9%99%90%E6%B5%81%E7%AD%96%E7%95%A5%E6%BC%8F%E6%A1%B6%E4%B8%8E%E4%BB%A4%E7%89%8C%E6%A1%B6%E4%BB%8B%E7%BB%8D/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/Web/%E5%B8%B8%E7%94%A8%E7%9A%84HTTP%E6%9C%8D%E5%8A%A1%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D/" title="常用的HTTP服务压测工具介绍" target="_blank">常用的HTTP服务压测工具介绍</a>
             </h1>
         </header>
@@ -207,146 +347,6 @@
             在项目中我们通常可能会使用database/sql连接MySQL数据库。本文借助使用sqlx实现批量插入数据的例子，介绍了sqlx中可能被你忽视了的sqlx.In和DB.NamedExec方法。 在项目中我们通常可能会使用database/sql连接MySQL数据库。sqlx可以认……
         </div>
         <p class="readmore"><a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BD%BF%E7%94%A8sqlx%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8Air%E5%AE%9E%E7%8E%B0Go%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%97%B6%E7%83%AD%E9%87%8D%E8%BD%BD/" title="使用Air实现Go程序实时热重载" target="_blank">使用Air实现Go程序实时热重载</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            为什么需要实时加载？ 之前使用Python编写Web项目的时候，常见的Flask或Django框架都是支持实时加载的，你修改了项目代码之后，程序能够自动重新加载并执行（live-reload），这在日常的开发阶段是十分方便的。 在使用Go语言的gin框架在本地做开发调试的时候，经常需……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8Air%E5%AE%9E%E7%8E%B0Go%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%97%B6%E7%83%AD%E9%87%8D%E8%BD%BD/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E6%9C%BA%E6%88%96%E9%87%8D%E5%90%AF/" title="优雅地关机" target="_blank">优雅地关机</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            优雅地关机 什么是优雅关机？ 优雅关机就是服务端关机命令发出后不是立即关机，而是等待当前还在处理的请求全部处理完毕后再退出程序，是一种对客户端友好的关机方式。而执行Ctrl+C关闭服务端时，会强制结束进程导致正在访问的请求出现问题。 如何实现优雅关机？ Go 1.8版本之后， http.Server 内置的 Shutdown() 方法就……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E6%9C%BA%E6%88%96%E9%87%8D%E5%90%AF/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/validator%E5%BA%93%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E8%8B%A5%E5%B9%B2%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" title="validator库参数校验若干实用技巧" target="_blank">validator库参数校验若干实用技巧</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            validator库参数校验若干实用技巧 在web开发中一个不可避免的环节就是对请求参数进行校验，通常我们会在代码中定义与请求参数相对应的模型（结构体），借助模型绑定快捷地解析请求中的参数，例如 gin 框架中的Bind和ShouldBind系列方法。本文就以 gin 框架的请求参数校验为例，介绍……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/validator%E5%BA%93%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E8%8B%A5%E5%B9%B2%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" title="swagger生成接口文档" target="_blank">swagger生成接口文档</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            swagger生成接口文档 swagger介绍 Swagger本质上是一种用于描述使用JSON表示的RESTful API的接口描述语言。Swagger与一组开源软件工具一起使用，以设计、构建、记录和使用RESTful Web服务。Swagger包括自动文档，代码生成和测试用例生成。 在前……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlx%E5%BA%93%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="sqlx库使用指南" target="_blank">sqlx库使用指南</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            在项目中我们通常可能会使用database/sql连接MySQL数据库。本文借助使用sqlx实现批量插入数据的例子，介绍了sqlx中可能被你忽视了的sqlx.In和DB.NamedExec方法。 sqlx介绍 在项目中我们通常可能会使用database/sql连接MySQL数据库。s……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/sqlx%E5%BA%93%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" target="_blank">Continue reading</a></p>
     </article>
     
     
@@ -495,6 +495,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
     </li>
     
@@ -514,26 +534,6 @@
         <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F/" title="Typescript 类型系统" target="_blank">Typescript 类型系统</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-any%E7%B1%BB%E5%9E%8B%E5%92%8Cunknown%E7%B1%BB%E5%9E%8B%E5%92%8Cnever%E7%B1%BB%E5%9E%8B/" title="Typescript Any类型和unknown类型和never类型" target="_blank">Typescript Any类型和unknown类型和never类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="Typescript 基本用法" target="_blank">Typescript 基本用法</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/es6/%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%89%A9%E5%B1%95/" title="运算符的扩展" target="_blank">运算符的扩展</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -545,7 +545,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (61)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
     
 </ul>
     </section>
