@@ -74,6 +74,146 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" title="装饰器" target="_blank">装饰器</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:18:24Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            [说明] Decorator 提案经历了重大的语法变化，目前处于第三阶段，定案之前不知道是否还有变化。本章现在属于草稿阶段，凡是标注“新语法”的章节，都是基于当前的语法，不过没有详细整理，只是一些原始材料；未标注“新语法”的章节基于以前的语法，是过去遗留的稿子。之所以保留以前的内容，有两个原因，一是……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E8%A3%85%E9%A5%B0%E5%99%A8/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" title="正则的扩展" target="_blank">正则的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:18:04Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            RegExp 构造函数 在 ES5 中，RegExp构造函数的参数有两种情况。 第一种情况是，参数是字符串，这时第二个参数表示正则表达式的修饰符（flag）。 var regex = new RegExp(&#39;xyz&#39;, &#39;i&#39;); // 等价于 var regex = /xyz/i; 第二种情况是，参数是一个正则表示式，这时会返回一个原有正则表达式的拷贝。 var regex = new RegExp(/xyz/i); // 等价于 var regex = /xyz/i; 但是，ES5 不允许此……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E6%AD%A3%E5%88%99%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" title="数组的扩展" target="_blank">数组的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:17:45Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            扩展运算符 含义 扩展运算符（spread）是三个点（...）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。 console.log(...[1, 2, 3]) // 1 2 3 console.log(1, ...[2, 3, 4], 5) // 1 2 3 4 5 [...document.querySelectorAll(&#39;div&#39;)] // [&lt;div&gt;, &lt;div&gt;, &lt;div&gt;] 该运算符主要用于函数调用。 function push(array, ...items) { array.push(...items); } function add(x, y) { return x + y; } const numbers = [4, 38]; add(...numbers) // 42 上面代码中，array.push(...it……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" title="数值的扩展" target="_blank">数值的扩展</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:17:24Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            二进制和八进制表示法 ES6 提供了二进制和八进制数值的新的写法，分别用前缀0b（或0B）和0o（或0O）表示。 0b111110111 === 503 // true 0o767 === 503 // true 从 ES5 开始，在严格模式之中，八进制就不再允许使用前缀0表示，ES6 进一步明确，要使用前缀0o表示。 // 非严格模式 (function(){ console.log(0o11 === 011); })() // true // 严格模式 (function(){ &#39;use strict&#39;; console.log(0o11 === 011); })() // Uncaught SyntaxError: Octal literals……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E6%95%B0%E5%80%BC%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" title="异步遍历器" target="_blank">异步遍历器</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-24T02:17:02Z" class="post-meta meta-date dt-published">
+    2024-04-24
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            同步遍历器的问题 《遍历器》一章说过，Iterator 接口是一种数据遍历的协议，只要调用遍历器对象的next方法，就会得到一个对象，表示当前遍历指针所在的那个位置的信息。next方法返回的对象的结构是{value, done}，其中value表示当前的数据的值，done是一个布尔值，……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%BC%82%E6%AD%A5%E9%81%8D%E5%8E%86%E5%99%A8/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/es6/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" title="对象的新增方法" target="_blank">对象的新增方法</a>
             </h1>
         </header>
@@ -211,146 +351,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/" title="函数的扩展" target="_blank">函数的扩展</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T01:49:04Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            函数参数的默认值 基本用法 ES6 之前，不能直接为函数的参数指定默认值，只能采用变通的方法。 function log(x, y) { y = y || &#39;World&#39;; console.log(x, y); } log(&#39;Hello&#39;) // Hello World log(&#39;Hello&#39;, &#39;China&#39;) // Hello China log(&#39;Hello&#39;, &#39;&#39;) // Hello World 上面代码检查函数log()的参数y有没有赋值，如果没有，则指定默认值为World。这种写法的缺点在于，如果参数y赋值了，但是对应的布尔值为fal……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" title="函数式编程" target="_blank">函数式编程</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T01:47:58Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            JavaScript 语言从一诞生，就具有函数式编程的烙印。它将函数作为一种独立的数据类型，与其他数据类型处于完全平等的地位。在 JavaScript 语言中，你可以采用面向对象编程，也可以采用函数式编程。有人甚至说，JavaScript 是有史以来第一种被大规模采用的函数式编程语言。 ES6 的种种新增功能，使得函数式编程变得更……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Symbol/" title="Symbol" target="_blank">Symbol</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T01:43:59Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            概述 ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Sy……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/Symbol/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Set和Map数据结构" target="_blank">Set和Map数据结构</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-24T01:39:22Z" class="post-meta meta-date dt-published">
-    2024-04-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            Set 基本用法 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。 Set本身是一个构造函数，用来生成 Set 数据结构。 const s = new Set(); [2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x)); for (let i of s) { console.log(i); } // 2 3 5 4 上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。 Set函数可以……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/es6/Reflect/" title="Reflect" target="_blank">Reflect</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-23T02:31:38Z" class="post-meta meta-date dt-published">
-    2024-04-23
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            概述 Reflect对象与Proxy对象一样，也是 ES6 为了操作对象而提供的新 API。Reflect对象的设计目的有这样几个。 （1） 将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Obje……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/es6/Reflect/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -413,7 +413,7 @@
         
         
         <li >
-            <a href="http://shansec.github.io/post/page/11/">11</a>
+            <a href="http://shansec.github.io/post/page/12/">12</a>
         </li>
         
     
@@ -481,6 +481,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
     </li>
     
@@ -500,26 +520,6 @@
         <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -531,7 +531,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
     
 </ul>
     </section>

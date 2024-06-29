@@ -81,6 +81,136 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/" target="_blank">微信小程序中判断用户是否已关注公众号的两种实现</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-05-06T14:27:30Z" class="post-meta meta-date dt-published">
+    2023-05-06
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            背景： 最近的一个小程序项目中有这么一个需求：进入我的主页后, 如果用户没有关注过我们的公众号, 则展示一个引导关注公众号组件, 点击后跳转到一篇公众号文章, 指引用户进行关注，用户完成关注隐藏该组件。 方式一(前后端参与)： 由于对微信的UnionID机制一知半解（知道用户在同一个开放平台下……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank">Vue.js中 watch 的高级用法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-05-04T16:34:54Z" class="post-meta meta-date dt-published">
+    2023-05-04
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            &lt;div&gt; &lt;p&gt;FullName: {{fullName}}&lt;/p&gt; &lt;p&gt;FirstName: &lt;input type=&#34;text&#34; v-model=&#34;firstName&#34;&gt;&lt;/p&gt; &lt;/div&gt; new Vue({ el: &#39;#root&#39;, data: { firstName: &#39;Dawei&#39;, lastName: &#39;Lou&#39;, fullName: &#39;&#39; }, watch: { firstName(newName, oldName) { this.fullName = newName + &#39; &#39; + this.lastName; } } }) 上面的代码的效果是，当我们输入firstName后，wacth监听每次修改变化的新值，然后计算输出fullName。 handler方法和immediate属性 这里 watch 的一个特点是，最初绑定的时候是不会执行的，……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/" target="_blank">Vue3 Composition API: 对比ref和reactive</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-05-04T11:13:30Z" class="post-meta meta-date dt-published">
+    2023-05-04
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            Vue2 回顾 首先回顾一下在Vue2中我们是如何创建一个响应式数据 (reactive data)的： Vue3新特性 ref的使用 而在Vue3中，我们可以用Composition API: ref 来改写上述代码： ref 的作用就是将一个原始数据类型（primitive data type）转换成一个带有响应式类型 的数据类型，原始数据类型共……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue3-Composition-API-%E5%AF%B9%E6%AF%94ref%E5%92%8Creactive/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/" target="_blank">微信小程序全局变量监听</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-04-26T10:23:34Z" class="post-meta meta-date dt-published">
+    2023-04-26
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            需求：在任意一个页面上实时监听全局变量发生的改变。 第一步 新建 utils 文件夹，并在文件夹中新建 onEvent.js 文件。 var events = {}; function on(name, self, callback) { var tuple = [self, callback]; var callbacks = events[name]; if (Array.isArray(callbacks)) { callbacks.push(tuple); } else { events[name] = [tuple]; } } function remove(name, self) { var callbacks = events[name]; if (Array.isArray(callbacks)) { events[name] = callbacks.filter((tuple) =&gt; { return tuple[0] != self; }) } } function emit(name, data) { var callbacks = events[name]; if (Array.isArray(callbacks)) { callbacks.map((tuple) =&gt; { var self = tuple[0]; var callback = tuple[1]; callback.call(self, data); }) } } exports.on = on; exports.remove = remove; exports.emit = emit; 第二步 在……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9B%91%E5%90%AC/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/" target="_blank">JavaScript 中如何判断变量是否为数字</a>
+            </h1>
+        </header>
+        
+  <time datetime="2023-04-14T10:33:36Z" class="post-meta meta-date dt-published">
+    2023-04-14
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            简介 JavaScript 是一种动态类型语言，这意味着解释器在运行时确定变量的类型。实际上，这也允许我们在相同的代码中使用相同的变量来存储不同类型的数据。如果没有文档和一致性，我们在使用代码时并不总是知道变量的类型。 当我们期望一个变量是数字时，对字符串或数组进行操作可能会在代码中导致奇怪的结果。在本……
+            <p class="readmore"><a href="http://shansec.github.io/post/blog/JavaScript-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%98%E9%87%8F%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E5%AD%97/" target="_blank">Continue reading</a></p>
+        </div>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/blog/Vue3%E5%BC%80%E5%8F%91%E8%B8%A9%E5%9D%91/" target="_blank">Vue3开发踩坑</a>
             </h1>
         </header>
@@ -208,136 +338,6 @@
         </div>
     </article>
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/" target="_blank">微信小程序自定义tabbar栏【中间突出样式】</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-22T10:43:59Z" class="post-meta meta-date dt-published">
-    2023-03-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 昨天主管突然给我说微信小程序默认的 tabBar 不美观，让我改成中间突出的那种样式。纵然我心里面有千般不情愿，但还是接下了这个任务。查了一下文档 自定义 tabBar 发现有这个方法，有思路了就赶紧搞起来，以下是我的开发经验分享。 一、自定义tabbar栏 配置 在 app.json 文件中的 tabBar 中指定 custom 字段为 true（意思是允……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%AE%9A%E4%B9%89tabbar%E6%A0%8F%E4%B8%AD%E9%97%B4%E7%AA%81%E5%87%BA%E6%A0%B7%E5%BC%8F/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">谈谈我对 path.resolve 的理解</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-22T10:39:46Z" class="post-meta meta-date dt-published">
-    2023-03-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 前一段时间在阅读源码的时候，遇到了path.resolve()，经过请教，终于知道了这个方法的作用。这边文章用来记录自己的使用心得。 正文 path.resolve() 作用：path.resolve() 该方法将一些的 路径/路径段 解析为绝对路径。 语法：path.resolve( [from…],to )。 说明：……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E8%B0%88%E8%B0%88%E6%88%91%E5%AF%B9path-resolve%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/" target="_blank">七个 Vue 项目用得上的 JavaScript 库分享</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-22T10:37:34Z" class="post-meta meta-date dt-published">
-    2023-03-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 借助开源库加速 Vue 项目的开发进度是现代前端开发比较常见的方式，平常收集一些 JavaScript 库介绍，在遇到需要的时候可以信手拈来。Vue 生态有很多不错的依赖库或者组件，是使用 Vue 开发前端的原因之一。接下来将会介绍七个 Vue 项目中会用到的 JavaScript 库。 一、vueuse 这是 GitHub 上星最多的库之一，拥有超过 12.8k 颗星，这……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E4%B8%83%E4%B8%AA-Vue-%E9%A1%B9%E7%9B%AE%E7%94%A8%E5%BE%97%E4%B8%8A%E7%9A%84-JavaScript-%E5%BA%93%E5%88%86%E4%BA%AB/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/" target="_blank">从Vue2 到 Vue3，这些路由差异你需要掌握！</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-22T10:37:34Z" class="post-meta meta-date dt-published">
-    2023-03-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 Vue3 已经出来很长时间了，但对 Vue3 的路由却了解的非常少，甚至只知道最基本的跳转和参数获取，这些技能处理一些复杂的功能是不够的，最近把 Vue3 的路由版本差异给学习了一下，在这里把结果分享给大家！！！ 一、导航守卫 全局前置守卫 全局前置守卫通常用来做权限控制，使用 router.beforeEach 即可添加： const router = createRouter({...}) router.beforeEach((to, from) =&gt; { // ...……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E4%BB%8EVue2-%E5%88%B0-Vue3%E8%BF%99%E4%BA%9B%E8%B7%AF%E7%94%B1%E5%B7%AE%E5%BC%82%E4%BD%A0%E9%9C%80%E8%A6%81%E6%8E%8C%E6%8F%A1/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/" target="_blank">盘点一些惊艳一时的 CSS 属性</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-03-22T10:28:10Z" class="post-meta meta-date dt-published">
-    2023-03-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            前言 随着前端的不断发展，更多新的 CSS 属性不断加入提案，本文列举 5 个不常用但很有用且你见过也可能没见过的 CSS 属性，带大家领略 CSS 之美。 一、position: sticky 不知道大家平时业务开发中有没有碰到这样的需求：标题在滚动的时候，会一直贴着最顶上。这种场景实际上很多：比如表格的标题栏、网站的导航……
-            <p class="readmore"><a href="http://shansec.github.io/post/blog/%E7%9B%98%E7%82%B9%E4%B8%80%E4%BA%9B%E6%83%8A%E8%89%B3%E4%B8%80%E6%97%B6%E7%9A%84-CSS-%E5%B1%9E%E6%80%A7/" target="_blank">Continue reading</a></p>
-        </div>
-    </article>
-    
 
     
 
@@ -377,6 +377,10 @@
     
     <li >
         <a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/page/7/">7</a>
+    </li>
+    
+    <li >
+        <a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/page/8/">8</a>
     </li>
     
 
@@ -440,6 +444,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
     </li>
     
@@ -459,26 +483,6 @@
         <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -490,7 +494,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
     
 </ul>
     </section>

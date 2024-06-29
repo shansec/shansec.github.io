@@ -6,7 +6,52 @@
     <description>Recent content on 未来可期的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 26 Jun 2024 11:29:09 +0800</lastBuildDate><atom:link href="http://shansec.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jun 2024 10:48:11 +0800</lastBuildDate><atom:link href="http://shansec.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Typescript 注释指令</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/</link>
+      <pubDate>Sat, 29 Jun 2024 10:48:11 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/</guid>
+      <description>TypeScript 接受一些注释指令。 所谓“注释指令”，指的是采用 JS 双斜杠注释的形式，向编译器发出的命令。 // @ts-nocheck // @ts-nocheck告诉编译器不对当前脚本进行类型检查，可以用于 TypeScript 脚本，也可以用于 JavaScript 脚本。 // @ts-nocheck const element = document.getElementById(123); 上面示例中，document.getElementById(123)存在类型错误，</description>
+    </item>
+    
+    <item>
+      <title>Typescript 类型工具</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Sat, 29 Jun 2024 10:44:53 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/</guid>
+      <description>TypeScript 提供了一些内置的类型工具，用来方便地处理各种类型，以及生成新的类型。 TypeScript 内置了17个类型工具，可以直接使用。 Awaited&amp;lt;Type&amp;gt; Awaited&amp;lt;Type&amp;gt;用来取出 Promise 的返回值类型，适合用在描述then()方法和 await 命令的参数类型。 // string type A = Awaited&amp;lt;Promise&amp;lt;string&amp;gt;&amp;gt;; 上面示例中，Awaited&amp;lt;Type&amp;gt</description>
+    </item>
+    
+    <item>
+      <title>Typescript 类型映射</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/</link>
+      <pubDate>Sat, 29 Jun 2024 10:29:43 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/</guid>
+      <description>简介 映射（mapping）指的是，将一种类型按照映射规则，转换成另一种类型，通常用于对象类型。 举例来说，现有一个类型A和另一个类型B。 type A = { foo: number; bar: number; }; type B = { foo: string; bar: string; }; 上面示例中，这两个类型的属性结构是一样的，但是属性的类型不一样。如果属性数量多的话，逐个写起来就很麻烦。 使用类</description>
+    </item>
+    
+    <item>
+      <title>Typescript 类型运算符</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <pubDate>Sat, 29 Jun 2024 10:19:05 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <description>keyof 运算符 简介 keyof 是一个单目运算符，接受一个对象类型作为参数，返回该对象的所有键名组成的联合类型。 type MyObj = { foo: number, bar: string, }; type Keys = keyof MyObj; // &amp;#39;foo&amp;#39;|&amp;#39;bar&amp;#39; 上面示例中，keyof MyObj返回MyObj的所有键名组成的联合类型，即&#39;foo&#39;|&#39;bar&#39;。 下面是另一个例子。 interface T { 0: boolean; a: string; b(): void; } type KeyT = keyof T; // 0 | &amp;#39;a&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>Typescript 类型声明文件</title>
+      <link>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Fri, 28 Jun 2024 15:15:21 +0800</pubDate>
+      
+      <guid>http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/</guid>
+      <description>简介 单独使用的模块，一般会同时提供一个单独的类型声明文件（declaration file），把本模块的外部接口的所有类型都写在这个文件里面，便于模块使用者了解接口，也便于编译器检查使用者的用法是否正确。 类型声明文件里面只有类型代码，没有具体的代码实现。它的文件名一般为[模块名].</description>
+    </item>
+    
     <item>
       <title>Typescript Declare关键字</title>
       <link>http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/</link>

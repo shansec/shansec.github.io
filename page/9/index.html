@@ -73,6 +73,146 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" title="swagger生成接口文档" target="_blank">swagger生成接口文档</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            swagger生成接口文档 swagger介绍 Swagger本质上是一种用于描述使用JSON表示的RESTful API的接口描述语言。Swagger与一组开源软件工具一起使用，以设计、构建、记录和使用RESTful Web服务。Swagger包括自动文档，代码生成和测试用例生成。 在前……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8swagger%E7%94%9F%E6%88%90%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/validator%E5%BA%93%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E8%8B%A5%E5%B9%B2%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" title="validator库参数校验若干实用技巧" target="_blank">validator库参数校验若干实用技巧</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            validator库参数校验若干实用技巧 在web开发中一个不可避免的环节就是对请求参数进行校验，通常我们会在代码中定义与请求参数相对应的模型（结构体），借助模型绑定快捷地解析请求中的参数，例如 gin 框架中的Bind和ShouldBind系列方法。本文就以 gin 框架的请求参数校验为例，介绍……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/validator%E5%BA%93%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E8%8B%A5%E5%B9%B2%E5%AE%9E%E7%94%A8%E6%8A%80%E5%B7%A7/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E6%9C%BA%E6%88%96%E9%87%8D%E5%90%AF/" title="优雅地关机" target="_blank">优雅地关机</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            优雅地关机 什么是优雅关机？ 优雅关机就是服务端关机命令发出后不是立即关机，而是等待当前还在处理的请求全部处理完毕后再退出程序，是一种对客户端友好的关机方式。而执行Ctrl+C关闭服务端时，会强制结束进程导致正在访问的请求出现问题。 如何实现优雅关机？ Go 1.8版本之后， http.Server 内置的 Shutdown() 方法就……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%85%B3%E6%9C%BA%E6%88%96%E9%87%8D%E5%90%AF/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8Air%E5%AE%9E%E7%8E%B0Go%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%97%B6%E7%83%AD%E9%87%8D%E8%BD%BD/" title="使用Air实现Go程序实时热重载" target="_blank">使用Air实现Go程序实时热重载</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            为什么需要实时加载？ 之前使用Python编写Web项目的时候，常见的Flask或Django框架都是支持实时加载的，你修改了项目代码之后，程序能够自动重新加载并执行（live-reload），这在日常的开发阶段是十分方便的。 在使用Go语言的gin框架在本地做开发调试的时候，经常需……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8Air%E5%AE%9E%E7%8E%B0Go%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%97%B6%E7%83%AD%E9%87%8D%E8%BD%BD/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BD%BF%E7%94%A8sqlx%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%96%B9%E6%B3%95/" title="使用sqlx批量插入数据的若干方法" target="_blank">使用sqlx批量插入数据的若干方法</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
+    2024-04-20
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go' target="_blank">go</a>
+  
+</div>
+
+
+        <div class="post-content">
+            在项目中我们通常可能会使用database/sql连接MySQL数据库。本文借助使用sqlx实现批量插入数据的例子，介绍了sqlx中可能被你忽视了的sqlx.In和DB.NamedExec方法。 在项目中我们通常可能会使用database/sql连接MySQL数据库。sqlx可以认……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/%E4%BD%BF%E7%94%A8sqlx%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E8%8B%A5%E5%B9%B2%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/Web/%E4%BD%BF%E7%94%A8zap%E6%8E%A5%E6%94%B6gin%E6%A1%86%E6%9E%B6%E9%BB%98%E8%AE%A4%E7%9A%84%E6%97%A5%E5%BF%97%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E5%BD%92%E6%A1%A3/" title="使用zap接收gin框架默认的日志并配置日志归档" target="_blank">使用zap接收gin框架默认的日志并配置日志归档</a>
             </h1>
         </header>
@@ -210,146 +350,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" title="部署Go语言项目" target="_blank">部署Go语言项目</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-04-20T10:39:46Z" class="post-meta meta-date dt-published">
-    2024-04-20
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/go' target="_blank">go</a>
-  
-</div>
-
-
-        <div class="post-content">
-            部署Go语言项目 本文以部署 Go Web 程序为例，介绍了在 CentOS7 服务器上部署 Go 语言程序的若干方法。 独立部署 Go 语言支持跨平台交叉编译，也就是说我们可以在 Windows 或 Mac 平台下编写代码，并且将代码编译成能够在 Linux amd64 服务器上运行的程序。 对于简单的项目，通常我们只需要将编译后的二进制文件拷贝到服务器上，然后设置为……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/Web/%E9%83%A8%E7%BD%B2Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E7%9A%84-N-%E7%A7%8D%E6%96%B9%E6%B3%95/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/" title="浏览器是如何渲染页面的？" target="_blank">浏览器是如何渲染页面的？</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-05-10T17:33:43Z" class="post-meta meta-date dt-published">
-    2023-05-10
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            当浏览器的网络线程收到 HTML 文档后，会产生一个渲染任务，并将其传递给渲染主线程的消息队列。在事件循环机制的作用下，渲染主线程取出消息队列中的渲染任务，开启渲染流程。 整个渲染流程分为多个阶段，分别是： HTML 解析、样式计算、布局、分层、绘制、分块、光栅化、画。每个阶段都有明确的输入输出，上一……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" title="CSS属性计算过程" target="_blank">CSS属性计算过程</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-05-10T16:58:13Z" class="post-meta meta-date dt-published">
-    2023-05-10
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            CSS 属性计算过程 你是否了解 CSS 的属性计算过程呢？ 有的同学可能会讲，CSS属性我倒是知道，例如： p{ color : red; } 上面的 CSS 代码中，p 是元素选择器，color 就是其中的一个 CSS 属性。 但是要说 CSS 属性的计算过程，还真的不是很清楚。 没关系，通过此篇文章，能够让你彻底明白什么是 CSS 属性的计算流程。 首先，不知……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/CSS%E5%B1%9E%E6%80%A7%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/" title="微信小程序中判断用户是否已关注公众号的两种实现" target="_blank">微信小程序中判断用户是否已关注公众号的两种实现</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-05-06T14:27:30Z" class="post-meta meta-date dt-published">
-    2023-05-06
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            背景： 最近的一个小程序项目中有这么一个需求：进入我的主页后, 如果用户没有关注过我们的公众号, 则展示一个引导关注公众号组件, 点击后跳转到一篇公众号文章, 指引用户进行关注，用户完成关注隐藏该组件。 方式一(前后端参与)： 由于对微信的UnionID机制一知半解（知道用户在同一个开放平台下……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E5%88%A4%E6%96%AD%E7%94%A8%E6%88%B7%E6%98%AF%E5%90%A6%E5%B7%B2%E5%85%B3%E6%B3%A8%E5%85%AC%E4%BC%97%E5%8F%B7%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" title="Vue.js中 watch 的高级用法" target="_blank">Vue.js中 watch 的高级用法</a>
-            </h1>
-        </header>
-        
-  <time datetime="2023-05-04T16:34:54Z" class="post-meta meta-date dt-published">
-    2023-05-04
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            &lt;div&gt; &lt;p&gt;FullName: {{fullName}}&lt;/p&gt; &lt;p&gt;FirstName: &lt;input type=&#34;text&#34; v-model=&#34;firstName&#34;&gt;&lt;/p&gt; &lt;/div&gt; new Vue({ el: &#39;#root&#39;, data: { firstName: &#39;Dawei&#39;, lastName: &#39;Lou&#39;, fullName: &#39;&#39; }, watch: { firstName(newName, oldName) { this.fullName = newName + &#39; &#39; + this.lastName; } } }) 上面的代码的效果是，当我们输入firstName后，wacth监听每次修改变化的新值，然后计算输出fullName。 handler方法和immediate属性 这里 watch 的一个特点是，最初绑定的时候是不会执行的，……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/blog/Vue.js%E4%B8%AD-watch-%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -417,6 +417,19 @@
         </li>
         
     
+        
+        <li>
+            <span>...</span>
+        </li>
+        
+    
+        
+        
+        <li >
+            <a href="http://shansec.github.io/page/12/">12</a>
+        </li>
+        
+    
 
     
 
@@ -481,6 +494,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
     </li>
     
@@ -500,26 +533,6 @@
         <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -531,7 +544,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
     
 </ul>
     </section>

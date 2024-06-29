@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Typescript 注释指令 | 未来可期的博客</title>
+    <meta property="og:title" content="Typescript 注释指令 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-06-29T10:48:11&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-06-29T10:48:11&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Typescript 注释指令">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#-ts-nocheck"><code>// @ts-nocheck</code></a></li>
+    <li><a href="#-ts-check"><code>// @ts-check</code></a></li>
+    <li><a href="#-ts-ignore"><code>// @ts-ignore</code></a></li>
+    <li><a href="#-ts-expect-error"><code>// @ts-expect-error</code></a></li>
+    <li><a href="#jsdoc">JSDoc</a>
+      <ul>
+        <li><a href="#typedef">@typedef</a></li>
+        <li><a href="#type">@type</a></li>
+        <li><a href="#param">@param</a></li>
+        <li><a href="#returnreturns">@return，@returns</a></li>
+        <li><a href="#extends-和类型修饰符">@extends 和类型修饰符</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Typescript 注释指令</h1>
+        </header>
+        
+  <time datetime="2024-06-29T02:48:11Z" class="post-meta meta-date dt-published">
+    2024-06-29
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <p>TypeScript 接受一些注释指令。</p>
+<p>所谓“注释指令”，指的是采用 JS 双斜杠注释的形式，向编译器发出的命令。</p>
+<h2 id="-ts-nocheck"><code>// @ts-nocheck</code></h2>
+<p><code>// @ts-nocheck</code>告诉编译器不对当前脚本进行类型检查，可以用于 TypeScript 脚本，也可以用于 JavaScript 脚本。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// @ts-nocheck
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> element <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">document</span>.getElementById(<span style="color:#099">123</span>);
+</span></span></code></pre></div><p>上面示例中，<code>document.getElementById(123)</code>存在类型错误，但是编译器不对该脚本进行类型检查，所以不会报错。</p>
+<h2 id="-ts-check"><code>// @ts-check</code></h2>
+<p>如果一个 JavaScript 脚本顶部添加了<code>// @ts-check</code>，那么编译器将对该脚本进行类型检查，不论是否启用了<code>checkJs</code>编译选项。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// @ts-check
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">let</span> isChecked <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>console.log(isChceked); <span style="color:#998;font-style:italic">// 报错
+</span></span></span></code></pre></div><p>上面示例是一个 JavaScript 脚本，<code>// @ts-check</code>告诉 TypeScript 编译器对其进行类型检查，所以最后一行会报错，提示拼写错误。</p>
+<h2 id="-ts-ignore"><code>// @ts-ignore</code></h2>
+<p><code>// @ts-ignore</code>告诉编译器不对下一行代码进行类型检查，可以用于 TypeScript 脚本，也可以用于 JavaScript 脚本。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> x:<span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// @ts-ignore
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>x <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">false</span>; <span style="color:#998;font-style:italic">// 不报错
+</span></span></span></code></pre></div><p>上面示例中，最后一行是类型错误，变量<code>x</code>的类型是<code>number</code>，不能等于布尔值。但是因为前面加上了<code>// @ts-ignore</code>，编译器会跳过这一行的类型检查，所以不会报错。</p>
+<h2 id="-ts-expect-error"><code>// @ts-expect-error</code></h2>
+<p><code>// @ts-expect-error</code>主要用在测试用例，当下一行有类型错误时，它会压制 TypeScript 的报错信息（即不显示报错信息），把错误留给代码自己处理。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> doStuff(abc: <span style="color:#458;font-weight:bold">string</span>, xyz: <span style="color:#458;font-weight:bold">string</span>) {
+</span></span><span style="display:flex;"><span>  assert(<span style="color:#000;font-weight:bold">typeof</span> abc <span style="color:#000;font-weight:bold">===</span> <span style="color:#d14">&#34;string&#34;</span>);
+</span></span><span style="display:flex;"><span>  assert(<span style="color:#000;font-weight:bold">typeof</span> xyz <span style="color:#000;font-weight:bold">===</span> <span style="color:#d14">&#34;string&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">// do some stuff
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// @ts-expect-error
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>expect(() <span style="color:#000;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  doStuff(<span style="color:#099">123</span>, <span style="color:#099">456</span>);
+</span></span><span style="display:flex;"><span>}).toThrow();
+</span></span></code></pre></div><p>上面示例是一个测试用例，倒数第二行的<code>doStuff(123, 456)</code>的参数类型与定义不一致，TypeScript 引擎会报错。但是，测试用例本身测试的就是这个错误，已经有专门的处理代码，所以这里可以使用<code>// @ts-expect-error</code>，不显示引擎的报错信息。</p>
+<p>如果下一行没有类型错误，<code>// @ts-expect-error</code>则会显示一行提示。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// @ts-expect-error
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>console.log(<span style="color:#099">1</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 输出 Unused &#39;@ts-expect-error&#39; directive.
+</span></span></span></code></pre></div><p>上面示例中，第二行是正确代码，这时系统会给出一个提示，表示<code>@ts-expect-error</code>没有用到。</p>
+<h2 id="jsdoc">JSDoc</h2>
+<p>TypeScript 直接处理 JS 文件时，如果无法推断出类型，会使用 JS 脚本里面的 JSDoc 注释。</p>
+<p>使用 JSDoc 时，有两个基本要求。</p>
+<p>（1）JSDoc 注释必须以<code>/**</code>开始，其中星号（<code>*</code>）的数量必须为两个。若使用其他形式的多行注释，则 JSDoc 会忽略该条注释。</p>
+<p>（2）JSDoc 注释必须与它描述的代码处于相邻的位置，并且注释在上，代码在下。</p>
+<p>下面是 JSDoc 的一个简单例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @param {string} somebody
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> sayHello(somebody) {
+</span></span><span style="display:flex;"><span>  console.log(<span style="color:#d14">&#39;Hello &#39;</span> <span style="color:#000;font-weight:bold">+</span> somebody);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，注释里面的<code>@param</code>是一个 JSDoc 声明，表示下面的函数<code>sayHello()</code>的参数<code>somebody</code>类型为<code>string</code>。</p>
+<p>TypeScript 编译器支持大部分的 JSDoc 声明，下面介绍其中的一些。</p>
+<h3 id="typedef">@typedef</h3>
+<p><code>@typedef</code>命令创建自定义类型，等同于 TypeScript 里面的类型别名。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @typedef {(number | string)} NumberLike
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span></code></pre></div><p>上面示例中，定义了一个名为<code>NumberLike</code>的新类型，它是由<code>number</code>和<code>string</code>构成的联合类型，等同于 TypeScript 的如下语句。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> NumberLike <span style="color:#000;font-weight:bold">=</span> <span style="color:#458;font-weight:bold">string</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span></code></pre></div><h3 id="type">@type</h3>
+<p><code>@type</code>命令定义变量的类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @type {string}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a;
+</span></span></code></pre></div><p>上面示例中，<code>@type</code>定义了变量<code>a</code>的类型为<code>string</code>。</p>
+<p>在<code>@type</code>命令中可以使用由<code>@typedef</code>命令创建的类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @typedef {(number | string)} NumberLike
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @type {NumberLike}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span></code></pre></div><p>在<code>@type</code>命令中允许使用 TypeScript 类型及其语法。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**@type {true | false} */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> a;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/** @type {number[]} */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> b;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/** @type {Array&lt;number&gt;} */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> c;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/** @type {{ readonly x: number, y?: string }} */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> d;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/** @type {(s: string, b: boolean) =&gt; number} */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> e;
+</span></span></code></pre></div><h3 id="param">@param</h3>
+<p><code>@param</code>命令用于定义函数参数的类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @param {string}  x
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> foo(x) {}
+</span></span></code></pre></div><p>如果是可选参数，需要将参数名放在方括号<code>[]</code>里面。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @param {string}  [x]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> foo(x) {}
+</span></span></code></pre></div><p>方括号里面，还可以指定参数默认值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @param {string} [x=&#34;bar&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> foo(x) {}
+</span></span></code></pre></div><p>上面示例中，参数<code>x</code>的默认值是字符串<code>bar</code>。</p>
+<h3 id="returnreturns">@return，@returns</h3>
+<p><code>@return</code>和<code>@returns</code>命令的作用相同，指定函数返回值的类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @return {boolean}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> foo() {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @returns {number}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> bar() {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="extends-和类型修饰符">@extends 和类型修饰符</h3>
+<p><code>@extends</code>命令用于定义继承的基类。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> * @extends {Base}
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> Derived <span style="color:#000;font-weight:bold">extends</span> Base {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>@public</code>、<code>@protected</code>、<code>@private</code>分别指定类的公开成员、保护成员和私有成员。</p>
+<p><code>@readonly</code>指定只读成员。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">class</span> Base {
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   * @public
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   * @readonly
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  x <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#998;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   *  @protected
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">   */</span>
+</span></span><span style="display:flex;"><span>  y <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/">http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/">Typescript 类型工具</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/">Typescript 类型映射</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/">Typescript 类型运算符</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/">Typescript 类型声明文件</a></li>
+        
+        <li><a href="/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/">Typescript Declare关键字</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

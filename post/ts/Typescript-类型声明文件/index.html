@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Typescript 类型声明文件 | 未来可期的博客</title>
+    <meta property="og:title" content="Typescript 类型声明文件 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-06-28T15:15:21&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-06-28T15:15:21&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Typescript 类型声明文件">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#类型声明文件的来源">类型声明文件的来源</a>
+      <ul>
+        <li><a href="#自动生成">自动生成</a></li>
+        <li><a href="#内置声明文件">内置声明文件</a></li>
+        <li><a href="#外部类型声明文件">外部类型声明文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#declare-关键字">declare 关键字</a></li>
+    <li><a href="#模块发布">模块发布</a></li>
+    <li><a href="#三斜杠命令">三斜杠命令</a>
+      <ul>
+        <li><a href="#-reference-path-"><code>/// &lt;reference path=&quot;&quot; /&gt;</code></a></li>
+        <li><a href="#-reference-types-"><code>/// &lt;reference types=&quot;&quot; /&gt;</code></a></li>
+        <li><a href="#-reference-lib-"><code>/// &lt;reference lib=&quot;&quot; /&gt;</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Typescript 类型声明文件</h1>
+        </header>
+        
+  <time datetime="2024-06-28T07:15:21Z" class="post-meta meta-date dt-published">
+    2024-06-28
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="简介">简介</h2>
+<p>单独使用的模块，一般会同时提供一个单独的类型声明文件（declaration file），把本模块的外部接口的所有类型都写在这个文件里面，便于模块使用者了解接口，也便于编译器检查使用者的用法是否正确。</p>
+<p>类型声明文件里面只有类型代码，没有具体的代码实现。它的文件名一般为<code>[模块名].d.ts</code>的形式，其中的<code>d</code>表示 declaration（声明）。</p>
+<p>举例来说，有一个模块的代码如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> maxInterval <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">12</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">function</span> getArrayLength(arr) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">return</span> arr.length;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">module</span>.exports <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  getArrayLength,
+</span></span><span style="display:flex;"><span>  maxInterval,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>它的类型声明文件可以写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">function</span> getArrayLength(arr: <span style="color:#458;font-weight:bold">any</span>[])<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">const</span> maxInterval: <span style="color:#458;font-weight:bold">12</span>;
+</span></span></code></pre></div><p>类型声明文件也可以使用<code>export =</code>命令，输出对外接口。下面是 moment 模块的类型声明文件的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;moment&#39;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">function</span> moment()<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">any</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">=</span> moment;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，模块<code>moment</code>内部有一个函数<code>moment()</code>，而<code>export =</code>表示<code>module.exports</code>输出的就是这个函数。</p>
+<p>除了使用<code>export =</code>，模块输出在类型声明文件中，也可以使用<code>export default</code>表示。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 模块输出
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">module</span>.exports <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3.142</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 类型输出文件
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法一
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">const</span> pi: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">default</span> pi;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 写法二
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">const</span> pi: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span><span style="color:#000;font-weight:bold">=</span> pi;
+</span></span></code></pre></div><p>上面示例中，模块输出的是一个整数，那么可以用<code>export default</code>或<code>export =</code>表示输出这个值。</p>
+<p>下面是一个如何使用类型声明文件的简单例子。有一个类型声明文件<code>types.d.ts</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// types.d.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Character {
+</span></span><span style="display:flex;"><span>  catchphrase?: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  name: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然后，就可以在 TypeScript 脚本里面导入该文件声明的类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// index.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">import</span> { Character } <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#34;./types&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">const</span> character:<span style="color:#458;font-weight:bold">Character</span> <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  catchphrase<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;Yee-haw!&#34;</span>,
+</span></span><span style="display:flex;"><span>  name<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;Sandy Cheeks&#34;</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>类型声明文件也可以包括在项目的 tsconfig.json 文件里面，这样的话，编译器打包项目时，会自动将类型声明文件加入编译，而不必在每个脚本里面加载类型声明文件。比如，moment 模块的类型声明文件是<code>moment.d.ts</code>，使用 moment 模块的项目可以将其加入项目的 tsconfig.json 文件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;compilerOptions&#34;</span><span style="color:#000;font-weight:bold">:</span> {},
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;files&#34;</span><span style="color:#000;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;src/index.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;typings/moment.d.ts&#34;</span>
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="类型声明文件的来源">类型声明文件的来源</h2>
+<p>类型声明文件主要有以下三种来源。</p>
+<ul>
+<li>TypeScript 编译器自动生成。</li>
+<li>TypeScript 内置类型文件。</li>
+<li>外部模块的类型声明文件，需要自己安装。</li>
+</ul>
+<h3 id="自动生成">自动生成</h3>
+<p>只要使用编译选项<code>declaration</code>，编译器就会在编译时自动生成单独的类型声明文件。</p>
+<p>下面是在<code>tsconfig.json</code>文件里面，打开这个选项。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;compilerOptions&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;declaration&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">true</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>你也可以在命令行打开这个选项。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>$ tsc <span style="color:#000;font-weight:bold">--</span>declaration
+</span></span></code></pre></div><h3 id="内置声明文件">内置声明文件</h3>
+<p>安装 TypeScript 语言时，会同时安装一些内置的类型声明文件，主要是内置的全局对象（JavaScript 语言接口和运行环境 API）的类型声明。</p>
+<p>这些内置声明文件位于 TypeScript 语言安装目录的<code>lib</code>文件夹内，数量大概有几十个，下面是其中一些主要文件。</p>
+<ul>
+<li>lib.d.ts</li>
+<li>lib.dom.d.ts</li>
+<li>lib.es2015.d.ts</li>
+<li>lib.es2016.d.ts</li>
+<li>lib.es2017.d.ts</li>
+<li>lib.es2018.d.ts</li>
+<li>lib.es2019.d.ts</li>
+<li>lib.es2020.d.ts</li>
+<li>lib.es5.d.ts</li>
+<li>lib.es6.d.ts</li>
+</ul>
+<p>这些内置声明文件的文件名统一为“lib.[description].d.ts”的形式，其中<code>description</code>部分描述了文件内容。比如，<code>lib.dom.d.ts</code>这个文件就描述了 DOM 结构的类型。</p>
+<p>如果开发者想了解全局对象的类型接口（比如 ES6 全局对象的类型），那么就可以去查看这些内置声明文件。</p>
+<p>TypeScript 编译器会自动根据编译目标<code>target</code>的值，加载对应的内置声明文件，所以不需要特别的配置。但是，可以使用编译选项<code>lib</code>，指定加载哪些内置声明文件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;compilerOptions&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;lib&#34;</span><span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;dom&#34;</span>, <span style="color:#d14">&#34;es2021&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，<code>lib</code>选项指定加载<code>dom</code>和<code>es2021</code>这两个内置类型声明文件。</p>
+<p>编译选项<code>noLib</code>会禁止加载任何内置声明文件。</p>
+<h3 id="外部类型声明文件">外部类型声明文件</h3>
+<p>如果项目中使用了外部的某个第三方代码库，那么就需要这个库的类型声明文件。</p>
+<p>这时又分成三种情况。</p>
+<p>（1）这个库自带了类型声明文件。</p>
+<p>一般来说，如果这个库的源码包含了<code>[vendor].d.ts</code>文件，那么就自带了类型声明文件。其中的<code>vendor</code>表示这个库的名字，比如<code>moment</code>这个库就自带<code>moment.d.ts</code>。使用这个库可能需要单独加载它的类型声明文件。</p>
+<p>（2）这个库没有自带，但是可以找到社区制作的类型声明文件。</p>
+<p>第三方库如果没有提供类型声明文件，社区往往会提供。TypeScript 社区主要使用 <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">DefinitelyTyped 仓库</a>，各种类型声明文件都会提交到那里，已经包含了几千个第三方库。</p>
+<p>这些声明文件都会作为一个单独的库，发布到 npm 的<code>@types</code>名称空间之下。比如，jQuery 的类型声明文件就发布成<code>@types/jquery</code>这个库，使用时安装这个库就可以了。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>$ npm install <span style="color:#000;font-weight:bold">@types</span><span style="color:#000;font-weight:bold">/</span>jquery <span style="color:#000;font-weight:bold">--</span>save<span style="color:#000;font-weight:bold">-</span>dev
+</span></span></code></pre></div><p>执行上面的命令，<code>@types/jquery</code>这个库就安装到项目的<code>node_modules/@types/jquery</code>目录，里面的<code>index.d.ts</code>文件就是 jQuery 的类型声明文件。如果类型声明文件不是<code>index.d.ts</code>，那么就需要在<code>package.json</code>的<code>types</code>或<code>typings</code>字段，指定类型声明文件的文件名。</p>
+<p>TypeScript 会自动加载<code>node_modules/@types</code>目录下的模块，但可以使用编译选项<code>typeRoots</code>改变这种行为。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;compilerOptions&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;typeRoots&#34;</span><span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;./typings&#34;</span>, <span style="color:#d14">&#34;./vendor/types&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例表示，TypeScript 不再去<code>node_modules/@types</code>目录，而是去跟当前<code>tsconfig.json</code>同级的<code>typings</code>和<code>vendor/types</code>子目录，加载类型模块了。</p>
+<p>默认情况下，TypeScript 会自动加载<code>typeRoots</code>目录里的所有模块，编译选项<code>types</code>可以指定加载哪些模块。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;compilerOptions&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;types&#34;</span> <span style="color:#000;font-weight:bold">:</span> [<span style="color:#d14">&#34;jquery&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面设置中，<code>types</code>属性是一个数组，成员是所要加载的类型模块，要加载几个模块，这个数组就有几个成员，每个类型模块在<code>typeRoots</code>目录下都有一个自己的子目录。这样的话，TypeScript 就会自动去<code>jquery</code>子目录，加载 jQuery 的类型声明文件。</p>
+<p>（3）找不到类型声明文件，需要自己写。</p>
+<p>有时实在没有第三方库的类型声明文件，又很难完整给出该库的类型描述，这时你可以告诉 TypeScript 相关对象的类型是<code>any</code>。比如，使用 jQuery 的脚本可以写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">var</span> $:<span style="color:#458;font-weight:bold">any</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 或者
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">type</span> JQuery <span style="color:#000;font-weight:bold">=</span> <span style="color:#458;font-weight:bold">any</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">var</span> $:<span style="color:#458;font-weight:bold">JQuery</span>;
+</span></span></code></pre></div><p>上面代码表示，jQuery 的<code>$$</code>对象是外部引入的，类型是<code>any</code>，也就是 TypeScript 不用对它进行类型检查。</p>
+<p>也可以采用下面的写法，将整个外部模块的类型设为<code>any</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;模块名&#39;</span>;
+</span></span></code></pre></div><p>有了上面的命令，指定模块的所有接口都将视为<code>any</code>类型。</p>
+<h2 id="declare-关键字">declare 关键字</h2>
+<p>类型声明文件只包含类型描述，不包含具体实现，所以非常适合使用 declare 语句来描述类型。declare 关键字的具体用法，详见《declare 关键字》一章，这里讲解如何在类型声明文件里面使用它。</p>
+<p>类型声明文件里面，变量的类型描述必须使用<code>declare</code>命令，否则会报错，因为变量声明语句是值相关代码。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">let</span> foo:<span style="color:#458;font-weight:bold">string</span>;
+</span></span></code></pre></div><p>interface 类型有没有<code>declare</code>都可以，因为 interface 是完全的类型代码。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">interface</span> Foo {} <span style="color:#998;font-style:italic">// 正确
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">interface</span> Foo {} <span style="color:#998;font-style:italic">// 正确
+</span></span></span></code></pre></div><p>类型声明文件里面，顶层可以使用<code>export</code>命令，也可以不用，除非使用者脚本会显式使用<code>export</code>命令输入类型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Data {
+</span></span><span style="display:flex;"><span>  version: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>下面是类型声明文件的一些例子。先看 moment 模块的类型描述文件<code>moment.d.ts</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> module <span style="color:#d14">&#39;moment&#39;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Moment {
+</span></span><span style="display:flex;"><span>    format(format:<span style="color:#458;font-weight:bold">string</span>)<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    add(
+</span></span><span style="display:flex;"><span>      amount: <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>      unit<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;days&#39;</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#d14">&#39;months&#39;</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#d14">&#39;years&#39;</span>
+</span></span><span style="display:flex;"><span>    )<span style="color:#000;font-weight:bold">:</span> Moment;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    subtract(
+</span></span><span style="display:flex;"><span>      amount:<span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>      unit<span style="color:#000;font-weight:bold">:</span><span style="color:#d14">&#39;days&#39;</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#d14">&#39;months&#39;</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#d14">&#39;years&#39;</span>
+</span></span><span style="display:flex;"><span>    )<span style="color:#000;font-weight:bold">:</span> Moment;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">function</span> moment(
+</span></span><span style="display:flex;"><span>    input?: <span style="color:#458;font-weight:bold">string</span> <span style="color:#000;font-weight:bold">|</span> <span style="color:#0086b3">Date</span>
+</span></span><span style="display:flex;"><span>  )<span style="color:#000;font-weight:bold">:</span> Moment;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">default</span> moment;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，可以注意一下默认接口<code>moment()</code>的写法。</p>
+<p>下面是 D3 库的类型声明文件<code>D3.d.ts</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">namespace</span> D3 {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Selectors {
+</span></span><span style="display:flex;"><span>    select<span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      (selector: <span style="color:#458;font-weight:bold">string</span>)<span style="color:#000;font-weight:bold">:</span> Selection;
+</span></span><span style="display:flex;"><span>      (element: <span style="color:#458;font-weight:bold">EventTarget</span>)<span style="color:#000;font-weight:bold">:</span> Selection;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Event {
+</span></span><span style="display:flex;"><span>    x: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>    y: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">export</span> <span style="color:#000;font-weight:bold">interface</span> Base <span style="color:#000;font-weight:bold">extends</span> Selectors {
+</span></span><span style="display:flex;"><span>    event: <span style="color:#458;font-weight:bold">Event</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">declare</span> <span style="color:#000;font-weight:bold">var</span> d3: <span style="color:#458;font-weight:bold">D3.Base</span>;
+</span></span></code></pre></div><h2 id="模块发布">模块发布</h2>
+<p>当前模块如果包含自己的类型声明文件，可以在 package.json 文件里面添加一个<code>types</code>字段或<code>typings</code>字段，指明类型声明文件的位置。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;awesome&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;author&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;Vandelay Industries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;version&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;1.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;main&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./lib/main.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;types&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./lib/main.d.ts&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，<code>types</code>字段给出了类型声明文件的位置。</p>
+<p>注意，如果类型声明文件名为<code>index.d.ts</code>，且在项目的根目录中，那就不需要在<code>package.json</code>里面注明了。</p>
+<p>有时，类型声明文件会单独发布成一个 npm 模块，这时用户就必须同时加载该模块。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;name&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;browserify-typescript-extension&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;author&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;Vandelay Industries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;version&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;1.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;main&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./lib/main.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;types&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;./lib/main.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#d14">&#34;dependencies&#34;</span><span style="color:#000;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;browserify&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;latest&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;@types/browserify&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;latest&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;typescript&#34;</span><span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#34;next&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例是一个模块的 package.json 文件，该模块需要 browserify 模块。由于后者的类型声明文件是一个单独的模块<code>@types/browserify</code>，所以还需要加载那个模块。</p>
+<h2 id="三斜杠命令">三斜杠命令</h2>
+<p>如果类型声明文件的内容非常多，可以拆分成多个文件，然后入口文件使用三斜杠命令，加载其他拆分后的文件。</p>
+<p>举例来说，入口文件是<code>main.d.ts</code>，里面的接口定义在<code>interfaces.d.ts</code>，函数定义在<code>functions.d.ts</code>。那么，<code>main.d.ts</code>里面可以用三斜杠命令，加载后面两个文件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference path=&#34;./interfaces.d.ts&#34; /&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference path=&#34;./functions.d.ts&#34; /&gt;
+</span></span></span></code></pre></div><p>三斜杠命令（<code>///</code>）是一个 TypeScript 编译器命令，用来指定编译器行为。它只能用在文件的头部，如果用在其他地方，会被当作普通的注释。另外，若一个文件中使用了三斜线命令，那么在三斜线命令之前只允许使用单行注释、多行注释和其他三斜线命令，否则三斜杠命令也会被当作普通的注释。</p>
+<p>除了拆分类型声明文件，三斜杠命令也可以用于普通脚本加载类型声明文件。</p>
+<p>三斜杠命令主要包含三个参数，代表三种不同的命令。</p>
+<ul>
+<li>path</li>
+<li>types</li>
+<li>lib</li>
+</ul>
+<p>下面依次进行讲解。</p>
+<h3 id="-reference-path-"><code>/// &lt;reference path=&quot;&quot; /&gt;</code></h3>
+<p><code>/// &lt;reference path=&quot;&quot; /&gt;</code>是最常见的三斜杠命令，告诉编译器在编译时需要包括的文件，常用来声明当前脚本依赖的类型文件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference path=&#34;./lib.ts&#34; /&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> count <span style="color:#000;font-weight:bold">=</span> add(<span style="color:#099">1</span>, <span style="color:#099">2</span>);
+</span></span></code></pre></div><p>上面示例表示，当前脚本依赖于<code>./lib.ts</code>，里面是<code>add()</code>的定义。编译当前脚本时，还会同时编译<code>./lib.ts</code>。编译产物会有两个 JS 文件，一个当前脚本，另一个就是<code>./lib.js</code>。</p>
+<p>下面的例子是当前脚本依赖于 Node.js 类型声明文件。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference path=&#34;node.d.ts&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">import</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">as</span> URL <span style="color:#000;font-weight:bold">from</span> <span style="color:#d14">&#34;url&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">let</span> myUrl <span style="color:#000;font-weight:bold">=</span> URL.parse(<span style="color:#d14">&#34;https://www.typescriptlang.org&#34;</span>);
+</span></span></code></pre></div><p>编译器会在预处理阶段，找出所有三斜杠引用的文件，将其添加到编译列表中，然后一起编译。</p>
+<p><code>path</code>参数指定了所引入文件的路径。如果该路径是一个相对路径，则基于当前脚本的路径进行计算。</p>
+<p><strong>使用该命令时，有以下两个注意事项。</strong></p>
+<ul>
+<li><strong>path参数必须指向一个存在的文件，若文件不存在会报错。</strong></li>
+<li><strong>path参数不允许指向当前文件。</strong></li>
+</ul>
+<p>默认情况下，每个三斜杠命令引入的脚本，都会编译成单独的 JS 文件。如果希望编译后只产出一个合并文件，可以使用编译选项<code>outFile</code>。但是，<code>outFile</code>编译选项不支持合并 CommonJS 模块和 ES 模块，只有当编译参数<code>module</code>的值设为 None、System 或 AMD 时，才能编译成一个文件。</p>
+<p>如果打开了编译参数<code>noResolve</code>，则忽略三斜杠指令。将其当作一般的注释，原样保留在编译产物中。</p>
+<h3 id="-reference-types-"><code>/// &lt;reference types=&quot;&quot; /&gt;</code></h3>
+<p>types 参数用来告诉编译器当前脚本依赖某个 DefinitelyTyped 类型库，通常安装在<code>node_modules/@types</code>目录。</p>
+<p>types 参数的值是类型库的名称，也就是安装到<code>node_modules/@types</code>目录中的子目录的名字。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference types=&#34;node&#34; /&gt;
+</span></span></span></code></pre></div><p>上面示例中，这个三斜杠命令表示编译时添加 Node.js 的类型库，实际添加的脚本是<code>node_modules</code>目录里面的<code>@types/node/index.d.ts</code>。</p>
+<p>可以看到，这个命令的作用类似于<code>import</code>命令。</p>
+<p>注意，这个命令只在你自己手写类型声明文件（<code>.d.ts</code>文件）时，才有必要用到，也就是说，只应该用在<code>.d.ts</code>文件中，普通的<code>.ts</code>脚本文件不需要写这个命令。如果是普通的<code>.ts</code>脚本，可以使用<code>tsconfig.json</code>文件的<code>types</code>属性指定依赖的类型库。</p>
+<h3 id="-reference-lib-"><code>/// &lt;reference lib=&quot;&quot; /&gt;</code></h3>
+<p><code>/// &lt;reference lib=&quot;...&quot; /&gt;</code>命令允许脚本文件显式包含内置 lib 库，等同于在<code>tsconfig.json</code>文件里面使用<code>lib</code>属性指定 lib 库。</p>
+<p>前文说过，安装 TypeScript 软件包时，会同时安装一些内置的类型声明文件，即内置的 lib 库。这些库文件位于 TypeScript 安装目录的<code>lib</code>文件夹中，它们描述了 JavaScript 语言和引擎的标准 API。</p>
+<p>库文件并不是固定的，会随着 TypeScript 版本的升级而更新。库文件统一使用“lib.[description].d.ts”的命名方式，而<code>/// &lt;reference lib=&quot;&quot; /&gt;</code>里面的<code>lib</code>属性的值就是库文件名的<code>description</code>部分，比如<code>lib=&quot;es2015&quot;</code>就表示加载库文件<code>lib.es2015.d.ts</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">/// &lt;reference lib=&#34;es2017.string&#34; /&gt;
+</span></span></span></code></pre></div><p>上面示例中，<code>es2017.string</code>对应的库文件就是<code>lib.es2017.string.d.ts</code>。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/">http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/">Typescript Declare关键字</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E6%A8%A1%E5%9D%97/">Typescript 模块</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/">Typescript 类型断言</a></li>
+        
+        <li><a href="/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/">Typescript Enum类型</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/">Typescript 泛型</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

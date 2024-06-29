@@ -73,6 +73,146 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-29T02:48:11Z" class="post-meta meta-date dt-published">
+    2024-06-29
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            TypeScript 接受一些注释指令。 所谓“注释指令”，指的是采用 JS 双斜杠注释的形式，向编译器发出的命令。 // @ts-nocheck // @ts-nocheck告诉编译器不对当前脚本进行类型检查，可以用于 TypeScript 脚本，也可以用于 JavaScript 脚本。 // @ts-nocheck const element = document.getElementById(123); 上面示例中，document.getElementById(123)存在类型错误，……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-29T02:44:53Z" class="post-meta meta-date dt-published">
+    2024-06-29
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            TypeScript 提供了一些内置的类型工具，用来方便地处理各种类型，以及生成新的类型。 TypeScript 内置了17个类型工具，可以直接使用。 Awaited&lt;Type&gt; Awaited&lt;Type&gt;用来取出 Promise 的返回值类型，适合用在描述then()方法和 await 命令的参数类型。 // string type A = Awaited&lt;Promise&lt;string&gt;&gt;; 上面示例中，Awaited&lt;Type&gt……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-29T02:29:43Z" class="post-meta meta-date dt-published">
+    2024-06-29
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            简介 映射（mapping）指的是，将一种类型按照映射规则，转换成另一种类型，通常用于对象类型。 举例来说，现有一个类型A和另一个类型B。 type A = { foo: number; bar: number; }; type B = { foo: string; bar: string; }; 上面示例中，这两个类型的属性结构是一样的，但是属性的类型不一样。如果属性数量多的话，逐个写起来就很麻烦。 使用类……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-29T02:19:05Z" class="post-meta meta-date dt-published">
+    2024-06-29
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            keyof 运算符 简介 keyof 是一个单目运算符，接受一个对象类型作为参数，返回该对象的所有键名组成的联合类型。 type MyObj = { foo: number, bar: string, }; type Keys = keyof MyObj; // &#39;foo&#39;|&#39;bar&#39; 上面示例中，keyof MyObj返回MyObj的所有键名组成的联合类型，即'foo'|'bar'。 下面是另一个例子。 interface T { 0: boolean; a: string; b(): void; } type KeyT = keyof T; // 0 | &#39;a&#39;……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+            </h1>
+        </header>
+        
+  <time datetime="2024-06-28T07:15:21Z" class="post-meta meta-date dt-published">
+    2024-06-28
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        <div class="post-content">
+            简介 单独使用的模块，一般会同时提供一个单独的类型声明文件（declaration file），把本模块的外部接口的所有类型都写在这个文件里面，便于模块使用者了解接口，也便于编译器检查使用者的用法是否正确。 类型声明文件里面只有类型代码，没有具体的代码实现。它的文件名一般为[模块名].……
+        </div>
+        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" target="_blank">Continue reading</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
             </h1>
         </header>
@@ -210,146 +350,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-06-25T04:15:48Z" class="post-meta meta-date dt-published">
-    2024-06-25
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            简介 类（class）是面向对象编程的基本构件，封装了属性和方法，TypeScript 给予了全面支持。 属性的类型 类的属性可以在顶层声明，也可以在构造方法内部声明。 对于顶层声明的属性，可以在声明时同时给出类型。 class Point { x:number; y:number; } 上面声明中，属性x和y的类型都是number。 如果不给出类型，……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-06-24T03:23:55Z" class="post-meta meta-date dt-published">
-    2024-06-24
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            简介 interface 是对象的模板，可以看作是一种类型约定，中文译为“接口”。使用了某个模板的对象，就拥有了指定的类型结构。 interface Person { firstName: string; lastName: string; age: number; } 上面示例中，定义了一个接口Person，它指定一个对象模板，拥有三个属性firstName、lastName和age。任何实现这个接口的对象，都必须部署……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/ts/Typescript-interface/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-06-22T03:31:20Z" class="post-meta meta-date dt-published">
-    2024-06-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            简介 函数的类型声明，需要在声明函数时，给出参数的类型和返回值的类型。 function hello( txt:string ):void { console.log(&#39;hello &#39; + txt); } 上面示例中，函数hello()在声明时，需要给出参数txt的类型（string），以及返回值的类型（void），后者写在参数列表的圆括号后面。void类型表示没有返回值，详见后文。 如果不指定参……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-06-22T03:31:20Z" class="post-meta meta-date dt-published">
-    2024-06-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            简介 除了原始类型，对象是 JavaScript 最基本的数据结构。TypeScript 对于对象类型有很多规则。 对象类型的最简单声明方法，就是使用大括号表示对象，在大括号内部声明每个属性和方法的类型。 const obj:{ x:number; y:number; } = { x: 1, y: 1 }; 上面示例中，对象obj的类型就写在变量名后面，使用大括号描述，内部声明每个属性的……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-            </h1>
-        </header>
-        
-  <time datetime="2024-06-22T03:31:20Z" class="post-meta meta-date dt-published">
-    2024-06-22
-  </time>
-
-
-<div class="post-meta meta-category">
-  <span>&nbsp;|</span>
-  
-    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
-  
-</div>
-
-
-        <div class="post-content">
-            简介 元组（tuple）是 TypeScript 特有的数据类型，JavaScript 没有单独区分这种类型。它表示成员类型可以自由设置的数组，即数组的各个成员的类型可以不同。 由于成员的类型可以不一样，所以元组必须明确声明每个成员的类型。 const s:[string, string, boolean] = [&#39;a&#39;, &#39;b&#39;, true]; 上面示例中，元组s的前两个成员的类型是string，……
-        </div>
-        <p class="readmore"><a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" target="_blank">Continue reading</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -394,7 +394,7 @@
         
         
         <li >
-            <a href="http://shansec.github.io/page/11/">11</a>
+            <a href="http://shansec.github.io/page/12/">12</a>
         </li>
         
     
@@ -462,6 +462,26 @@
 <ul class="widget-list">
     
     <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
         <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
     </li>
     
@@ -481,26 +501,6 @@
         <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
     </li>
     
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-class%E7%B1%BB%E5%9E%8B/" title="Typescript Class类型" target="_blank">Typescript Class类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/Typescript-interface/" title="Typescript Interface" target="_blank">Typescript Interface</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B/" title="Typescript 函数类型" target="_blank">Typescript 函数类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/" title="Typescript 对象类型" target="_blank">Typescript 对象类型</a>
-    </li>
-    
-    <li>
-        <a href="http://shansec.github.io/post/ts/typescript-%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B/" title="Typescript 数组类型" target="_blank">Typescript 数组类型</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -512,7 +512,7 @@
     
     <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
     
-    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (66)</a></li>
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
     
 </ul>
     </section>

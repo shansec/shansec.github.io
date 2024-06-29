@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Typescript 类型映射 | 未来可期的博客</title>
+    <meta property="og:title" content="Typescript 类型映射 - 未来可期的博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-06-29T10:29:43&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-06-29T10:29:43&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,go语言笔记,未来可期,博客,公众号,小程序">
+    <meta name="description" content="Typescript 类型映射">
+        
+    <meta name="author" content="未来可期">
+    <meta property="og:url" content="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+        <link rel="stylesheet" href='/css/douban.css'>
+    
+        <link rel="stylesheet" href='/css/other.css'>
+    
+</head>
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://shansec.github.io">
+                        未来可期的博客
+                    </a>
+                
+                <p class="description">专注于Go语言(golang)、前端技术</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="current" href="http://shansec.github.io">Home</a>
+                    
+                    <a  href="http://shansec.github.io/archives/" title="归档">归档</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#映射修饰符">映射修饰符</a></li>
+    <li><a href="#键名重映射">键名重映射</a>
+      <ul>
+        <li><a href="#语法">语法</a></li>
+        <li><a href="#属性过滤">属性过滤</a></li>
+        <li><a href="#联合类型的映射">联合类型的映射</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Typescript 类型映射</h1>
+        </header>
+        
+  <time datetime="2024-06-29T02:29:43Z" class="post-meta meta-date dt-published">
+    2024-06-29
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/%E5%89%8D%E7%AB%AF' target="_blank">前端</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="post-content">
+            <h2 id="简介">简介</h2>
+<p>映射（mapping）指的是，将一种类型按照映射规则，转换成另一种类型，通常用于对象类型。</p>
+<p>举例来说，现有一个类型<code>A</code>和另一个类型<code>B</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  bar: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  bar: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，这两个类型的属性结构是一样的，但是属性的类型不一样。如果属性数量多的话，逐个写起来就很麻烦。</p>
+<p>使用类型映射，就可以从类型<code>A</code>得到类型<code>B</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  bar: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> A]<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，类型<code>B</code>采用了属性名索引的写法，<code>[prop in keyof A]</code>表示依次得到类型<code>A</code>的所有属性名，然后将每个属性的类型改成<code>string</code>。</p>
+<p>在语法上，<code>[prop in keyof A]</code>是一个属性名表达式，表示这里的属性名需要计算得到。具体的计算规则如下：</p>
+<ul>
+<li><code>prop</code>：属性名变量，名字可以随便起。</li>
+<li><code>in</code>：运算符，用来取出右侧的联合类型的每一个成员。</li>
+<li><code>keyof A</code>：返回类型<code>A</code>的每一个属性名，组成一个联合类型。</li>
+</ul>
+<p>下面是复制原始类型的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  bar: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> A]<span style="color:#000;font-weight:bold">:</span> A[prop];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，类型<code>B</code>原样复制了类型<code>A</code>。</p>
+<p>为了增加代码复用性，可以把常用的映射写成泛型。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> ToBoolean&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [Property <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> Type]<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">boolean</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，定义了一个泛型，可以将其他对象的所有属性值都改成 boolean 类型。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> MyObj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#099">0</span><span style="color:#000;font-weight:bold">|</span><span style="color:#099">1</span><span style="color:#000;font-weight:bold">|</span><span style="color:#099">2</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> MyObj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  0: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  1: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  2: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，联合类型<code>0|1|2</code>映射成了三个属性名。</p>
+<p>不使用联合类型，直接使用某种具体类型进行属性名映射，也是可以的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> MyObj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [p <span style="color:#000;font-weight:bold">in</span> <span style="color:#d14">&#39;foo&#39;</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> MyObj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，<code>p in 'foo'</code>可以看成只有一个成员的联合类型，因此得到了只有这一个属性的对象类型。</p>
+<p>甚至还可以写成<code>p in string</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> MyObj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [p <span style="color:#000;font-weight:bold">in</span> <span style="color:#458;font-weight:bold">string</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">boolean</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> MyObj <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [p: <span style="color:#458;font-weight:bold">string</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#000;font-weight:bold">boolean</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，<code>[p in string]</code>就是属性名索引形式<code>[p: string]</code>的映射写法。</p>
+<p>通过映射，可以某个对象的所有属性改成可选属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  a: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  b: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [Prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> A]<span style="color:#000;font-weight:bold">?:</span> A[Prop];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，类型<code>B</code>在类型<code>A</code>的所有属性名后面添加问号，使得这些属性都变成了可选属性。</p>
+<p>事实上，TypeScript 的内置工具类型<code>Partial&lt;T&gt;</code>，就是这样实现的。</p>
+<p>TypeScript内置的工具类型<code>Readonly&lt;T&gt;</code>可以将所有属性改为只读属性，实现也是通过映射。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 将 T 的所有属性改为只读属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> Readonly&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">readonly</span> [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T]<span style="color:#000;font-weight:bold">:</span> T[P];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>它的用法如下。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> T <span style="color:#000;font-weight:bold">=</span> { a: <span style="color:#458;font-weight:bold">string</span>; b: <span style="color:#458;font-weight:bold">number</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> ReadonlyT <span style="color:#000;font-weight:bold">=</span> Readonly&lt;<span style="color:#000080">T</span>&gt;;
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// {
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//   readonly a: string;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//   readonly b: number;
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// }
+</span></span></span></code></pre></div><h2 id="映射修饰符">映射修饰符</h2>
+<p>映射会原样复制原始对象的可选属性和只读属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  a?: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">readonly</span> b: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [Prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> A]<span style="color:#000;font-weight:bold">:</span> A[Prop];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  a?: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">readonly</span> b: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>上面示例中，类型<code>B</code>是类型<code>A</code>的映射，把<code>A</code>的可选属性和只读属性都保留下来。</p>
+<p>如果要删改可选和只读这两个特性，并不是很方便。为了解决这个问题，TypeScript 引入了两个映射修饰符，用来在映射时添加或移除某个属性的<code>?</code>修饰符和<code>readonly</code>修饰符。</p>
+<ul>
+<li><code>+</code>修饰符：写成<code>+?</code>或<code>+readonly</code>，为映射属性添加<code>?</code>修饰符或<code>readonly</code>修饰符。</li>
+<li><code>–</code>修饰符：写成<code>-?</code>或<code>-readonly</code>，为映射属性移除<code>?</code>修饰符或<code>readonly</code>修饰符。</li>
+</ul>
+<p>下面是添加或移除可选属性的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 添加可选属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> Optional&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [Prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> Type]<span style="color:#000;font-weight:bold">+?:</span> Type[Prop];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 移除可选属性
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> Concrete&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [Prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> Type]<span style="color:#000;font-weight:bold">-?:</span> Type[Prop];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>注意，<code>+?</code>或<code>-?</code>要写在属性名的后面。</p>
+<p>下面是添加或移除只读属性的例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 添加 readonly
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> CreateImmutable&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">readonly</span> [Prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> Type]<span style="color:#000;font-weight:bold">:</span> Type[Prop];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 移除 readonly
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> CreateMutable&lt;<span style="color:#000080">Type</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">readonly</span> [Prop <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> Type]<span style="color:#000;font-weight:bold">:</span> Type[Prop];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>注意，<code>+readonly</code>和<code>-readonly</code>要写在属性名的前面。</p>
+<p>如果同时增删<code>?</code>和<code>readonly</code>这两个修饰符，写成下面这样。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 增加
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> MyObj&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">readonly</span> [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T]<span style="color:#000;font-weight:bold">+?:</span> T[P];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 移除
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> MyObj&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">-</span><span style="color:#000;font-weight:bold">readonly</span> [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T]<span style="color:#000;font-weight:bold">-?:</span> T[P];
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>TypeScript 原生的工具类型<code>Required&lt;T&gt;</code>专门移除可选属性，就是使用<code>-?</code>修饰符实现的。</p>
+<p>注意，<code>–?</code>修饰符移除了可选属性以后，该属性就不能等于<code>undefined</code>了，实际变成必选属性了。但是，这个修饰符不会移除<code>null</code>类型。</p>
+<p>另外，<code>+?</code>修饰符可以简写成<code>?</code>，<code>+readonly</code>修饰符可以简写成<code>readonly</code>。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">+</span><span style="color:#000;font-weight:bold">readonly</span> [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T]<span style="color:#000;font-weight:bold">+?:</span> T[P];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> A&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">readonly</span> [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T]<span style="color:#000;font-weight:bold">?:</span> T[P];
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="键名重映射">键名重映射</h2>
+<h3 id="语法">语法</h3>
+<p>TypeScript 4.1 引入了键名重映射（key remapping），允许改变键名。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> A <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  foo: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  bar: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [p <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> A <span style="color:#000;font-weight:bold">as</span> <span style="color:#d14">`</span><span style="color:#d14">${</span>p<span style="color:#d14">}</span><span style="color:#d14">ID`</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> B <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  fooID: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  barID: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>}<span style="color:#a61717;background-color:#e3d2d2">；</span>
+</span></span></code></pre></div><p>上面示例中，类型<code>B</code>是类型<code>A</code>的映射，但在映射时把属性名改掉了，在原始属性名后面加上了字符串<code>ID</code>。</p>
+<p>可以看到，键名重映射的语法是在键名映射的后面加上<code>as + 新类型</code>子句。这里的“新类型”通常是一个模板字符串，里面可以对原始键名进行各种操作。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">interface</span> Person {
+</span></span><span style="display:flex;"><span>  name: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  age: <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  location: <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Getters&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [P <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">as</span> <span style="color:#d14">`get</span><span style="color:#d14">${</span>Capitalize&lt;<span style="color:#000080">string</span> <span style="color:#a61717;background-color:#e3d2d2">&amp;</span> <span style="color:#008080">P</span>&gt;<span style="color:#d14">}</span><span style="color:#d14">`</span>]<span style="color:#000;font-weight:bold">:</span> () <span style="color:#000;font-weight:bold">=&gt;</span> T[P];
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> LazyPerson <span style="color:#000;font-weight:bold">=</span> Getters&lt;<span style="color:#000080">Person</span>&gt;;
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> LazyPerson <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  getName<span style="color:#000;font-weight:bold">:</span> () <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>  getAge<span style="color:#000;font-weight:bold">:</span> () <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#458;font-weight:bold">number</span>;
+</span></span><span style="display:flex;"><span>  getLocation<span style="color:#000;font-weight:bold">:</span> () <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#458;font-weight:bold">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，类型<code>LazyPerson</code>是类型<code>Person</code>的映射，并且把键名改掉了。</p>
+<p>它的修改键名的代码是一个模板字符串<code>get${Capitalize&lt;string &amp; P&gt;}</code>，下面是各个部分的解释。</p>
+<ul>
+<li><code>get</code>：为键名添加的前缀。</li>
+<li><code>Capitalize&lt;T&gt;</code>：一个原生的工具泛型，用来将<code>T</code>的首字母变成大写。</li>
+<li><code>string &amp; P</code>：一个交叉类型，其中的<code>P</code>是 keyof 运算符返回的键名联合类型<code>string|number|symbol</code>，但是<code>Capitalize&lt;T&gt;</code>只能接受字符串作为类型参数，因此<code>string &amp; P</code>只返回<code>P</code>的字符串属性名。</li>
+</ul>
+<h3 id="属性过滤">属性过滤</h3>
+<p>键名重映射还可以过滤掉某些属性。下面的例子是只保留字符串属性。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> User <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  name: <span style="color:#458;font-weight:bold">string</span>,
+</span></span><span style="display:flex;"><span>  age: <span style="color:#458;font-weight:bold">number</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Filter&lt;<span style="color:#000080">T</span>&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [K <span style="color:#000;font-weight:bold">in</span> <span style="color:#000;font-weight:bold">keyof</span> T
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">as</span> T[K] <span style="color:#000;font-weight:bold">extends</span> <span style="color:#458;font-weight:bold">string</span> <span style="color:#000;font-weight:bold">?</span> K : <span style="color:#458;font-weight:bold">never</span>]<span style="color:#000;font-weight:bold">:</span> <span style="color:#458;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> FilteredUser <span style="color:#000;font-weight:bold">=</span> Filter&lt;<span style="color:#000080">User</span>&gt; <span style="color:#998;font-style:italic">// { name: string }
+</span></span></span></code></pre></div><p>上面示例中，映射<code>K in keyof T</code>获取类型<code>T</code>的每一个属性以后，然后使用<code>as Type</code>修改键名。</p>
+<p>它的键名重映射<code>as T[K] extends string ? K : never]</code>，使用了条件运算符。如果属性值<code>T[K]</code>的类型是字符串，那么属性名不变，否则属性名类型改为<code>never</code>，即这个属性名不存在。这样就等于过滤了不符合条件的属性，只保留属性值为字符串的属性。</p>
+<h3 id="联合类型的映射">联合类型的映射</h3>
+<p>由于键名重映射可以修改键名类型，所以原始键名的类型不必是<code>string|number|symbol</code>，任意的联合类型都可以用来进行键名重映射。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> S <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  kind<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;square&#39;</span>,
+</span></span><span style="display:flex;"><span>  x: <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>  y: <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> C <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  kind<span style="color:#000;font-weight:bold">:</span> <span style="color:#d14">&#39;circle&#39;</span>,
+</span></span><span style="display:flex;"><span>  radius: <span style="color:#458;font-weight:bold">number</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> MyEvents&lt;<span style="color:#000080">Events</span> <span style="color:#008080">extends</span> { <span style="color:#008080">kind</span><span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#008080">string</span> }&gt; <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  [E <span style="color:#000;font-weight:bold">in</span> Events <span style="color:#000;font-weight:bold">as</span> E[<span style="color:#d14">&#39;kind&#39;</span>]]<span style="color:#000;font-weight:bold">:</span> (event: <span style="color:#458;font-weight:bold">E</span>) <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">type</span> Config <span style="color:#000;font-weight:bold">=</span> MyEvents&lt;<span style="color:#000080">S</span><span style="color:#a61717;background-color:#e3d2d2">|</span><span style="color:#008080">C</span>&gt;;
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 等同于
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> Config <span style="color:#000;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>  square<span style="color:#000;font-weight:bold">:</span> (event:<span style="color:#458;font-weight:bold">S</span>) <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>  circle<span style="color:#000;font-weight:bold">:</span> (event:<span style="color:#458;font-weight:bold">C</span>) <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">void</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面示例中，原始键名的映射是<code>E in Events</code>，这里的<code>Events</code>是两个对象组成的联合类型<code>S|C</code>。所以，<code>E</code>是一个对象，然后再通过键名重映射，得到字符串键名<code>E['kind']</code>。</p>
+
+        </div>
+
+        
+<div class="post-archive">
+    <ul class="post-copyright">
+        <li><strong>Author: </strong><a rel="author" href="http://shansec.github.io">未来可期</a></li>
+        <li style="word-break:break-all"><strong>Link: </strong><a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/">http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/</a></li>
+        <li><strong>License: </strong>This work is under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>. Kindly fulfill the requirements of the aforementioned License when adapting or creating a derivative of this work.</li>
+    </ul>
+</div>
+<br/>
+
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/">Typescript 类型运算符</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/">Typescript 类型声明文件</a></li>
+        
+        <li><a href="/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/">Typescript Declare关键字</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E6%A8%A1%E5%9D%97/">Typescript 模块</a></li>
+        
+        <li><a href="/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/">Typescript 类型断言</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/typescript' target="_blank">typescript</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "your github repo"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2024 <a href="http://shansec.github.io">未来可期的博客 By 未来可期</a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.flysnow.org/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">飞雪无情</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+<style type="text/css">
+div.highlight {
+    position: relative;
+    margin: 1em 0px;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 0 5px;
+    font: inherit;
+    user-select: none;
+    cursor: pointer;
+    border: 0;
+    --radius: 8px;
+}
+
+div.highlight:hover .copy-code,pre:hover .copy-code {
+    display: block;
+}
+
+</style>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+    <script src='/js/douban.js'></script>
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://shansec.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://shansec.github.io">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%A8%E9%87%8A%E6%8C%87%E4%BB%A4/" title="Typescript 注释指令" target="_blank">Typescript 注释指令</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%B7%A5%E5%85%B7/" title="Typescript 类型工具" target="_blank">Typescript 类型工具</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%98%A0%E5%B0%84/" title="Typescript 类型映射" target="_blank">Typescript 类型映射</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Typescript 类型运算符" target="_blank">Typescript 类型运算符</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" title="Typescript 类型声明文件" target="_blank">Typescript 类型声明文件</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-declare%E5%85%B3%E9%94%AE%E5%AD%97/" title="Typescript Declare关键字" target="_blank">Typescript Declare关键字</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%A8%A1%E5%9D%97/" title="Typescript 模块" target="_blank">Typescript 模块</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" title="Typescript 类型断言" target="_blank">Typescript 类型断言</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-Enum%E7%B1%BB%E5%9E%8B/" title="Typescript Enum类型" target="_blank">Typescript Enum类型</a>
+    </li>
+    
+    <li>
+        <a href="http://shansec.github.io/post/ts/Typescript-%E6%B3%9B%E5%9E%8B/" title="Typescript 泛型" target="_blank">Typescript 泛型</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>Categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://shansec.github.io/categories/go/">go (43)</a></li>
+    
+    <li><a href="http://shansec.github.io/categories/%E5%89%8D%E7%AB%AF/">前端 (71)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>Tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/HTTP/">HTTP</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/CSS/">CSS</a>
+    
+    <a href="http://shansec.github.io/tags/docker/">docker</a>
+    
+    <a href="http://shansec.github.io/tags/es6/">es6</a>
+    
+    <a href="http://shansec.github.io/tags/go/">go</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E5%9F%BA%E7%A1%80/">go 基础</a>
+    
+    <a href="http://shansec.github.io/tags/go-%E6%A0%87%E5%87%86%E5%BA%93/">go 标准库</a>
+    
+    <a href="http://shansec.github.io/tags/javaScript/">javaScript</a>
+    
+    <a href="http://shansec.github.io/tags/jwt/">jwt</a>
+    
+    <a href="http://shansec.github.io/tags/package/">package</a>
+    
+    <a href="http://shansec.github.io/tags/pinia/">pinia</a>
+    
+    <a href="http://shansec.github.io/tags/redis/">redis</a>
+    
+    <a href="http://shansec.github.io/tags/sql/">sql</a>
+    
+    <a href="http://shansec.github.io/tags/sqlx/">sqlx</a>
+    
+    <a href="http://shansec.github.io/tags/typescript/">typescript</a>
+    
+    <a href="http://shansec.github.io/tags/vue/">vue</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+    
+    <a href="http://shansec.github.io/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">微信小程序</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A0%87%E5%87%86%E5%BA%93/">标准库</a>
+    
+    <a href="http://shansec.github.io/tags/%E6%A1%86%E6%9E%B6/">框架</a>
+    
+    <a href="http://shansec.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%8E%9F%E7%90%86/">计算机原理</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.liwenzhou.com/" title="李文周的博客">李文周的博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://shansec.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
